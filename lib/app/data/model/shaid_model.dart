@@ -6,6 +6,7 @@ class Sahid {
   final String name;
   final String gender;
   final String district;
+  final String state;
   final String ward;
   final String tole;
   final String image;
@@ -15,7 +16,7 @@ class Sahid {
    final DateTime createdAt;
   final DateTime updatedAt;
 
-  Sahid({required this.id,required this.name,required this.gender,required this.district,required this.ward,required this.tole,required this.image,required this.deathdate,required this.deathplace,required this.responsible,required this.createdAt,required this.updatedAt,});
+  Sahid({required this.id,required this.name,required this.gender,required this.district,required this.state,required this.ward,required this.tole,required this.image,required this.deathdate,required this.deathplace,required this.responsible,required this.createdAt,required this.updatedAt,});
 
   
 
@@ -25,15 +26,16 @@ class Sahid {
       'id': id,
       'name': name,
       'gender': gender,
+      'state': state,
       'district': district,
       'ward': ward,
       'tole': tole,
       'image': image,
-      'deathdate': deathdate.millisecondsSinceEpoch,
-      'deathplace': deathplace.millisecondsSinceEpoch,
+      'death_date': deathdate.millisecondsSinceEpoch,
+      'death_place': deathplace.millisecondsSinceEpoch,
       'responsible': responsible,
-      'createdAt': createdAt.millisecondsSinceEpoch,
-      'updatedAt': updatedAt.millisecondsSinceEpoch,
+      'created_at': createdAt.millisecondsSinceEpoch,
+      'updated_at': updatedAt.millisecondsSinceEpoch,
     };
   }
 
@@ -42,15 +44,16 @@ class Sahid {
       id: map['id'],
       name: map['name'],
       gender: map['gender'],
+      state: map['state'],
       district: map['district'],
       ward: map['ward'],
       tole: map['tole'],
       image: map['image'],
-      deathdate: DateTime.fromMillisecondsSinceEpoch(map['deathdate']),
-      deathplace: DateTime.fromMillisecondsSinceEpoch(map['deathplace']),
+      deathdate: DateTime.fromMillisecondsSinceEpoch(map['death_date']),
+      deathplace: DateTime.fromMillisecondsSinceEpoch(map['death_place']),
       responsible: map['responsible'],
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt']),
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['created_at']),
+      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updated_at']),
     );
   }
 

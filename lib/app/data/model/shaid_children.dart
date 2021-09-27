@@ -21,34 +21,34 @@ class ShaidChildren {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'shaidId': shaidId,
+      'shaid_id': shaidId,
       'name': name,
       'relation': relation,
       'dob': dob.millisecondsSinceEpoch,
-      'educationQualification': educationQualification,
-      'currentlyStudyingLevel': currentlyStudyingLevel,
+      'education_qualification': educationQualification,
+      'currently_studying_level': currentlyStudyingLevel,
       'faculty': faculty,
       'occupation': occupation,
-      'financialStatus': financialStatus,
-      'createdAt': createdAt.millisecondsSinceEpoch,
-      'updatedAt': updatedAt.millisecondsSinceEpoch,
+      'financial_status': financialStatus,
+      'created_at': createdAt.millisecondsSinceEpoch,
+      'updated_at': updatedAt.millisecondsSinceEpoch,
     };
   }
 
   factory ShaidChildren.fromMap(Map<String, dynamic> map) {
     return ShaidChildren(
       id: map['id'],
-      shaidId: map['shaidId'],
+      shaidId: map['shaid_id'],
       name: map['name'],
       relation: map['relation'],
       dob: DateTime.fromMillisecondsSinceEpoch(map['dob']),
-      educationQualification: map['educationQualification'],
-      currentlyStudyingLevel: map['currentlyStudyingLevel'],
+      educationQualification: map['education_qualification'],
+      currentlyStudyingLevel: map['currently_studying_level'],
       faculty: map['faculty'],
       occupation: map['occupation'],
-      financialStatus: map['financialStatus'],
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt']),
+      financialStatus: map['financial_status'],
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['created_at']),
+      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updated_at']),
     );
   }
 

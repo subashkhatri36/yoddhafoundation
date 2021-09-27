@@ -18,30 +18,30 @@ class ShaidFamily {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'shaidId': shaidId,
+      'shaid_id': shaidId,
       'name': name,
       'relation': relation,
       'age': age,
       'occupation': occupation,
-      'financialStatus': financialStatus,
+      'financial_status': financialStatus,
       'remarks': remarks,
-      'createdAt': createdAt.millisecondsSinceEpoch,
-      'updatedAt': updatedAt.millisecondsSinceEpoch,
+      'created_at': createdAt.millisecondsSinceEpoch,
+      'updated_at': updatedAt.millisecondsSinceEpoch,
     };
   }
 
   factory ShaidFamily.fromMap(Map<String, dynamic> map) {
     return ShaidFamily(
       id: map['id'],
-      shaidId: map['shaidId'],
+      shaidId: map['shaid_id'],
       name: map['name'],
       relation: map['relation'],
       age: map['age'],
       occupation: map['occupation'],
-      financialStatus: map['financialStatus'],
+      financialStatus: map['financial_status'],
       remarks: map['remarks'],
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt']),
+      createdAt: DateTime.fromMillisecondsSinceEpoch(map['created_at']),
+      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updated_at']),
     );
   }
 
