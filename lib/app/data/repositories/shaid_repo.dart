@@ -34,7 +34,7 @@ class ShaidRepo {
     try {
       var dbClient = await con.db;
       int res = await dbClient!
-          .rawDelete('DELETE FROM ${DBname.user} where id=?', [id]);
+          .rawDelete('DELETE FROM ${DBname.shaid} where id=?', [id]);
       return res;
     } catch (error) {
       return -1;
