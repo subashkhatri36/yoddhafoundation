@@ -16,29 +16,32 @@ class LoginView extends GetView<LoginController> {
        child: SingleChildScrollView(
          scrollDirection: Axis.vertical,
          child: Form(
-           child: Column(
-             mainAxisAlignment: MainAxisAlignment.center,
-             children: <Widget>[
-              const SizedBox(height: 20.0,),
-              const Text("सहिद तथा बेपत्ता योद्धा सन्तती फाउन्डेशन", 
-               style:TextStyle(fontSize:22.0, ),),
-               const SizedBox(height: 10.0,),
-               const Text("Start to Sign In", style: TextStyle(
-                 fontSize: 20.0,
-                 fontWeight: FontWeight.bold
-               ),),
-               const SizedBox(height: 10.0,),
+           child: Padding(
+             padding: const EdgeInsets.symmetric(horizontal: 20.0),
+             child: Column(
+               mainAxisAlignment: MainAxisAlignment.center,
+               children: <Widget>[
+                const SizedBox(height: 20.0,),
+                 Text(Strings.loginheding, 
+                 style:Theme.of(context).textTheme.bodyText1!.copyWith(fontSize:22.0, ),
+                 
+                 textAlign: TextAlign.center,
+                 ),
+                 const SizedBox(height: 10.0,),
+                 const Text("Start to Sign In", style: TextStyle(
+                   fontSize: 20.0,
+                   fontWeight: FontWeight.bold
+                 ),),
+                 const SizedBox(height: 10.0,),
          
-               Padding(
-                 padding: const EdgeInsets.all(18.0),
-                 child: Column(
+                 Column(
                    children: <Widget>[
                    const SizedBox(height: 10.0,),
                  const  CustomeInput(hintText: 'Enter Email',
                  prefix: Icons.email,),
        
-                const SizedBox(height: 10.0,),
-                
+                  const SizedBox(height: 10.0,),
+                  
                  const  CustomeInput(
                   hintText: 'Enter Password',
                   obstext: true,
@@ -69,8 +72,8 @@ class LoginView extends GetView<LoginController> {
                      const SizedBox(height: 5.0,),
                    ],
                  ),
-               ),
-             ],
+               ],
+             ),
            ),
          ),
        ),
