@@ -1,14 +1,17 @@
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:yoddhafoundation/app/constant/string.dart';
+import 'package:yoddhafoundation/app/modules/children/views/children_view.dart';
+import 'package:yoddhafoundation/app/modules/sahid_dashboard/views/sahid_dashboard_view.dart';
+import 'package:yoddhafoundation/app/routes/app_pages.dart';
+import 'package:yoddhafoundation/app/utls/validation.dart';
 import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
 import 'package:yoddhafoundation/app/widgets/input/custom_container.dart';
 import 'package:yoddhafoundation/app/widgets/input/custome_input.dart';
 import '../controllers/sahid_controller.dart';
-import 'package:image_picker/image_picker.dart';
 
 class SahidView extends GetView<SahidController> {
   @override
@@ -24,13 +27,14 @@ class SahidView extends GetView<SahidController> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Form(
+        key: controller.formkey,
         child: Column(
           children: <Widget>[
           //Profile Upload
            Stack(
           children: [
             Container(
-              margin: EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+              margin: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
               child: CircleAvatar(
                 radius: 71,
                 backgroundColor: Colors.green,
@@ -115,13 +119,47 @@ class SahidView extends GetView<SahidController> {
           ],
         ),
       
-           const CustomeInput(
+            CustomeInput(
               hintText: Strings.sahidName,
+              controller: controller.sahidName,
+              validator: (value)=>validateIsEmpty(string: value),
               prefix: Icons.person,
             ),
-           const CustomContainer(),
-           const CustomeInput(
+            CustomContainer(
+            child: Obx(()=>Row(
+                  children: [
+                    Text(Strings.gender,
+                    style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 14.0, fontWeight: FontWeight.bold),
+                    ),
+                    Expanded(
+                      child: ListTile(
+                        leading:Radio(
+                        value: "male",
+                        groupValue: controller.genVal.value, 
+                        onChanged: (newValue){
+                         controller.genVal.value = newValue.toString();
+                        }),
+                        title: const Text(Strings.male),
+                      ),
+                    ),
+                     Expanded(
+                       child: ListTile(
+                        leading:Radio(
+                        value: "female", 
+                        groupValue: controller.genVal.value, 
+                        onChanged: (newValue){
+                          controller.genVal.value = newValue.toString();
+                        }),
+                        title: const Text(Strings.female),
+                       ),
+                     ),
+                  ],
+                ),),
+           ),
+            CustomeInput(
               hintText: Strings.deathDate,
+              validator: (value)=>validateIsEmpty(string: value),
+              controller: controller.deathDate,
               prefix: Icons.calendar_today,
             ),
             Padding(
@@ -132,34 +170,90 @@ class SahidView extends GetView<SahidController> {
                 style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 16.0,),),
               ),
             ),
-            const CustomeInput(
+             CustomeInput(
               hintText: Strings.state,
+              controller: controller.state,
+              validator: (value)=>validateIsEmpty(string: value),
               prefix: Icons.place,
             ),
-            const CustomeInput(
+             CustomeInput(
               hintText: Strings.district,
+              controller: controller.district,
+              validator: (value)=>validateIsEmpty(string: value),
               prefix: Icons.place,
             ),
-            const CustomeInput(
+             CustomeInput(
               hintText: Strings.localArea,
+              controller: controller.localarea,
+              validator: (value)=>validateIsEmpty(string: value),
               prefix: Icons.place,
             ),
-            const CustomeInput(
+             CustomeInput(
               hintText: Strings.oda,
+              controller: controller.oda,
+              validator: (value)=>validateIsEmpty(string: value),
               prefix: Icons.place,
             ),
-            const CustomeInput(
+             CustomeInput(
               hintText: Strings.tol,
+              controller: controller.tol,
+              validator: (value)=>validateIsEmpty(string: value),
               prefix: Icons.place,
             ),
-            const CustomeInput(
+             CustomeInput(
               hintText: Strings.deathPlace,
+              controller: controller.deathPlace,
+              validator: (value)=>validateIsEmpty(string: value),
               prefix: Icons.home,
             ),
+            Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(Strings.organizationalResponsibility,
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 16.0,),),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Column(
+                children: [
+                  CheckboxListTile(
+                  value: controller.firstvalue, 
+                  onChanged: (value){
+                    controller.firstvalue = value!;
+                  },
+                  title: const Text(Strings.partySangathan),
+                  selected: controller.checkedValue,
+                  activeColor: Colors.green,
+                  ),
 
-          //  CustomButton(
-          //   onpressed: (){}, 
-          //   btnText:  'Save And Next'),     
+                  CheckboxListTile(
+                  value: controller.firstvalue, 
+                  onChanged: (value){},
+                  title: const Text(Strings.armSangathan),
+                  selected: controller.checkedValue,
+                  activeColor: Colors.green,
+                  ),
+
+                  CheckboxListTile(
+                  value: controller.firstvalue, 
+                  onChanged: (value){},
+                  title: const Text(Strings.other),
+                  selected: controller.checkedValue,
+                  activeColor: Colors.green,
+                  ),
+                ],
+              ),
+            ),
+           Padding(
+             padding: const EdgeInsets.all(15.0),
+             child: CustomButton(
+             onpressed: (){
+               Get.toNamed(Routes.SAHID_DASHBOARD);
+             }, 
+             btnText:  'Next'),
+           ),        
           ],
         ),
         ),

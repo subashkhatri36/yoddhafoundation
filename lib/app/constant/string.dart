@@ -1,6 +1,27 @@
 class Strings{
 static const String appName='Yoddha Foundation';
 static const String login = 'Login Page';
+
+static const String childrenDetails = "सन्ततिको विवरण";
+static const String childName = "नाम:";
+static const String relationship = "नाता:";
+static const String son = "छोरा";
+static const String daughter = "छोरी";
+static const String birthDate = "जन्म मिति:";
+static const String educationQualification = "शैक्षिक योग्यता:";
+static const String studyingLevel = "अध्यनरत तह:";
+static const String faculty = "संकाय:";
+static const String occupation = "पेशा:";
+static const String financialStatus = "आर्थिक अवस्था:";
+
+static const String familyDetails = "परिवार सदस्य विवरण";
+static const String familymemberName = "नाम:";
+static const String familyRelationship = "नाता:";
+static const String age = "उमेर:";
+static const String member_occupation = "पेशा:";
+static const String financeCondation = "आर्थिक अवस्था:";
+static const String remarks = "कैफियत:";
+
 static const String loginheding = 'सहिद तथा बेपत्ता योद्धा सन्तती फाउन्डेशन';
 static const String sahidName = 'शाहीदको नाम:';
 static const String deathDate = "सहादत मिती:";

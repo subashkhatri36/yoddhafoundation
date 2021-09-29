@@ -1,13 +1,27 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class SahidController extends GetxController {
-  //TODO: Implement SahidController
+  RxString genVal='male'.obs;
+  File? pickedImg;
+  bool firstvalue = false;
+  bool secondvalue = false;
+  bool thirdvalue = false;
+  bool checkedValue = false;
 
-    File? pickedImg;
-    
+ final TextEditingController sahidName = TextEditingController();
+ final TextEditingController gender = TextEditingController();
+ final TextEditingController deathDate = TextEditingController();
+ final TextEditingController state = TextEditingController();
+ final TextEditingController district = TextEditingController();
+ final TextEditingController localarea = TextEditingController();
+ final TextEditingController oda = TextEditingController();
+ final TextEditingController tol = TextEditingController();
+ final TextEditingController deathPlace = TextEditingController();
+final GlobalKey<FormState> formkey = GlobalKey<FormState>();  
 
 Future<void> pickImageCamera() async {
  final picker = ImagePicker();
