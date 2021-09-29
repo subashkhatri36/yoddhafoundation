@@ -26,7 +26,7 @@ abstract class HttpService {
 }
 
 class HttpServiceImpl implements HttpService {
-  late Dio _dio;
+  Dio? _dio;
   SharedPref pref = SharedPref.instance;
   final internetController = Get.find<InternetConnectivityController>();
 
@@ -45,7 +45,7 @@ class HttpServiceImpl implements HttpService {
 
   /// intercept the http request
   initializeInterceptors() {
-    _dio.interceptors
+    _dio!.interceptors
         .add(InterceptorsWrapper(onRequest: (options, handler) async {
       options.headers.addAll({
         "device-name": DeviceInfo.name.toString(),
@@ -78,7 +78,7 @@ class HttpServiceImpl implements HttpService {
       return response;
     }
     try {
-      response = await _dio.get(url, queryParameters: queryParams);
+      response = await _dio!.get(url, queryParameters: queryParams);
     } on DioError catch (e) {
       print(e.message);
       throw Exception(e.message);
@@ -94,7 +94,7 @@ class HttpServiceImpl implements HttpService {
       return response;
     }
     try {
-      response = await _dio.post(url, data: data);
+      response = await _dio!.post(url, data: data);
     } on DioError catch (e) {
       print(e.message);
       throw Exception(e.message);
@@ -112,7 +112,7 @@ class HttpServiceImpl implements HttpService {
     }
     try {
       response =
-          await _dio.patch(url, data: data, queryParameters: queryParams);
+          await _dio!.patch(url, data: data, queryParameters: queryParams);
     } on DioError catch (e) {
       print(e.message);
       throw Exception(e.message);
@@ -130,7 +130,7 @@ class HttpServiceImpl implements HttpService {
     }
     try {
       response =
-          await _dio.delete(url, data: data, queryParameters: queryParams);
+          await _dio!.delete(url, data: data, queryParameters: queryParams);
     } on DioError catch (e) {
       print(e.message);
       throw Exception(e.message);

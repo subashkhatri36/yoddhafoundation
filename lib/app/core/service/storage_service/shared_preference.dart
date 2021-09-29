@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-
+SharedPref shareprefrence= SharedPref.instance;
 class SharedPref {
   SharedPref._privateConstructor();
   static final SharedPref instance = SharedPref._privateConstructor();

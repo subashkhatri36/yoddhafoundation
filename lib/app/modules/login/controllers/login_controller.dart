@@ -1,5 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:yoddhafoundation/app/constant/controller.dart';
+import 'package:yoddhafoundation/app/constant/string.dart';
+import 'package:yoddhafoundation/app/core/service/storage_service/shared_preference.dart';
+import 'package:yoddhafoundation/app/data/model/response_model.dart';
+import 'package:yoddhafoundation/app/data/repositories/login_api_call.dart';
+import 'package:yoddhafoundation/app/routes/app_pages.dart';
 
 class LoginController extends GetxController {
   final TextEditingController username = TextEditingController();
@@ -11,10 +17,17 @@ class LoginController extends GetxController {
     super.onInit();
   }
 
-  void login() {
+  void login() async {
     if (formkey.currentState!.validate()) {
       //do what we want to do
       //call api
+      final ApiCall response =
+          await userlogin.login(username.text, password.text);
+      if (!response.iserror) {
+        shareprefrence.save(Strings.login_token, response.response);
+        appController.accesstoken = response.response;
+        Get.offNamed(Routes.DASHBOARD);
+      }
     } else {
       //custome snackbar
     }

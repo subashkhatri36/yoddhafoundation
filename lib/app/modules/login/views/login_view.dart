@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yoddhafoundation/app/constant/constants.dart';
+import 'package:yoddhafoundation/app/data/repositories/login_api_call.dart';
 import 'package:yoddhafoundation/app/modules/dashboard/views/dashboard_view.dart';
 import 'package:yoddhafoundation/app/utls/validation.dart';
 import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
@@ -49,6 +50,7 @@ class LoginView extends GetView<LoginController> {
                         height: 10.0,
                       ),
                       CustomeInput(
+                        controller: controller.username,
                         hintText: 'Enter Email',
                         prefix: Icons.email,
                         validator: (value) => validateEmail(string: value),
@@ -57,6 +59,7 @@ class LoginView extends GetView<LoginController> {
                         height: 10.0,
                       ),
                       CustomeInput(
+                        controller: controller.password,
                         hintText: 'Enter Password',
                         validator: (value) => validatePassword(string: value),
                         obstext: true,
@@ -85,7 +88,8 @@ class LoginView extends GetView<LoginController> {
                       ),
                       CustomButton(
                         onpressed: () {
-                          Get.to(DashboardView());
+                          controller.login();
+                          // Get.to(DashboardView());
                         },
                         btnText: 'Login',
                       ),
