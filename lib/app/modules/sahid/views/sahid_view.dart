@@ -250,7 +250,7 @@ class SahidView extends GetView<SahidController> {
              padding: const EdgeInsets.all(15.0),
              child: CustomButton(
              onpressed: (){
-               Get.toNamed(Routes.SAHID_DASHBOARD);
+               Get.toNamed(Routes.CHILDREN_DASHBOARD);
              }, 
              btnText:  'Next'),
            ),        

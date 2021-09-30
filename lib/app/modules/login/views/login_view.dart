@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yoddhafoundation/app/constant/constants.dart';
 import 'package:yoddhafoundation/app/modules/dashboard/views/dashboard_view.dart';
+import 'package:yoddhafoundation/app/modules/sahid/views/sahid_view.dart';
+import 'package:yoddhafoundation/app/modules/user_profile/views/user_profile_view.dart';
+import 'package:yoddhafoundation/app/routes/app_pages.dart';
 import 'package:yoddhafoundation/app/utls/validation.dart';
 import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
 import 'package:yoddhafoundation/app/widgets/input/custome_input.dart';
@@ -68,25 +71,9 @@ class LoginView extends GetView<LoginController> {
                       const SizedBox(
                         height: 15.0,
                       ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: GestureDetector(
-                          onTap: () {},
-                          child: const Text(
-                            "Forget Password",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: Constants.defaultMargin,
-                      ),
                       CustomButton(
                         onpressed: () {
-                          Get.to(DashboardView());
+                          Get.toNamed(Routes.DASHBOARD);
                         },
                         btnText: 'Login',
                       ),

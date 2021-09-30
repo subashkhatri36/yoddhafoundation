@@ -12,16 +12,20 @@ class DashboardView extends GetView<DashboardController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('DashboardView'),
+        // actions: [
+        //   ToggleButtons(
+        //   children: children,
+        //   isSelected: isSelected)
+        // ],
         centerTitle: true,
       ),
-      floatingActionButton:  FloatingActionButton(
-          onPressed: (){
-            Get.toNamed(Routes.SAHID);
-          },
-          child: const Icon(Icons.add),
-          ),
-      body: Container(    
-        ),  
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.toNamed(Routes.SAHID);
+        },
+        child: const Icon(Icons.add),
+      ),
+      body: Container(),
     );
   }
 }
