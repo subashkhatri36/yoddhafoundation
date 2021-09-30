@@ -6,6 +6,7 @@ class ShaidChildren {
   final String name;
   final String relation;
   final DateTime dob;
+  String token;
   final String educationQualification;
   final String currentlyStudyingLevel;
   final String faculty;
@@ -14,9 +15,20 @@ class ShaidChildren {
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  ShaidChildren({required this.id,required this.shaidId,required this.name,required this.relation,required this.dob,required this.educationQualification,required this.currentlyStudyingLevel,required this.faculty,required this.occupation,required this.financialStatus,required this.createdAt,required this.updatedAt});
-  
-
+  ShaidChildren(
+      {required this.id,
+      this.token = '',
+      required this.shaidId,
+      required this.name,
+      required this.relation,
+      required this.dob,
+      required this.educationQualification,
+      required this.currentlyStudyingLevel,
+      required this.faculty,
+      required this.occupation,
+      required this.financialStatus,
+      required this.createdAt,
+      required this.updatedAt});
 
   Map<String, dynamic> toMap() {
     return {
@@ -24,6 +36,7 @@ class ShaidChildren {
       'shaid_id': shaidId,
       'name': name,
       'relation': relation,
+      'token': token,
       'dob': dob.millisecondsSinceEpoch,
       'education_qualification': educationQualification,
       'currently_studying_level': currentlyStudyingLevel,
@@ -40,6 +53,7 @@ class ShaidChildren {
       id: map['id'],
       shaidId: map['shaid_id'],
       name: map['name'],
+      token: map['token'],
       relation: map['relation'],
       dob: DateTime.fromMillisecondsSinceEpoch(map['dob']),
       educationQualification: map['education_qualification'],
@@ -54,6 +68,6 @@ class ShaidChildren {
 
   String toJson() => json.encode(toMap());
 
-  factory ShaidChildren.fromJson(String source) => ShaidChildren.fromMap(json.decode(source));
+  factory ShaidChildren.fromJson(String source) =>
+      ShaidChildren.fromMap(json.decode(source));
 }
-

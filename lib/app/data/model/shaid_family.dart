@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 class ShaidFamily {
@@ -6,14 +5,26 @@ class ShaidFamily {
   final int shaidId;
   final String name;
   final String relation;
+  String token;
   final int age;
- final String occupation;
+  final String occupation;
   final String financialStatus;
   final String remarks;
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  ShaidFamily({required this.id,required this.shaidId,required this.name,required this.relation,required this.age,required this.occupation,required this.financialStatus,required this.remarks,required this.createdAt,required this.updatedAt});
+  ShaidFamily(
+      {required this.id,
+      this.token = '',
+      required this.shaidId,
+      required this.name,
+      required this.relation,
+      required this.age,
+      required this.occupation,
+      required this.financialStatus,
+      required this.remarks,
+      required this.createdAt,
+      required this.updatedAt});
 
   Map<String, dynamic> toMap() {
     return {
@@ -22,6 +33,7 @@ class ShaidFamily {
       'name': name,
       'relation': relation,
       'age': age,
+      'token': token,
       'occupation': occupation,
       'financial_status': financialStatus,
       'remarks': remarks,
@@ -37,6 +49,7 @@ class ShaidFamily {
       name: map['name'],
       relation: map['relation'],
       age: map['age'],
+      token: map['token'],
       occupation: map['occupation'],
       financialStatus: map['financial_status'],
       remarks: map['remarks'],
@@ -47,5 +60,6 @@ class ShaidFamily {
 
   String toJson() => json.encode(toMap());
 
-  factory ShaidFamily.fromJson(String source) => ShaidFamily.fromMap(json.decode(source));
-  }
+  factory ShaidFamily.fromJson(String source) =>
+      ShaidFamily.fromMap(json.decode(source));
+}

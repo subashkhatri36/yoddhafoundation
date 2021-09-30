@@ -6,9 +6,8 @@ static const String dbname='Yoddha.db';
 static const String shaid='Shaid';
 static const String shaidFamily='ShaidFamily';
 static const String shaidChildren='ShaidChildren';
-static const String user='User';
 
-static const List<String> tableNames=[shaid,shaidFamily,shaidChildren,user];
+static const List<String> tableNames=[shaid,shaidFamily,shaidChildren];
 
 
 //common files

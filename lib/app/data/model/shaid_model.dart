@@ -1,25 +1,33 @@
-
 import 'dart:convert';
 
 class Sahid {
   final int id;
+  String token;
   final String name;
   final String gender;
   final String district;
   final String state;
-  final String ward;
-  final String tole;
   final String image;
   final DateTime deathdate;
   final DateTime deathplace;
   final String responsible;
-   final DateTime createdAt;
+  final DateTime createdAt;
   final DateTime updatedAt;
 
-  Sahid({required this.id,required this.name,required this.gender,required this.district,required this.state,required this.ward,required this.tole,required this.image,required this.deathdate,required this.deathplace,required this.responsible,required this.createdAt,required this.updatedAt,});
-
-  
-
+  Sahid({
+    required this.id,
+    required this.name,
+    required this.gender,
+    required this.district,
+    required this.state,
+    required this.image,
+    required this.deathdate,
+    required this.deathplace,
+    required this.responsible,
+    required this.createdAt,
+    this.token = '',
+    required this.updatedAt,
+  });
 
   Map<String, dynamic> toMap() {
     return {
@@ -28,9 +36,8 @@ class Sahid {
       'gender': gender,
       'state': state,
       'district': district,
-      'ward': ward,
-      'tole': tole,
       'image': image,
+      'token': token,
       'death_date': deathdate.millisecondsSinceEpoch,
       'death_place': deathplace.millisecondsSinceEpoch,
       'responsible': responsible,
@@ -46,9 +53,8 @@ class Sahid {
       gender: map['gender'],
       state: map['state'],
       district: map['district'],
-      ward: map['ward'],
-      tole: map['tole'],
       image: map['image'],
+      token: map['token'],
       deathdate: DateTime.fromMillisecondsSinceEpoch(map['death_date']),
       deathplace: DateTime.fromMillisecondsSinceEpoch(map['death_place']),
       responsible: map['responsible'],
@@ -61,4 +67,3 @@ class Sahid {
 
   factory Sahid.fromJson(String source) => Sahid.fromMap(json.decode(source));
 }
-

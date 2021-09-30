@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/string.dart';
@@ -6,6 +7,7 @@ import 'package:yoddhafoundation/app/core/service/storage_service/shared_prefere
 import 'package:yoddhafoundation/app/data/model/response_model.dart';
 import 'package:yoddhafoundation/app/data/repositories/login_api_call.dart';
 import 'package:yoddhafoundation/app/routes/app_pages.dart';
+import 'package:yoddhafoundation/app/widgets/custom_snackbar.dart';
 
 class LoginController extends GetxController {
   final TextEditingController username = TextEditingController();
@@ -24,12 +26,21 @@ class LoginController extends GetxController {
       final ApiCall response =
           await userlogin.login(username.text, password.text);
       if (!response.iserror) {
-        shareprefrence.save(Strings.login_token, response.response);
+        shareprefrence.save(Strings.logintoken, response.response);
         appController.accesstoken = response.response;
         Get.offNamed(Routes.DASHBOARD);
+      } else {
+        customSnackbar(
+            message: response.error,
+            snackPosition: SnackPosition.TOP,
+            leadingIcon: Icons.warning);
       }
     } else {
       //custome snackbar
+      customSnackbar(
+          message: 'Email or Password not valid !',
+          snackPosition: SnackPosition.TOP,
+          leadingIcon: Icons.warning);
     }
   }
 

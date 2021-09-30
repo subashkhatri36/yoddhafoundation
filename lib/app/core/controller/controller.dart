@@ -7,6 +7,7 @@ class AppController extends GetxController {
   double width = 0.0;
   double height = 0.0;
   String accesstoken = '';
+  bool authorized = false;
   @override
   void onInit() {
     super.onInit();
@@ -19,6 +20,9 @@ class AppController extends GetxController {
   }
 
   Future loadDatabase() async {
-    accesstoken = await shareprefrence.read(Strings.login_token);
+    accesstoken = await shareprefrence.read(Strings.logintoken);
+    if (accesstoken.isNotEmpty) {
+      authorized = true;
+    }
   }
 }

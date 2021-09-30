@@ -1,6 +1,7 @@
 class Strings{
   ///for app purpose
-  static const String login_token='login_token';
+  static const String logintoken='login_token';
+  static const String userInfo='User'; 
 
 
 static const String appName='Yoddha Foundation';

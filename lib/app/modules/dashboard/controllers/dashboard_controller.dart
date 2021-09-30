@@ -9,7 +9,7 @@ class DashboardController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    shareprefrence.read(Strings.login_token);
+    shareprefrence.read(Strings.logintoken);
   }
 
   @override
