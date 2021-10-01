@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class ShaidFamily {
   final int id;
-  final int shaidId;
+  int shaidId;
   final String name;
   final String relation;
   String token;

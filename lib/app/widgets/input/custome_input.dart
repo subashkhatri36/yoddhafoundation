@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yoddhafoundation/app/constant/constants.dart';
 
 class CustomeInput extends StatefulWidget {
   const CustomeInput(
@@ -39,6 +40,9 @@ class _CustomeInputState extends State<CustomeInput> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.symmetric(
+          vertical: Constants.defaultMargin / 2,
+          horizontal: Constants.defaultMargin / 2),
       decoration: BoxDecoration(color: widget.color),
       child: TextFormField(
         validator: widget.validator,

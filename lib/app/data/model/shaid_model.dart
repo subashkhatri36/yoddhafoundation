@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class Sahid {
-  final int id;
+  int id;
   String token;
   final String name;
   final String gender;
@@ -9,13 +9,13 @@ class Sahid {
   final String state;
   final String image;
   final DateTime deathdate;
-  final DateTime deathplace;
+  final String deathplace;
   final String responsible;
   final DateTime createdAt;
   final DateTime updatedAt;
 
   Sahid({
-    required this.id,
+    this.id = 0,
     required this.name,
     required this.gender,
     required this.district,
@@ -31,7 +31,6 @@ class Sahid {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'name': name,
       'gender': gender,
       'state': state,
@@ -39,7 +38,7 @@ class Sahid {
       'image': image,
       'token': token,
       'death_date': deathdate.millisecondsSinceEpoch,
-      'death_place': deathplace.millisecondsSinceEpoch,
+      'death_place': deathplace,
       'responsible': responsible,
       'created_at': createdAt.millisecondsSinceEpoch,
       'updated_at': updatedAt.millisecondsSinceEpoch,
@@ -56,7 +55,7 @@ class Sahid {
       image: map['image'],
       token: map['token'],
       deathdate: DateTime.fromMillisecondsSinceEpoch(map['death_date']),
-      deathplace: DateTime.fromMillisecondsSinceEpoch(map['death_place']),
+      deathplace: map['death_place'],
       responsible: map['responsible'],
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['created_at']),
       updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updated_at']),

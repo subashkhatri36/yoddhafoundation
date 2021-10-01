@@ -2,6 +2,8 @@ import 'package:yoddhafoundation/app/constant/db_name.dart';
 import 'package:yoddhafoundation/app/core/service/db_helper.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_model.dart';
 
+ShaidRepo shaidRepo = ShaidRepo();
+
 class ShaidRepo {
   Future<List<Sahid>> getAllShaid() async {
     try {

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 class ShaidChildren {
   final int id;
-  final int shaidId;
+  int shaidId;
   final String name;
   final String relation;
   final DateTime dob;

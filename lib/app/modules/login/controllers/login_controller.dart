@@ -28,6 +28,7 @@ class LoginController extends GetxController {
       if (!response.iserror) {
         shareprefrence.save(Strings.logintoken, response.response);
         appController.accesstoken = response.response;
+        appController.authorized = true;
         Get.offNamed(Routes.DASHBOARD);
       } else {
         customSnackbar(

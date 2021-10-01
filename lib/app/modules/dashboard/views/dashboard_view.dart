@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:yoddhafoundation/app/constant/constants.dart';
+import 'package:yoddhafoundation/app/constant/controller.dart';
+import 'package:yoddhafoundation/app/constant/themes.dart';
+import 'package:yoddhafoundation/app/data/model/shaid_core_model.dart';
 import 'package:yoddhafoundation/app/modules/sahid/views/sahid_view.dart';
+import 'package:yoddhafoundation/app/routes/app_pages.dart';
 import 'package:yoddhafoundation/app/widgets/authorized_widet_only.dart';
 import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
 
@@ -12,7 +17,6 @@ class DashboardView extends GetView<DashboardController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.count.value = 0;
     return authorizedAccess(
       WillPopScope(
         onWillPop: () async {
@@ -40,11 +44,59 @@ class DashboardView extends GetView<DashboardController> {
         child: Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              Get.to(SahidView());
+              Get.toNamed(Routes.SAHID);
             },
             child: const Icon(Icons.add),
           ),
-          body: Container(),
+          body: SafeArea(
+              child: Obx(() => appController.shaidDataOffline.isFalse
+                  ? Center(
+                      child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: const [
+                        Text('Loading...'),
+                        CircularProgressIndicator(),
+                      ],
+                    ))
+                  : appController.offlineShaidModel.isEmpty
+                      ? const Center(
+                          child: Padding(
+                          padding: EdgeInsets.all(Constants.defaultPadding),
+                          child: Text(
+                            'There is No data Plase Add data from below (+) Icon',
+                            textAlign: TextAlign.center,
+                          ),
+                        ))
+                      : Padding(
+                          padding:
+                              const EdgeInsets.all(Constants.defaultPadding),
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: appController.offlineShaidModel.length,
+                              itemBuilder: (context, index) {
+                                CoreShaidModel e =
+                                    appController.offlineShaidModel[index];
+                                return Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: Constants.defaultMargin / 2,
+                                        vertical: Constants.defaultMargin),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal:
+                                            Constants.defaultPadding / 2,
+                                        vertical: Constants.defaultPadding),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(color: Themes.black),
+                                        borderRadius: BorderRadius.circular(
+                                            Constants.defaultRadius)),
+                                    child: ListTile(
+                                      title: Text(e.shaid.name),
+                                      leading: const FlutterLogo(),
+                                      trailing: const Icon(
+                                          Icons.keyboard_arrow_right),
+                                    ));
+                              }),
+                        ))),
         ),
       ),
     );
