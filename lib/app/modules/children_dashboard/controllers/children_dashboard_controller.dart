@@ -1,63 +1,41 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_children.dart';
+import 'package:yoddhafoundation/app/data/repositories/shaid_children.dart';
+import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
 
 class ChildrenDashboardController extends GetxController {
-  List<ShaidChildren> shaidchildrens = [
-    ShaidChildren(
-        id: 1,
-        shaidId: 1,
-        name: 'abc',
-        relation: 'adf',
-        dob: DateTime.now(),
-        educationQualification: 'educationQualification',
-        currentlyStudyingLevel: 'currentlyStudyingLevel',
-        faculty: 'faculty',
-        occupation: 'occupation',
-        financialStatus: 'financialStatus',
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now()),
-    ShaidChildren(
-        id: 1,
-        shaidId: 1,
-        name: 'abc',
-        relation: 'adf',
-        dob: DateTime.now(),
-        educationQualification: 'educationQualification',
-        currentlyStudyingLevel: 'currentlyStudyingLevel',
-        faculty: 'faculty',
-        occupation: 'occupation',
-        financialStatus: 'financialStatus',
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now()),
-    ShaidChildren(
-        id: 1,
-        shaidId: 1,
-        name: 'abc',
-        relation: 'adf',
-        dob: DateTime.now(),
-        educationQualification: 'educationQualification',
-        currentlyStudyingLevel: 'currentlyStudyingLevel',
-        faculty: 'faculty',
-        occupation: 'occupation',
-        financialStatus: 'financialStatus',
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now()),
-    ShaidChildren(
-        id: 1,
-        shaidId: 1,
-        name: 'abc',
-        relation: 'adf',
-        dob: DateTime.now(),
-        educationQualification: 'educationQualification',
-        currentlyStudyingLevel: 'currentlyStudyingLevel',
-        faculty: 'faculty',
-        occupation: 'occupation',
-        financialStatus: 'financialStatus',
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now()),
-  ];
+  deleteChildrenData(int id) async {
+    bool value = await showDialog(
+        context: Get.context!,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Warning !!!'),
+            content: const Text('Are you sure? Do you want to delete data?'),
+            actions: [
+              CustomButton(
+                  onpressed: () {
+                    Navigator.of(Get.context!).pop(false);
+                  },
+                  btnText: 'No'),
+              CustomButton(
+                  onpressed: () {
+                    Navigator.of(Get.context!).pop(true);
+                  },
+                  btnText: 'Yes')
+            ],
+          );
+        });
+    if (value) {
+      int a = await shaidChildren.shaidChildrenDelete(id);
+      if (a > 0) {
+        appController.coreShaidModel!.shaidChildren!
+            .removeWhere((element) => element.id == id);
+      }
+    }
+  }
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -70,5 +48,4 @@ class ChildrenDashboardController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
 }

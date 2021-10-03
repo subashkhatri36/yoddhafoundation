@@ -19,13 +19,9 @@ class SahidController extends GetxController {
   RxBool checkedValue = false.obs;
 
   final TextEditingController sahidName = TextEditingController();
-// final TextEditingController gender = TextEditingController();
   final TextEditingController deathDate = TextEditingController();
   final TextEditingController state = TextEditingController();
   final TextEditingController district = TextEditingController();
-  final TextEditingController localarea = TextEditingController();
-  final TextEditingController oda = TextEditingController();
-  final TextEditingController tol = TextEditingController();
   final TextEditingController deathPlace = TextEditingController();
 
 //for image
@@ -71,19 +67,20 @@ class SahidController extends GetxController {
         if (checkdata().isNotEmpty) {
           //now saved
           Sahid sa = Sahid(
-              name: 'name',
-              gender: 'gender',
-              district: 'district',
-              state: 'state',
-              image: '',
-              deathdate: DateTime.now(),
-              deathplace: '',
-              responsible: '',
+              name: sahidName.text,
+              gender: genVal.value,
+              district: district.text,
+              state: state.text,
+              image: pickedImg!.path,
+              deathdate: DateTime.parse(deathDate.text),
+              deathplace: deathPlace.text,
+              responsible: checkdata(),
               createdAt: DateTime.now(),
               updatedAt: DateTime.now());
-          Get.toNamed(Routes.CHILDREN_DASHBOARD);
+
           appController.coreShaidModel = CoreShaidModel(shaid: sa);
-          // appController.coreShaidModel!.shaid = sa;
+          appController.coreShaidModel!.shaidChildren = [];
+          appController.coreShaidModel!.shaidFamily = [];
           gotoNexPage();
         } else {
           customSnackbar(message: 'Please Selec checkbox');
@@ -115,7 +112,9 @@ class SahidController extends GetxController {
     }
   }
 
-  gotoNexPage() {}
+  gotoNexPage() {
+    Get.toNamed(Routes.CHILDREN_DASHBOARD);
+  }
 
   @override
   void onReady() {

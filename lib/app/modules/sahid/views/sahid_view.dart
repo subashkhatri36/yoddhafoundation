@@ -201,24 +201,6 @@ class SahidView extends GetView<SahidController> {
                 prefix: Icons.place,
               ),
               CustomeInput(
-                hintText: Strings.localArea,
-                controller: controller.localarea,
-                validator: (value) => validateIsEmpty(string: value),
-                prefix: Icons.place,
-              ),
-              CustomeInput(
-                hintText: Strings.oda,
-                controller: controller.oda,
-                validator: (value) => validateIsEmpty(string: value),
-                prefix: Icons.place,
-              ),
-              CustomeInput(
-                hintText: Strings.tol,
-                controller: controller.tol,
-                validator: (value) => validateIsEmpty(string: value),
-                prefix: Icons.place,
-              ),
-              CustomeInput(
                 hintText: Strings.deathPlace,
                 controller: controller.deathPlace,
                 validator: (value) => validateIsEmpty(string: value),

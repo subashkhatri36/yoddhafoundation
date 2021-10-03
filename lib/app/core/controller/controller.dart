@@ -34,6 +34,9 @@ class AppController extends GetxController {
   RxBool shaidDataOffline = false.obs;
   RxBool shaidDataOnline = false.obs;
 
+  RxBool childrenListDataChange = false.obs;
+  RxBool familyListDataChange = false.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -92,7 +95,7 @@ class AppController extends GetxController {
 //inserting all data gather from user into database
   CoreShaidModel? coreShaidModel;
   RxBool savingData = false.obs;
-  InsertIntoDatabase() async {
+  insertIntoDatabase() async {
     //coreShaidModel=CoreShaidModel(shaid: shaid);
     savingData.value = true;
     if (coreShaidModel != null) {

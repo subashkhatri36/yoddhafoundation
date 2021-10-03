@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 class ShaidFamily {
-  final int id;
-  int shaidId;
+  int? id;
+  int? shaidId;
   final String name;
   final String relation;
   String token;
@@ -14,9 +14,9 @@ class ShaidFamily {
   final DateTime updatedAt;
 
   ShaidFamily(
-      {required this.id,
+      {this.id,
       this.token = '',
-      required this.shaidId,
+      this.shaidId,
       required this.name,
       required this.relation,
       required this.age,

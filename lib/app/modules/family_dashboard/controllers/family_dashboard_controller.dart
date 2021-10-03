@@ -1,25 +1,43 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:yoddhafoundation/app/data/model/shaid_family.dart';
+import 'package:yoddhafoundation/app/constant/controller.dart';
+import 'package:yoddhafoundation/app/data/repositories/shaid_family.dart';
+import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
 
 class FamilyDashboardController extends GetxController {
-  List<ShaidFamily> sahidFamilydata = [
-    ShaidFamily(
-      id: 1,
-      shaidId: 3,
-      name: 'surendra',
-      relation: 'Father',
-      age: 65,
-      remarks: 'bvcsgcs',
-      financialStatus: 'cgjscgs',
-      occupation: 'vghaha',
-      updatedAt: DateTime.now(),
-      createdAt: DateTime.now(),
-    ),
-  ];
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
+  }
+
+  deleteFamilyData(int id) async {
+    bool value = await showDialog(
+        context: Get.context!,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Warning !!!'),
+            content: const Text('Are you sure? Do you want to delete data?'),
+            actions: [
+              CustomButton(
+                  onpressed: () {
+                    Navigator.of(Get.context!).pop(false);
+                  },
+                  btnText: 'No'),
+              CustomButton(
+                  onpressed: () {
+                    Navigator.of(Get.context!).pop(true);
+                  },
+                  btnText: 'Yes')
+            ],
+          );
+        });
+    if (value) {
+      int a = await shaidFamily.shaidFamilyDelete(id);
+      if (a > 0) {
+        appController.coreShaidModel!.shaidFamily!
+            .removeWhere((element) => element.id == id);
+      }
+    }
   }
 
   @override
@@ -29,5 +47,4 @@ class FamilyDashboardController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
 }
