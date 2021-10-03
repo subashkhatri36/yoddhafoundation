@@ -44,8 +44,8 @@ String validateMaxLength({required String string, int length = 4}) {
 }
 
 /// validate empty string
-String validateIsEmpty({required String string}) {
-  return string.isEmpty ? "* required field" : '';
+String? validateIsEmpty({required String string}) {
+  return string.isEmpty ? "* required field" : null;
 }
 
 /// validate min-max length

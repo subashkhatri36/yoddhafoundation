@@ -64,7 +64,7 @@ class DashboardView extends GetView<DashboardController> {
                           child: Padding(
                           padding: EdgeInsets.all(Constants.defaultPadding),
                           child: Text(
-                            'There is No data Plase Add data from below (+) Icon',
+                            'यहाँ डाटा खाली छ,कृपया डाटा भर्न यो (+) आइकनमा क्लिक गर्नुहोस्',
                             textAlign: TextAlign.center,
                           ),
                         ))

@@ -14,7 +14,7 @@ class ChildrenDashboardView extends GetView<ChildrenDashboardController> {
         actions: [
           IconButton(
               onPressed: () {
-                Get.toNamed(Routes.CHILDREN);
+                Get.toNamed(Routes.FAMILY_DASHBOARD);
               },
               icon: const Icon(Icons.add)),
         ],
@@ -41,7 +41,7 @@ class ChildrenDashboardView extends GetView<ChildrenDashboardController> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.toNamed(Routes.FAMILY_DASHBOARD);
+          Get.toNamed(Routes.CHILDREN);
         },
         child: const Icon(Icons.add),
       ),

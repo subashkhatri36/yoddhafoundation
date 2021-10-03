@@ -36,17 +36,19 @@ class SahidView extends GetView<SahidController> {
                   Container(
                     margin: const EdgeInsets.symmetric(
                         vertical: 30, horizontal: 30),
-                    child: CircleAvatar(
-                      radius: 71,
-                      backgroundColor: Colors.green,
-                      child: CircleAvatar(
-                        radius: 65,
+                    child: Obx(
+                      () => CircleAvatar(
+                        radius: 71,
                         backgroundColor: Colors.green,
-                        // backgroundImage: AssetImage('assets/images/download.jpg'),
-                        // ignore: unnecessary_null_comparison
-                        backgroundImage: controller.pickedImg == null
-                            ? null
-                            : FileImage(controller.pickedImg!),
+                        child: CircleAvatar(
+                          radius: 65,
+                          backgroundColor: Colors.green,
+                          // backgroundImage: AssetImage('assets/images/download.jpg'),
+                          // ignore: unnecessary_null_comparison
+                          backgroundImage: !controller.imageselected.value
+                              ? null
+                              : FileImage(controller.pickedImg!),
+                        ),
                       ),
                     ),
                   ),
@@ -274,7 +276,7 @@ class SahidView extends GetView<SahidController> {
                 padding: const EdgeInsets.all(15.0),
                 child: CustomButton(
                     onpressed: () {
-                      Get.toNamed(Routes.CHILDREN_DASHBOARD);
+                      controller.insertandNext();
                     },
                     btnText: 'Next'),
               ),
