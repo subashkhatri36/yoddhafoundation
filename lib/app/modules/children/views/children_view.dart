@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:yoddhafoundation/app/constant/controller.dart';
+import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/constant/string.dart';
-import 'package:yoddhafoundation/app/modules/family/views/family_view.dart';
-import 'package:yoddhafoundation/app/routes/app_pages.dart';
 import 'package:yoddhafoundation/app/utls/validation.dart';
 import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
 import 'package:yoddhafoundation/app/widgets/input/custom_container.dart';
@@ -13,8 +13,16 @@ import 'package:yoddhafoundation/app/widgets/input/custome_input.dart';
 import '../controllers/children_controller.dart';
 
 class ChildrenView extends GetView<ChildrenController> {
+  final argument = Get.arguments;
+
+  ChildrenView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    print(appController.coreShaidModel!.shaid.name);
+    if (argument[0] == OPERATION.update) {
+      controller.loadData(argument[1]);
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -37,18 +45,20 @@ class ChildrenView extends GetView<ChildrenController> {
                   prefix: Icons.person,
                 ),
                 CustomContainer(
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton(
-                      isDense: true,
-                      value: controller.childValue,
-                      onChanged: (value) {
-                        controller.childValue = value.toString();
-                      },
-                      hint: const Text(Strings.relationship),
-                      items: controller.childrenList.map((value) {
-                        return DropdownMenuItem(
-                            value: value, child: Text(value));
-                      }).toList(),
+                  child: Obx(
+                    () => DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                        isDense: true,
+                        value: controller.childValue.value,
+                        onChanged: (value) {
+                          controller.childValue.value = value.toString();
+                        },
+                        hint: const Text(Strings.relationship),
+                        items: controller.childrenList.map((value) {
+                          return DropdownMenuItem(
+                              value: value, child: Text(value));
+                        }).toList(),
+                      ),
                     ),
                   ),
                 ),
@@ -86,9 +96,10 @@ class ChildrenView extends GetView<ChildrenController> {
                   padding: const EdgeInsets.all(10.0),
                   child: CustomButton(
                       onpressed: () {
-                        Get.toNamed(Routes.FAMILY_DASHBOARD);
+                        controller.saved(argument[0]);
                       },
-                      btnText: 'Next'),
+                      btnText:
+                          argument[0] == OPERATION.update ? 'Update' : 'Add'),
                 ),
               ],
             )),
