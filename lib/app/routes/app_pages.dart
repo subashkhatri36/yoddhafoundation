@@ -18,6 +18,8 @@ import 'package:yoddhafoundation/app/modules/sahid/bindings/sahid_binding.dart';
 import 'package:yoddhafoundation/app/modules/sahid/views/sahid_view.dart';
 import 'package:yoddhafoundation/app/modules/sahid_dashboard/bindings/sahid_dashboard_binding.dart';
 import 'package:yoddhafoundation/app/modules/sahid_dashboard/views/sahid_dashboard_view.dart';
+import 'package:yoddhafoundation/app/modules/sahid_overview/bindings/sahid_overview_binding.dart';
+import 'package:yoddhafoundation/app/modules/sahid_overview/views/sahid_overview_view.dart';
 import 'package:yoddhafoundation/app/modules/splash/bindings/splash_binding.dart';
 import 'package:yoddhafoundation/app/modules/splash/views/splash_view.dart';
 import 'package:yoddhafoundation/app/modules/user_profile/bindings/user_profile_binding.dart';
@@ -85,6 +87,11 @@ class AppPages {
       name: _Paths.FAMILY_DASHBOARD,
       page: () => FamilyDashboardView(),
       binding: FamilyDashboardBinding(),
+    ),
+    GetPage(
+      name: _Paths.SAHID_OVERVIEW,
+      page: () => SahidOverviewView(),
+      binding: SahidOverviewBinding(),
     ),
   ];
 }
