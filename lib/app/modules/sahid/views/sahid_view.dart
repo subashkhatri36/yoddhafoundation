@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/constant/string.dart';
-import 'package:yoddhafoundation/app/modules/children/views/children_view.dart';
-import 'package:yoddhafoundation/app/modules/sahid_dashboard/views/sahid_dashboard_view.dart';
-import 'package:yoddhafoundation/app/routes/app_pages.dart';
 import 'package:yoddhafoundation/app/utls/validation.dart';
 import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
 import 'package:yoddhafoundation/app/widgets/input/custom_container.dart';
@@ -14,15 +12,20 @@ import 'package:yoddhafoundation/app/widgets/input/custome_input.dart';
 import '../controllers/sahid_controller.dart';
 
 class SahidView extends GetView<SahidController> {
+  final argument = Get.arguments;
+  SahidView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    if (argument[0] == OPERATION.update) {
+      controller.loadData(argument[1]);
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text(
           "सहिद विवरण",
           style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
         ),
-        centerTitle: true,
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -258,9 +261,12 @@ class SahidView extends GetView<SahidController> {
                 padding: const EdgeInsets.all(15.0),
                 child: CustomButton(
                     onpressed: () {
-                      controller.insertandNext();
+                      argument[0] == OPERATION.update
+                          ? controller.updateandClose()
+                          : controller.insertandNext();
                     },
-                    btnText: 'Next'),
+                    btnText:
+                        argument[0] == OPERATION.update ? 'Update' : 'Next'),
               ),
             ],
           ),

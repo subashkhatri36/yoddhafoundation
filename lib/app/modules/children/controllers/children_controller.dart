@@ -34,7 +34,7 @@ class ChildrenController extends GetxController {
     faculty.text = children.faculty;
     occupation.text = children.occupation;
     financeStatus.text = children.financialStatus;
-    childValue!.value = children.relation;
+    childValue.value = children.relation;
     gloabalchildren = children;
   }
 

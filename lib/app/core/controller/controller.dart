@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:yoddhafoundation/app/constant/db_name.dart';
 import 'package:yoddhafoundation/app/constant/string.dart';
 import 'package:yoddhafoundation/app/core/service/storage_service/shared_preference.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_children.dart';
@@ -23,6 +26,9 @@ class AppController extends GetxController {
   //     List<ShaidFamily>.empty(growable: true).obs;
   // RxList<ShaidChildren> shaidChildrenListModelOffline =
   //     List<ShaidChildren>.empty(growable: true).obs;
+
+  RxBool childrenRefresh = false.obs;
+  RxBool familyReferesh = false.obs;
 
   //Core list
   RxList<CoreShaidModel> offlineShaidModel =
@@ -59,41 +65,49 @@ class AppController extends GetxController {
   }
 
   loadOfflineDatabase() async {
+    //print('starting fetching database');
     shaidDataOffline.value = false;
-    List<Sahid> shaids = [];
-    shaids = await shaidRepo.getAllShaid();
-    if (shaids != null && shaids.isNotEmpty) {
-      //here store all shaid data
-      if (shaidListModelOffline.isNotEmpty) {
-        shaidListModelOffline.clear();
-      }
-      if (offlineShaidModel.isNotEmpty) {
-        offlineShaidModel.clear();
-      }
 
-      for (var shaidinfo in shaids) {
-        //adding value to main shaidlistmodel
-        shaidListModelOffline.add(shaidinfo);
-        List<ShaidChildren> children = [];
-        //now getting shaid id and again perform loop to get shaid children information;
-        children = await shaidChildren.getSingleShaidFamily(shaidinfo.id);
+    // List<Sahid> shaids = [];
+    // shaids = await shaidRepo.getAllShaid();
+    // print(shaids.toList().toString());
+    // if (shaids != null && shaids.isNotEmpty) {
+    //   //here store all shaid data
 
-        //getting shaid family details
-        List<ShaidFamily> family = [];
-        family = await shaidFamily.getSingleShaidFamily(shaidinfo.id);
-
-        offlineShaidModel.add(CoreShaidModel(
-            shaid: shaidinfo, shaidChildren: children, shaidFamily: family));
-      }
-    } else {
-      //There is no data message display
-
+    if (offlineShaidModel.isNotEmpty) {
+      offlineShaidModel.clear();
     }
+    var shaidDetail = await shareprefrence.read(DBname.shaid);
+    if (shaidDetail != null) {
+      for (var val in json.decode(shaidDetail)) {
+        offlineShaidModel.add(CoreShaidModel.fromJson(val));
+      }
+    }
+
+    //   for (var shaidinfo in shaids) {
+    //     //adding value to main shaidlistmodel
+    //     shaidListModelOffline.add(shaidinfo);
+    //     List<ShaidChildren> children = [];
+    //     //now getting shaid id and again perform loop to get shaid children information;
+    //     children = await shaidChildren.getSingleShaidFamily(shaidinfo.id!);
+
+    //     //getting shaid family details
+    //     List<ShaidFamily> family = [];
+    //     family = await shaidFamily.getSingleShaidFamily(shaidinfo.id!);
+
+    //     offlineShaidModel.add(CoreShaidModel(
+    //         shaid: shaidinfo, shaidChildren: children, shaidFamily: family));
+    //   }
+    // } else {
+    //   //There is no data message display
+
+    // }
     shaidDataOffline.value = true;
   }
 
 //inserting all data gather from user into database
   CoreShaidModel? coreShaidModel;
+  int index = 0;
   RxBool savingData = false.obs;
   insertIntoDatabase() async {
     //coreShaidModel=CoreShaidModel(shaid: shaid);

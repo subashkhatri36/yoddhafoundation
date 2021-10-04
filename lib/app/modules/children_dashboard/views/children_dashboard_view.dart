@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import 'package:get/get.dart';
 import 'package:yoddhafoundation/app/constant/constants.dart';
@@ -7,6 +8,7 @@ import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_children.dart';
 import 'package:yoddhafoundation/app/routes/app_pages.dart';
+import 'package:yoddhafoundation/app/widgets/listItemWidget.dart';
 
 import '../controllers/children_dashboard_controller.dart';
 
@@ -76,38 +78,99 @@ class ChildrenWidget extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               )
-            : Container(
-                padding: const EdgeInsets.all(Constants.defaultPadding),
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount:
-                        appController.coreShaidModel!.shaidChildren!.length,
-                    itemBuilder: (context, index) {
-                      ShaidChildren children =
-                          appController.coreShaidModel!.shaidChildren![index];
+            : appController.childrenListDataChange.isTrue
+                ? ListViewWidget(controller: controller)
+                : ListViewWidget(controller: controller);
+  }
+}
 
-                      return ListTile(
-                        title: Text(children.name),
-                        trailing: Column(
+class ListViewWidget extends StatelessWidget {
+  const ListViewWidget({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
+
+  final ChildrenDashboardController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        shrinkWrap: true,
+        itemCount: appController.coreShaidModel!.shaidChildren!.length,
+        itemBuilder: (context, index) {
+          ShaidChildren children =
+              appController.coreShaidModel!.shaidChildren![index];
+
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              child: Container(
+                margin: const EdgeInsets.symmetric(
+                    vertical: Constants.defaultMargin,
+                    horizontal: Constants.defaultMargin / 2),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ListItemWidget(
+                          field: 'Name',
+                          value: children.name,
+                        ),
+                        Column(
                           children: [
-                            IconButton(
-                                onPressed: () {
+                            InkWell(
+                                onTap: () {
                                   //show conformation button
-                                  controller.deleteChildrenData(children.id!);
+                                  controller.deleteChildrenData(children.name);
                                 },
-                                icon: const Icon(Icons.delete)),
-                            IconButton(
-                                onPressed: () {
+                                child: const Icon(Icons.delete)),
+                            InkWell(
+                                onTap: () {
                                   Get.toNamed(
                                     Routes.CHILDREN,
                                     arguments: [OPERATION.update, children],
                                   );
                                 },
-                                icon: const Icon(Icons.edit)),
+                                child: const Icon(Icons.edit)),
                           ],
                         ),
-                      );
-                    }),
-              );
+                      ],
+                    ),
+                    ListItemWidget(
+                      field: 'Relation',
+                      value: children.relation,
+                    ),
+                    ListItemWidget(
+                      field: 'Date of Birth:',
+                      value: DateTime.parse(children.dob.toString()).toString(),
+                    ),
+                    ListItemWidget(
+                      field: 'Education Qualification:',
+                      value: children.educationQualification,
+                    ),
+                    ListItemWidget(
+                      field: 'Studying Level',
+                      value: children.currentlyStudyingLevel,
+                    ),
+                    ListItemWidget(
+                      field: 'Faculty',
+                      value: children.faculty,
+                    ),
+                    ListItemWidget(
+                      field: 'Occuptaion',
+                      value: children.occupation,
+                    ),
+                    ListItemWidget(
+                      field: 'Financial Condition:',
+                      value: children.financialStatus,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
   }
 }

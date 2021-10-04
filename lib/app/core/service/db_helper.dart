@@ -14,6 +14,7 @@ class YoddhaDatabase {
   static Database? _db;
 
   Future<Database?> get db async {
+    print('called of database');
     if (_db != null) {
       return _db;
     }
@@ -22,6 +23,7 @@ class YoddhaDatabase {
   }
 
   Future<Database> initDb() async {
+    print('came to database');
     Directory directory = await getApplicationDocumentsDirectory();
     String dbPath = join('assets', DBname.dbname);
 
@@ -29,6 +31,7 @@ class YoddhaDatabase {
         onCreate: (Database db, int version) async {
       for (var table in DBname.tableNames) {
         await db.execute(table);
+        print(table);
       }
     }, onUpgrade: (Database db, int oldversion, int newversion) async {
       if (oldversion < newversion) {

@@ -25,7 +25,14 @@ class ShaidRepo {
   Future<int> shaidInsert(Sahid shaid) async {
     try {
       var dbClient = await con.db;
-      int res = await dbClient!.insert(DBname.shaid, shaid.toMap());
+      print('table list');
+      (await dbClient!.query('sqlite_master', columns: ['type', 'name']))
+          .forEach((row) {
+        print('print table');
+        print(row.values);
+      });
+      print(shaid.toJson());
+      int res = await dbClient.insert(DBname.shaid, shaid.toMap());
       return res;
     } catch (error) {
       return -1;

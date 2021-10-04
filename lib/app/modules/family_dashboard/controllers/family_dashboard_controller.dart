@@ -10,7 +10,7 @@ class FamilyDashboardController extends GetxController {
     super.onInit();
   }
 
-  deleteFamilyData(int id) async {
+  deleteFamilyData(String name) async {
     bool value = await showDialog(
         context: Get.context!,
         builder: (context) {
@@ -32,12 +32,10 @@ class FamilyDashboardController extends GetxController {
           );
         });
     if (value) {
-      int a = await shaidFamily.shaidFamilyDelete(id);
-      if (a > 0) {
-        appController.coreShaidModel!.shaidFamily!
-            .removeWhere((element) => element.id == id);
-      }
+      appController.coreShaidModel!.shaidFamily!
+          .removeWhere((element) => element.name == name);
     }
+    appController.familyListDataChange.toggle();
   }
 
   @override

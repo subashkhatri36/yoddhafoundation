@@ -17,8 +17,8 @@ void main() {
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
-       defaultTransition: Transition.native,
-            builder: EasyLoading.init(),
+      defaultTransition: Transition.native,
+      builder: EasyLoading.init(),
       initialBinding: InitialBinding(),
     ),
   );
