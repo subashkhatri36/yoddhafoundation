@@ -18,12 +18,24 @@ class FamilyDashboardView extends GetView<FamilyDashboardController> {
       appBar: AppBar(
         title: const Text('Family DashboardView'),
         actions: [
-          IconButton(
-              onPressed: () {
-                //shaidoverview page
-                Get.toNamed(Routes.FAMILY);
-              },
-              icon: const Text('Next'))
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Align(
+              alignment: Alignment.center,
+              child: GestureDetector(
+                onTap: () {
+                  Get.toNamed(Routes.SAHID_OVERVIEW);
+                },
+                child: Text(
+                  'Next',
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+              ),
+            ),
+          ),
         ],
         centerTitle: true,
       ),
@@ -36,31 +48,6 @@ class FamilyDashboardView extends GetView<FamilyDashboardController> {
         },
         child: const Icon(Icons.add),
       ),
-      //    SingleChildScrollView(
-      //     scrollDirection: Axis.horizontal,
-      //     child: DataTable(
-      //       columns: const [
-      //         DataColumn(label: Text('ID')),
-      //         DataColumn(label: Text('SahidID')),
-      //         DataColumn(label: Text('Name')),
-      //         DataColumn(label: Text('Relation')),
-      //         DataColumn(label: Text('CreatedAt')),
-      //         DataColumn(label: Text('Action')),
-      //       ],
-      //       rows: controller.sahidFamilydata
-      //           .map((data) => DataRow(
-      //                 cells: [
-      //                   DataCell(Text(data.id.toString())),
-      //                   DataCell(Text(data.shaidId.toString())),
-      //                   DataCell(Text(data.name.toString())),
-      //                   DataCell(Text(data.relation.toString())),
-      //                   DataCell(Text(data.createdAt.toString())),
-      //                   const DataCell(Icon(Icons.delete)),
-      //                 ],
-      //               ))
-      //           .toList(),
-      //     ),
-      //   ),
     );
   }
 }
