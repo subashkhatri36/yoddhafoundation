@@ -6,7 +6,7 @@ import 'package:yoddhafoundation/app/data/model/shaid_family.dart';
 import 'package:yoddhafoundation/app/data/repositories/shaid_family.dart';
 
 class FamilyController extends GetxController {
-  String? memberValue;
+  RxString memberValue = 'आमा'.obs;
   final List familymemberList = [
     "आमा",
     "बुबा",
@@ -39,14 +39,14 @@ class FamilyController extends GetxController {
     financialStatus.text = family.financialStatus;
     remarks.text = family.remarks;
     occupation.text = family.occupation;
-    memberValue = family.relation;
+    memberValue.value = family.relation;
     gloabalfamily = family;
   }
 
   void saved(OPERATION operation) {
     ShaidFamily family = ShaidFamily(
         name: familyName.text,
-        relation: memberValue!,
+        relation: memberValue.value,
         age: int.parse(age.text),
         occupation: occupation.text,
         financialStatus: financialStatus.text,

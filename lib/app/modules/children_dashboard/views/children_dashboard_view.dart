@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -14,15 +15,29 @@ class ChildrenDashboardView extends GetView<ChildrenDashboardController> {
 
   @override
   Widget build(BuildContext context) {
+    print(appController.coreShaidModel!.shaid.name);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Children DashboardView'),
         actions: [
-          IconButton(
-              onPressed: () {
-                Get.toNamed(Routes.FAMILY_DASHBOARD);
-              },
-              icon: const Text('Family')),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Align(
+              alignment: Alignment.center,
+              child: GestureDetector(
+                onTap: () {
+                  Get.toNamed(Routes.FAMILY_DASHBOARD);
+                },
+                child: Text(
+                  'Family',
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
       body: Obx(() => appController.childrenListDataChange.value
@@ -46,18 +61,20 @@ class ChildrenWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<ChildrenDashboardController>();
-    return appController.coreShaidModel != null
+    return appController.coreShaidModel!.shaid.name == ''
         ? Container(
             padding: const EdgeInsets.all(Constants.defaultPadding),
             alignment: Alignment.center,
             child: const Text('There is No Data ITs Null.'),
           )
-        : appController.coreShaidModel!.shaidChildren == null
+        : appController.coreShaidModel!.shaidChildren!.isEmpty
             ? Container(
                 padding: const EdgeInsets.all(Constants.defaultPadding),
                 alignment: Alignment.center,
                 child: const Text(
-                    'List Is Empty Please add Children from following (+) Icon.'),
+                  'List Is Empty Please add Children from following (+) Icon.',
+                  textAlign: TextAlign.center,
+                ),
               )
             : Container(
                 padding: const EdgeInsets.all(Constants.defaultPadding),

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/constant/string.dart';
 import 'package:yoddhafoundation/app/utls/validation.dart';
@@ -11,8 +12,6 @@ import 'package:yoddhafoundation/app/widgets/input/custome_input.dart';
 
 import '../controllers/children_controller.dart';
 
-final List childrenList = ["छोरा", "छोरी"];
-
 class ChildrenView extends GetView<ChildrenController> {
   final argument = Get.arguments;
 
@@ -20,6 +19,7 @@ class ChildrenView extends GetView<ChildrenController> {
 
   @override
   Widget build(BuildContext context) {
+    print(appController.coreShaidModel!.shaid.name);
     if (argument[0] == OPERATION.update) {
       controller.loadData(argument[1]);
     }
@@ -45,16 +45,20 @@ class ChildrenView extends GetView<ChildrenController> {
                   prefix: Icons.person,
                 ),
                 CustomContainer(
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton(
-                      isDense: true,
-                      value: controller.childValue!.value,
-                      onChanged: (value) {},
-                      hint: const Text(Strings.relationship),
-                      items: childrenList.map((value) {
-                        return DropdownMenuItem(
-                            value: value, child: Text(value));
-                      }).toList(),
+                  child: Obx(
+                    () => DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                        isDense: true,
+                        value: controller.childValue.value,
+                        onChanged: (value) {
+                          controller.childValue.value = value.toString();
+                        },
+                        hint: const Text(Strings.relationship),
+                        items: controller.childrenList.map((value) {
+                          return DropdownMenuItem(
+                              value: value, child: Text(value));
+                        }).toList(),
+                      ),
                     ),
                   ),
                 ),

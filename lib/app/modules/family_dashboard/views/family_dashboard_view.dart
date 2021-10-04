@@ -18,12 +18,25 @@ class FamilyDashboardView extends GetView<FamilyDashboardController> {
       appBar: AppBar(
         title: const Text('Family DashboardView'),
         actions: [
-          IconButton(
-              onPressed: () {
-                //shaidoverview page
-                Get.toNamed(Routes.FAMILY, arguments: [OPERATION.insert]);
-              },
-              icon: const Text('Next'))
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Align(
+              alignment: Alignment.center,
+              child: GestureDetector(
+                onTap: () {
+                  Get.toNamed(Routes.SAHID_OVERVIEW,
+                      arguments: [OPERATION.insert]);
+                },
+                child: Text(
+                  'Finished',
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+              ),
+            ),
+          ),
         ],
         centerTitle: true,
       ),
@@ -48,7 +61,7 @@ class FamilyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<FamilyDashboardController>();
-    return appController.coreShaidModel != null
+    return appController.coreShaidModel!.shaid.name == ''
         ? Container(
             padding: const EdgeInsets.all(Constants.defaultPadding),
             alignment: Alignment.center,

@@ -6,7 +6,8 @@ import 'package:yoddhafoundation/app/data/model/shaid_children.dart';
 import 'package:yoddhafoundation/app/data/repositories/shaid_children.dart';
 
 class ChildrenController extends GetxController {
-  RxString? childValue;
+  final List childrenList = ["छोरा", "छोरी"];
+  RxString childValue = "छोरा".obs;
   final TextEditingController childName = TextEditingController();
   final TextEditingController dob = TextEditingController();
   final TextEditingController eduQulification = TextEditingController();
@@ -40,7 +41,7 @@ class ChildrenController extends GetxController {
   void saved(OPERATION operation) {
     ShaidChildren children = ShaidChildren(
         name: childName.text,
-        relation: childValue!.value,
+        relation: childValue.value,
         dob: DateTime.parse(dob.text),
         educationQualification: eduQulification.text,
         currentlyStudyingLevel: stuLevel.text,

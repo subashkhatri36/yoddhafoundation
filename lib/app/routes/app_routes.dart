@@ -15,6 +15,7 @@ abstract class Routes {
   static const USER_PROFILE = _Paths.USER_PROFILE;
   static const CHILDREN_DASHBOARD = _Paths.CHILDREN_DASHBOARD;
   static const FAMILY_DASHBOARD = _Paths.FAMILY_DASHBOARD;
+  static const SAHID_OVERVIEW = _Paths.SAHID_OVERVIEW;
 }
 
 abstract class _Paths {
@@ -29,4 +30,5 @@ abstract class _Paths {
   static const USER_PROFILE = '/user-profile';
   static const CHILDREN_DASHBOARD = '/children-dashboard';
   static const FAMILY_DASHBOARD = '/family-dashboard';
+  static const SAHID_OVERVIEW = '/sahid-overview';
 }
