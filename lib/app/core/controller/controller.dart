@@ -92,6 +92,9 @@ class AppController extends GetxController {
     shaidDataOffline.value = true;
   }
 
+
+  
+
 //inserting all data gather from user into database
   CoreShaidModel? coreShaidModel;
   RxBool savingData = false.obs;

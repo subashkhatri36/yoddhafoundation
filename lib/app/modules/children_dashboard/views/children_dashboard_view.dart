@@ -28,26 +28,6 @@ class ChildrenDashboardView extends GetView<ChildrenDashboardController> {
       body: Obx(() => appController.childrenListDataChange.value
           ? const ChildrenWidget()
           : const ChildrenWidget()),
-
-      // SingleChildScrollView(
-      //   scrollDirection: Axis.horizontal,
-      //   child: DataTable(
-      //     columns: const [
-      //       DataColumn(label: Text('ID')),
-      //       DataColumn(label: Text('Child Name')),
-      //       DataColumn(label: Text('Relation')),
-      //       DataColumn(label: Text('Action')),
-      //     ],
-      //     rows: controller.shaidchildrens
-      //         .map((e) => DataRow(cells: [
-      //               DataCell(Text(e.id.toString())),
-      //               DataCell(Text(e.name.toString())),
-      //               DataCell(Text(e.relation.toString())),
-      //               const DataCell(Icon(Icons.delete)),
-      //             ]))
-      //         .toList(),
-      //   ),
-      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Get.toNamed(Routes.CHILDREN, arguments: [OPERATION.insert]);
@@ -96,7 +76,7 @@ class ChildrenWidget extends StatelessWidget {
                             IconButton(
                                 onPressed: () {
                                   //show conformation button
-                                  controller.deleteChildrenData(children.id!);
+                                  controller.deleteChildrenData(children.name);
                                 },
                                 icon: const Icon(Icons.delete)),
                             IconButton(

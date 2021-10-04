@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
-import 'package:yoddhafoundation/app/data/model/shaid_children.dart';
-import 'package:yoddhafoundation/app/data/repositories/shaid_children.dart';
 import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
 
 class ChildrenDashboardController extends GetxController {
-  deleteChildrenData(int id) async {
+  deleteChildrenData(String name) async {
     bool value = await showDialog(
         context: Get.context!,
         builder: (context) {
@@ -28,13 +26,13 @@ class ChildrenDashboardController extends GetxController {
           );
         });
     if (value) {
-      int a = await shaidChildren.shaidChildrenDelete(id);
-      if (a > 0) {
-        appController.coreShaidModel!.shaidChildren!
-            .removeWhere((element) => element.id == id);
-      }
+      appController.coreShaidModel!.shaidChildren!
+          .removeWhere((element) => element.name == name);
     }
   }
+
+  //children
+  //
 
   @override
   void onInit() {

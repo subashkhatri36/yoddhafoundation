@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yoddhafoundation/app/constant/constants.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
+import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/constant/themes.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_core_model.dart';
-import 'package:yoddhafoundation/app/modules/sahid/views/sahid_view.dart';
 import 'package:yoddhafoundation/app/routes/app_pages.dart';
 import 'package:yoddhafoundation/app/widgets/authorized_widet_only.dart';
 import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
@@ -44,7 +44,7 @@ class DashboardView extends GetView<DashboardController> {
         child: Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              Get.toNamed(Routes.SAHID);
+              Get.toNamed(Routes.SAHID, arguments: [OPERATION.insert]);
             },
             child: const Icon(Icons.add),
           ),

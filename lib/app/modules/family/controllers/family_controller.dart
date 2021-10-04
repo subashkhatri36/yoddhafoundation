@@ -23,7 +23,6 @@ class FamilyController extends GetxController {
   final TextEditingController remarks = TextEditingController();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
- 
   @override
   void onInit() {
     super.onInit();
@@ -64,8 +63,8 @@ class FamilyController extends GetxController {
       shaidFamily.shaidFamilyupdate(family);
     } else {
       appController.coreShaidModel!.shaidFamily!.add(family);
-      appController.childrenListDataChange.toggle();
     }
+    appController.childrenListDataChange.toggle();
     Get.back();
   }
 

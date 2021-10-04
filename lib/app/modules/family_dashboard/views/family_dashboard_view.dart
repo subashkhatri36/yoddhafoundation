@@ -21,7 +21,7 @@ class FamilyDashboardView extends GetView<FamilyDashboardController> {
           IconButton(
               onPressed: () {
                 //shaidoverview page
-                Get.toNamed(Routes.FAMILY);
+                Get.toNamed(Routes.FAMILY, arguments: [OPERATION.insert]);
               },
               icon: const Text('Next'))
         ],
@@ -36,31 +36,6 @@ class FamilyDashboardView extends GetView<FamilyDashboardController> {
         },
         child: const Icon(Icons.add),
       ),
-      //    SingleChildScrollView(
-      //     scrollDirection: Axis.horizontal,
-      //     child: DataTable(
-      //       columns: const [
-      //         DataColumn(label: Text('ID')),
-      //         DataColumn(label: Text('SahidID')),
-      //         DataColumn(label: Text('Name')),
-      //         DataColumn(label: Text('Relation')),
-      //         DataColumn(label: Text('CreatedAt')),
-      //         DataColumn(label: Text('Action')),
-      //       ],
-      //       rows: controller.sahidFamilydata
-      //           .map((data) => DataRow(
-      //                 cells: [
-      //                   DataCell(Text(data.id.toString())),
-      //                   DataCell(Text(data.shaidId.toString())),
-      //                   DataCell(Text(data.name.toString())),
-      //                   DataCell(Text(data.relation.toString())),
-      //                   DataCell(Text(data.createdAt.toString())),
-      //                   const DataCell(Icon(Icons.delete)),
-      //                 ],
-      //               ))
-      //           .toList(),
-      //     ),
-      //   ),
     );
   }
 }
@@ -103,7 +78,7 @@ class FamilyWidget extends StatelessWidget {
                             IconButton(
                                 onPressed: () {
                                   //show conformation button
-                                  controller.deleteFamilyData(family.id!);
+                                  controller.deleteFamilyData(family.name);
                                 },
                                 icon: const Icon(Icons.delete)),
                             IconButton(

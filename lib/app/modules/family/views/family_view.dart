@@ -28,7 +28,6 @@ class FamilyView extends GetView<FamilyController> {
                 fontWeight: FontWeight.bold,
                 color: Colors.white),
           ),
-          centerTitle: true,
         ),
         body: Form(
             key: controller.formkey,

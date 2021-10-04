@@ -4,9 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
+import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/constant/string.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_core_model.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_model.dart';
+import 'package:yoddhafoundation/app/data/repositories/shaid_repo.dart';
 import 'package:yoddhafoundation/app/routes/app_pages.dart';
 import 'package:yoddhafoundation/app/widgets/custom_snackbar.dart';
 
@@ -56,6 +58,46 @@ class SahidController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+  }
+
+  Sahid? sahidInfo;
+
+  updateandClose() {
+    Sahid sa = Sahid(
+        id: sahidInfo!.id,
+        name: sahidName.text,
+        gender: genVal.value,
+        district: district.text,
+        state: state.text,
+        image: pickedImg!.path,
+        deathdate: DateTime.parse(deathDate.text),
+        deathplace: deathPlace.text,
+        responsible: checkdata(),
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now());
+    shaidRepo.shaidupdate(sa);
+    Get.back();
+    // appController.coreShaidModel = CoreShaidModel(shaid: sa);
+  }
+
+  loadData(Sahid shaid) {
+    sahidInfo = shaid;
+    sahidName.text = shaid.name;
+    deathDate.text = shaid.deathplace;
+    state.text = shaid.state;
+    district.text = shaid.district;
+    deathPlace.text = shaid.deathplace;
+    genVal.value = shaid.gender;
+    // pickedImg!.path=shaid.image;
+    if (shaid.responsible.contains(Strings.other)) {
+      thirdvalue.value = true;
+    }
+    if (shaid.responsible.contains(Strings.armSangathan)) {
+      secondvalue.value = true;
+    }
+    if (shaid.responsible.contains(Strings.partySangathan)) {
+      firstvalue.value = true;
+    }
   }
 
   insertandNext() {
@@ -113,7 +155,7 @@ class SahidController extends GetxController {
   }
 
   gotoNexPage() {
-    Get.toNamed(Routes.CHILDREN_DASHBOARD);
+    Get.toNamed(Routes.CHILDREN_DASHBOARD, arguments: [OPERATION.insert]);
   }
 
   @override
