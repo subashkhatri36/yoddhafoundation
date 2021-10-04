@@ -23,8 +23,18 @@ class SahidOverviewView extends GetView<SahidOverviewController> {
               child: Container(
                 height: 100,
                 width: double.infinity,
-                color: Colors.green,
-                child: const Text('Sahid Details Page'),
+                // color: Colors.green,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: controller.sahidData.length,
+                    itemBuilder: (context, index) {
+                      var data = controller.sahidData[index];
+                      return Card(
+                        child: Column(
+                          children: [Text(data.name)],
+                        ),
+                      );
+                    }),
               ),
             ),
             Expanded(
