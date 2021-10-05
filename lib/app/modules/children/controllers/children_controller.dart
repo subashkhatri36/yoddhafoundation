@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
+import 'package:yoddhafoundation/app/constant/db_name.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
+import 'package:yoddhafoundation/app/core/service/storage_service/shared_preference.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_children.dart';
 
 class ChildrenController extends GetxController {
@@ -23,25 +25,16 @@ class ChildrenController extends GetxController {
     //load
     childName.text = children.name;
     dob.text = children.dob.toString();
-    eduQulification.text = children.educationQualification;
-    stuLevel.text = children.currentlyStudyingLevel;
-    faculty.text = children.faculty;
-    occupation.text = children.occupation;
-    financeStatus.text = children.financialStatus;
+
     childValue.value = children.relation;
     gloabalchildren = children;
   }
 
-  void saved(OPERATION operation) {
+  void saved(OPERATION operation) async {
     ShaidChildren children = ShaidChildren(
         name: childName.text,
         relation: childValue.value,
         dob: DateTime.parse(dob.text),
-        educationQualification: eduQulification.text,
-        currentlyStudyingLevel: stuLevel.text,
-        faculty: faculty.text,
-        occupation: occupation.text,
-        financialStatus: financeStatus.text,
         createdAt: operation == OPERATION.update
             ? gloabalchildren!.createdAt
             : DateTime.now(),
@@ -51,7 +44,10 @@ class ChildrenController extends GetxController {
     if (operation == OPERATION.update) {
       children.id = gloabalchildren!.id;
       children.shaidId = gloabalchildren!.shaidId;
-      // shaidChildren.shaidChildrenupdate(children);
+      appController.offlineShaidModel[appController.index]
+          .shaidChildren![appController.childrenindex] = children;
+      await shareprefrence.save(
+          DBname.shaid, appController.offlineShaidModel.toJson());
     } else {
       appController.coreShaidModel!.shaidChildren!.add(children);
       appController.childrenListDataChange.toggle();

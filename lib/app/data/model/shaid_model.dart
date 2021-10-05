@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class Sahid {
-  int id;
+  int? id;
   String token;
   final String name;
   final String gender;
@@ -15,7 +15,7 @@ class Sahid {
   final DateTime updatedAt;
 
   Sahid({
-    this.id = 0,
+    this.id,
     required this.name,
     required this.gender,
     required this.district,
@@ -31,6 +31,7 @@ class Sahid {
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'name': name,
       'gender': gender,
       'state': state,

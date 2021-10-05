@@ -7,11 +7,6 @@ class ShaidChildren {
   final String relation;
   final DateTime dob;
   String token;
-  final String educationQualification;
-  final String currentlyStudyingLevel;
-  final String faculty;
-  final String occupation;
-  final String financialStatus;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -22,11 +17,6 @@ class ShaidChildren {
       required this.name,
       required this.relation,
       required this.dob,
-      required this.educationQualification,
-      required this.currentlyStudyingLevel,
-      required this.faculty,
-      required this.occupation,
-      required this.financialStatus,
       required this.createdAt,
       required this.updatedAt});
 
@@ -38,11 +28,6 @@ class ShaidChildren {
       'relation': relation,
       'token': token,
       'dob': dob.millisecondsSinceEpoch,
-      'education_qualification': educationQualification,
-      'currently_studying_level': currentlyStudyingLevel,
-      'faculty': faculty,
-      'occupation': occupation,
-      'financial_status': financialStatus,
       'created_at': createdAt.millisecondsSinceEpoch,
       'updated_at': updatedAt.millisecondsSinceEpoch,
     };
@@ -56,11 +41,6 @@ class ShaidChildren {
       token: map['token'],
       relation: map['relation'],
       dob: DateTime.fromMillisecondsSinceEpoch(map['dob']),
-      educationQualification: map['education_qualification'],
-      currentlyStudyingLevel: map['currently_studying_level'],
-      faculty: map['faculty'],
-      occupation: map['occupation'],
-      financialStatus: map['financial_status'],
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['created_at']),
       updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updated_at']),
     );

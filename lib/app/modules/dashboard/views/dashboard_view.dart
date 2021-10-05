@@ -71,31 +71,62 @@ class DashboardView extends GetView<DashboardController> {
                       : Padding(
                           padding:
                               const EdgeInsets.all(Constants.defaultPadding),
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: appController.offlineShaidModel.length,
-                              itemBuilder: (context, index) {
-                                CoreShaidModel e =
-                                    appController.offlineShaidModel[index];
-                                return Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: Constants.defaultMargin / 2,
-                                        vertical: Constants.defaultMargin),
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal:
-                                            Constants.defaultPadding / 2,
-                                        vertical: Constants.defaultPadding),
-                                    decoration: BoxDecoration(
-                                        border: Border.all(color: Themes.black),
-                                        borderRadius: BorderRadius.circular(
-                                            Constants.defaultRadius)),
-                                    child: ListTile(
-                                      title: Text(e.shaid.name),
-                                      leading: const FlutterLogo(),
-                                      trailing: const Icon(
-                                          Icons.keyboard_arrow_right),
-                                    ));
-                              }),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  const Text('Online Sync'),
+                                  Expanded(
+                                    child: CustomButton(
+                                        onpressed: () {
+                                          controller.onlineSyn();
+                                        },
+                                        btnText: 'Continue.'),
+                                  )
+                                ],
+                              ),
+                              Expanded(
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount:
+                                        appController.offlineShaidModel.length,
+                                    itemBuilder: (context, index) {
+                                      CoreShaidModel e = appController
+                                          .offlineShaidModel[index];
+                                      return Container(
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal:
+                                                  Constants.defaultMargin / 2,
+                                              vertical:
+                                                  Constants.defaultMargin),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal:
+                                                  Constants.defaultPadding / 2,
+                                              vertical:
+                                                  Constants.defaultPadding),
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Themes.black),
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                      Constants.defaultRadius)),
+                                          child: ListTile(
+                                            onTap: () {
+                                              appController.index = index;
+                                              Get.toNamed(Routes.shaidOverview,
+                                                  arguments: [
+                                                    OPERATION.update,
+                                                  ]);
+                                            },
+                                            title: Text(e.shaid.name),
+                                            leading: const FlutterLogo(),
+                                            trailing: const Icon(
+                                                Icons.keyboard_arrow_right),
+                                          ));
+                                    }),
+                              ),
+                            ],
+                          ),
                         ))),
         ),
       ),

@@ -4,7 +4,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 
 import 'package:get/get.dart';
-import 'package:yoddhafoundation/app/constant/controller.dart';
+import 'package:yoddhafoundation/app/constant/constants.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_children.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_family.dart';
@@ -79,7 +79,7 @@ class SahidOverviewView extends GetView<SahidOverviewController> {
                         child: Text(
                           argument[0] == OPERATION.insert
                               ? 'Finished'
-                              : 'Updated',
+                              : 'Close',
                           style: Theme.of(context)
                               .textTheme
                               .headline1!
@@ -105,16 +105,30 @@ class ShaidDetailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<SahidOverviewController>();
     return Container(
       height: 100,
       width: double.infinity,
       color: Colors.green,
       child: Column(
         children: [
+          //Image.file(appController.coreShaidModel!.shaid.image),
           Row(
-            children: const [
-              Text('Name : '),
-              Text('Sabcd'),
+            children: [
+              Text(
+                'Name : ',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(fontSize: Constants.defaultFontSize + 5),
+              ),
+              Text(controller.model!.shaid.name),
+            ],
+          ),
+          Row(
+            children: [
+              const Text('address : '),
+              Text(controller.model!.shaid.state),
             ],
           ),
         ],
@@ -129,21 +143,17 @@ class FamilyDisplayWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<SahidOverviewController>();
     return Container(
         height: 50,
         width: double.infinity,
         color: Colors.deepOrange,
         child: ListView.builder(
             shrinkWrap: true,
-            itemCount: args == OPERATION.insert
-                ? appController.coreShaidModel!.shaidFamily!.length
-                : appController
-                    .offlineShaidModel[appController.index].shaidFamily!.length,
+            itemCount: controller.model!.shaidFamily!.length,
             itemBuilder: (context, index) {
-              ShaidFamily family = args == OPERATION.insert
-                  ? appController.coreShaidModel!.shaidFamily![index]
-                  : appController.offlineShaidModel[appController.index]
-                      .shaidFamily![index];
+              ShaidFamily family = controller.model!.shaidFamily![index];
+
               return ListTile(
                 title: Text(family.name),
               );
@@ -160,21 +170,17 @@ class ChildrenDisplayWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<SahidOverviewController>();
     return Container(
         height: 50,
         width: double.infinity,
         color: Colors.deepOrange,
         child: ListView.builder(
             shrinkWrap: true,
-            itemCount: args == OPERATION.insert
-                ? appController.coreShaidModel!.shaidChildren!.length
-                : appController.offlineShaidModel[appController.index]
-                    .shaidChildren!.length,
+            itemCount: controller.model!.shaidChildren!.length,
             itemBuilder: (context, index) {
-              ShaidChildren children = args == OPERATION.insert
-                  ? appController.coreShaidModel!.shaidChildren![index]
-                  : appController.offlineShaidModel[appController.index]
-                      .shaidChildren![index];
+              ShaidChildren children = controller.model!.shaidChildren![index];
+
               return ListTile(
                 title: Text(children.name),
               );

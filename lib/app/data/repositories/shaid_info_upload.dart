@@ -6,7 +6,7 @@ import 'package:yoddhafoundation/app/data/model/shaid_children.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_family.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_model.dart';
 
-ShaidAPI userlogin = ShaidAPI();
+ShaidAPI shaidUpload = ShaidAPI();
 
 ///it call all user related work
 class ShaidAPI {
@@ -15,10 +15,9 @@ class ShaidAPI {
     httpService.init();
   }
 
-
   Future<ApiCall> shaidInfoUpload(Sahid shaid) async {
     ApiCall userapi = ApiCall();
-    shaid.token=appController.accesstoken;
+    shaid.token = appController.accesstoken;
     final data = shaid.toMap();
     try {
       final response = await httpService.post(Api.shaidInsert, data: data);
@@ -37,13 +36,15 @@ class ShaidAPI {
   }
 
   //family
-  
-  Future<ApiCall> shaidFamilyUpload(ShaidFamily shaidFamily) async {
+
+  Future<ApiCall> shaidFamilyUpload(ShaidFamily shaidFamily, int id) async {
     ApiCall userapi = ApiCall();
-    shaidFamily.token=appController.accesstoken;
+    shaidFamily.token = appController.accesstoken;
     final data = shaidFamily.toMap();
+    Api api = Api();
     try {
-      final response = await httpService.post(Api.shaidInsert, data: data);
+      api.insertfamily += id.toString() + "/family/store";
+      final response = await httpService.post(api.insertfamily, data: data);
       if (response != null) {
         userapi.response = response.data;
         if (userapi.response == null) {
@@ -57,16 +58,18 @@ class ShaidAPI {
     }
     return userapi;
   }
-
 
 //children
-  
-  Future<ApiCall> shaidChildrenUpload(ShaidChildren shaidChildren) async {
+
+  Future<ApiCall> shaidChildrenUpload(
+      ShaidChildren shaidChildren, int id) async {
     ApiCall userapi = ApiCall();
-    shaidChildren.token=appController.accesstoken;
+    shaidChildren.token = appController.accesstoken;
     final data = shaidChildren.toMap();
+    Api api = Api();
     try {
-      final response = await httpService.post(Api.shaidInsert, data: data);
+      api.insertchildren += id.toString() + "/children/store";
+      final response = await httpService.post(api.insertchildren, data: data);
       if (response != null) {
         userapi.response = response.data;
         if (userapi.response == null) {
@@ -80,35 +83,4 @@ class ShaidAPI {
     }
     return userapi;
   }
-
-
 }
-
-/*
-{
-    "message": "The given data was invalid.",
-    "errors": {
-        "name": [
-            "The name field is required."
-        ],
-        "gender": [
-            "The gender field is required."
-        ],
-        "state": [
-            "The state field is required."
-        ],
-        "district": [
-            "The district field is required."
-        ],
-        "death_date": [
-            "The death date field is required."
-        ],
-        "death_place": [
-            "The death place field is required."
-        ],
-        "responsible": [
-            "The responsible field is required."
-        ]
-    }
-}
- */

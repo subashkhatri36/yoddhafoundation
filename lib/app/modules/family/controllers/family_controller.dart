@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
+import 'package:yoddhafoundation/app/constant/db_name.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
+import 'package:yoddhafoundation/app/core/service/storage_service/shared_preference.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_family.dart';
+import 'package:yoddhafoundation/app/widgets/custom_snackbar.dart';
 
 class FamilyController extends GetxController {
   RxString memberValue = 'आमा'.obs;
@@ -29,37 +32,39 @@ class FamilyController extends GetxController {
     //load
     familyName.text = family.name;
     age.text = family.age.toString();
-    occupation.text = family.occupation;
-    financialStatus.text = family.financialStatus;
-    remarks.text = family.remarks;
-    occupation.text = family.occupation;
+
     memberValue.value = family.relation;
     gloabalfamily = family;
   }
 
-  void saved(OPERATION operation) {
-    ShaidFamily family = ShaidFamily(
-        name: familyName.text,
-        relation: memberValue.value,
-        age: int.parse(age.text),
-        occupation: occupation.text,
-        financialStatus: financialStatus.text,
-        remarks: remarks.text,
-        createdAt: operation == OPERATION.update
-            ? gloabalfamily!.createdAt
-            : DateTime.now(),
-        updatedAt: DateTime.now());
+  void saved(OPERATION operation) async {
+    if (formkey.currentState!.validate()) {
+      ShaidFamily family = ShaidFamily(
+          name: familyName.text,
+          relation: memberValue.value,
+          age: int.parse(age.text),
+          createdAt: operation == OPERATION.update
+              ? gloabalfamily!.createdAt
+              : DateTime.now(),
+          updatedAt: DateTime.now());
 
-    //if it is updated then
-    if (operation == OPERATION.update) {
-      family.id = gloabalfamily!.id;
-      family.shaidId = gloabalfamily!.shaidId;
-      //shaidFamily.shaidFamilyupdate(family);
+      //if it is updated then
+      if (operation == OPERATION.update) {
+        family.id = gloabalfamily!.id;
+        family.shaidId = gloabalfamily!.shaidId;
+        appController.offlineShaidModel[appController.index]
+            .shaidFamily![appController.familyindex] = family;
+        await shareprefrence.save(
+            DBname.shaid, appController.offlineShaidModel.toJson());
+      } else {
+        appController.coreShaidModel!.shaidFamily!.add(family);
+        appController.familyListDataChange.toggle();
+      }
+      Get.back();
     } else {
-      appController.coreShaidModel!.shaidFamily!.add(family);
+      //error
+      customSnackbar(message: 'There is an error please check');
     }
-    appController.childrenListDataChange.toggle();
-    Get.back();
   }
 
   @override

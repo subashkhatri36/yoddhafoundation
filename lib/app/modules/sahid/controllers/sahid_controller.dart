@@ -69,9 +69,9 @@ class SahidController extends GetxController {
         responsible: checkdata(),
         createdAt: DateTime.now(),
         updatedAt: DateTime.now());
+    appController.offlineShaidModel[appController.index].shaid = sa;
     // shaidRepo.shaidupdate(sa);
     Get.back();
-    // appController.coreShaidModel = CoreShaidModel(shaid: sa);
   }
 
   loadData(Sahid shaid) {
@@ -143,6 +143,15 @@ class SahidController extends GetxController {
     } else if (firstvalue.value && secondvalue.value) {
       //5
       return '${Strings.partySangathan},${Strings.armSangathan} ';
+    } else if (firstvalue.value) {
+      //3
+      return Strings.partySangathan;
+    } else if (secondvalue.value) {
+      //4
+      return Strings.armSangathan;
+    } else if (thirdvalue.value) {
+      //5
+      return Strings.other;
     } else {
       return '';
     }

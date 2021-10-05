@@ -7,9 +7,7 @@ class ShaidFamily {
   final String relation;
   String token;
   final int age;
-  final String occupation;
-  final String financialStatus;
-  final String remarks;
+
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -20,9 +18,6 @@ class ShaidFamily {
       required this.name,
       required this.relation,
       required this.age,
-      required this.occupation,
-      required this.financialStatus,
-      required this.remarks,
       required this.createdAt,
       required this.updatedAt});
 
@@ -34,9 +29,6 @@ class ShaidFamily {
       'relation': relation,
       'age': age,
       'token': token,
-      'occupation': occupation,
-      'financial_status': financialStatus,
-      'remarks': remarks,
       'created_at': createdAt.millisecondsSinceEpoch,
       'updated_at': updatedAt.millisecondsSinceEpoch,
     };
@@ -50,9 +42,6 @@ class ShaidFamily {
       relation: map['relation'],
       age: map['age'],
       token: map['token'],
-      occupation: map['occupation'],
-      financialStatus: map['financial_status'],
-      remarks: map['remarks'],
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['created_at']),
       updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updated_at']),
     );

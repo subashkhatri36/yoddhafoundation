@@ -29,6 +29,7 @@ class ChildrenDashboardController extends GetxController {
       appController.coreShaidModel!.shaidChildren!
           .removeWhere((element) => element.name == name);
     }
+    appController.childrenListDataChange.toggle();
   }
 
   //children

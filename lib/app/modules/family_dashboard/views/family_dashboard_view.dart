@@ -6,6 +6,7 @@ import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_family.dart';
 import 'package:yoddhafoundation/app/routes/app_pages.dart';
+import 'package:yoddhafoundation/app/widgets/list_item_widget.dart';
 
 import '../controllers/family_dashboard_controller.dart';
 
@@ -67,45 +68,104 @@ class FamilyWidget extends StatelessWidget {
             alignment: Alignment.center,
             child: const Text('There is No Data ITs Null.'),
           )
-        : appController.coreShaidModel!.shaidChildren == null
+        : appController.coreShaidModel!.shaidFamily == null ||
+                appController.coreShaidModel!.shaidFamily!.isEmpty
             ? Container(
                 padding: const EdgeInsets.all(Constants.defaultPadding),
                 alignment: Alignment.center,
                 child: const Text(
-                    'List Is Empty Please add family from following (+) Icon.'),
+                  'List Is Empty Please add family from following (+) Icon.',
+                  textAlign: TextAlign.center,
+                ),
               )
-            : Container(
-                padding: const EdgeInsets.all(Constants.defaultPadding),
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount:
-                        appController.coreShaidModel!.shaidFamily!.length,
-                    itemBuilder: (context, index) {
-                      ShaidFamily family =
-                          appController.coreShaidModel!.shaidFamily![index];
+            : appController.familyListDataChange.isTrue
+                ? ListviewWidget(
+                    controller: controller,
+                    argument: OPERATION.insert,
+                  )
+                : ListviewWidget(
+                    controller: controller,
+                    argument: OPERATION.insert,
+                  );
+  }
+}
 
-                      return ListTile(
-                        title: Text(family.name),
-                        trailing: Column(
+class ListviewWidget extends StatelessWidget {
+  final OPERATION argument;
+  const ListviewWidget({
+    Key? key,
+    required this.argument,
+    required this.controller,
+  }) : super(key: key);
+
+  final FamilyDashboardController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(Constants.defaultPadding),
+      child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: appController.coreShaidModel!.shaidFamily!.length,
+          itemBuilder: (context, index) {
+            ShaidFamily family =
+                appController.coreShaidModel!.shaidFamily![index];
+
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 2),
+              child: Card(
+                child: Container(
+                    margin: const EdgeInsets.symmetric(
+                        vertical: Constants.defaultMargin,
+                        horizontal: Constants.defaultMargin / 2),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            IconButton(
-                                onPressed: () {
-                                  //show conformation button
-                                  controller.deleteFamilyData(family.name);
-                                },
-                                icon: const Icon(Icons.delete)),
-                            IconButton(
-                                onPressed: () {
-                                  Get.toNamed(
-                                    Routes.family,
-                                    arguments: [OPERATION.update, family],
-                                  );
-                                },
-                                icon: const Icon(Icons.edit)),
+                            ListItemWidget(
+                              field: 'Name',
+                              value: family.name,
+                            ),
+                            Column(
+                              children: [
+                                InkWell(
+                                    onTap: () {
+                                      //show conformation button
+                                      controller.deleteFamilyData(family.name);
+                                    },
+                                    child: const Icon(Icons.delete)),
+                                argument == OPERATION.insert
+                                    ? Container()
+                                    : InkWell(
+                                        onTap: () {
+                                          Get.toNamed(
+                                            Routes.children,
+                                            arguments: [
+                                              OPERATION.update,
+                                              family
+                                            ],
+                                          );
+                                        },
+                                        child: const Icon(Icons.edit)),
+                              ],
+                            ),
                           ],
                         ),
-                      );
-                    }),
-              );
+                        ListItemWidget(
+                          field: 'Relation',
+                          value: family.relation,
+                        ),
+                        ListItemWidget(
+                          field: 'Age',
+                          value: family.age.toString(),
+                        ),
+                      ],
+                    )),
+              ),
+            );
+          }),
+    );
   }
 }

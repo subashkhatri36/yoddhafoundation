@@ -29,6 +29,7 @@ class FamilyDashboardController extends GetxController {
       appController.coreShaidModel!.shaidFamily!
           .removeWhere((element) => element.name == name);
     }
+    appController.familyListDataChange.toggle();
   }
 
   @override
