@@ -18,8 +18,8 @@ class CoreShaidModel {
   Map<String, dynamic> toMap() {
     return {
       'shaid': shaid.toMap(),
-      'shaidFamily': shaidFamily?.map((x) => x?.toMap())?.toList(),
-      'shaidChildren': shaidChildren?.map((x) => x?.toMap())?.toList(),
+      'shaidFamily': shaidFamily?.map((x) => x.toMap()).toList(),
+      'shaidChildren': shaidChildren?.map((x) => x.toMap()).toList(),
     };
   }
 

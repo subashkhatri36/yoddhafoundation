@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/constant/string.dart';
 import 'package:yoddhafoundation/app/utls/validation.dart';
@@ -19,7 +18,7 @@ class ChildrenView extends GetView<ChildrenController> {
 
   @override
   Widget build(BuildContext context) {
-    print(appController.coreShaidModel!.shaid.name);
+    // print(appController.coreShaidModel!.shaid.name);
     if (argument[0] == OPERATION.update) {
       controller.loadData(argument[1]);
     }
@@ -67,31 +66,31 @@ class ChildrenView extends GetView<ChildrenController> {
                     controller: controller.dob,
                     validator: (value) => validateIsEmpty(string: value),
                     prefix: Icons.calendar_today),
-                CustomeInput(
-                    hintText: Strings.educationQualification,
-                    controller: controller.eduQulification,
-                    validator: (value) => validateIsEmpty(string: value),
-                    prefix: Icons.cast_for_education),
-                CustomeInput(
-                    hintText: Strings.studyingLevel,
-                    controller: controller.stuLevel,
-                    validator: (value) => validateIsEmpty(string: value),
-                    prefix: Icons.cast_for_education),
-                CustomeInput(
-                    hintText: Strings.faculty,
-                    controller: controller.faculty,
-                    validator: (value) => validateIsEmpty(string: value),
-                    prefix: Icons.book_online),
-                CustomeInput(
-                    hintText: Strings.occupation,
-                    controller: controller.occupation,
-                    validator: (value) => validateIsEmpty(string: value),
-                    prefix: Icons.work),
-                CustomeInput(
-                    hintText: Strings.financialStatus,
-                    controller: controller.financeStatus,
-                    validator: (value) => validateIsEmpty(string: value),
-                    prefix: Icons.money),
+                // // CustomeInput(
+                // //     hintText: Strings.educationQualification,
+                // //     controller: controller.eduQulification,
+                // //     validator: (value) => validateIsEmpty(string: value),
+                // //     prefix: Icons.cast_for_education),
+                // // CustomeInput(
+                // //     hintText: Strings.studyingLevel,
+                // //     controller: controller.stuLevel,
+                // //     validator: (value) => validateIsEmpty(string: value),
+                // //     prefix: Icons.cast_for_education),
+                // CustomeInput(
+                //     hintText: Strings.faculty,
+                //     controller: controller.faculty,
+                //     validator: (value) => validateIsEmpty(string: value),
+                //     prefix: Icons.book_online),
+                // CustomeInput(
+                //     hintText: Strings.occupation,
+                //     controller: controller.occupation,
+                //     validator: (value) => validateIsEmpty(string: value),
+                //     prefix: Icons.work),
+                // CustomeInput(
+                //     hintText: Strings.financialStatus,
+                //     controller: controller.financeStatus,
+                //     validator: (value) => validateIsEmpty(string: value),
+                //     prefix: Icons.money),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: CustomButton(

@@ -27,7 +27,7 @@ class DeviceInfo {
   static Future<double> getIOSVersion() async {
     var iosInfo = await DeviceInfoPlugin().iosInfo;
     var version = double.parse(iosInfo.systemVersion);
-    print("IOS version => $version");
+    //print("IOS version => $version");
     return version;
   }
 
@@ -40,9 +40,9 @@ class DeviceInfo {
         _readIosDeviceInfo(await deviceInfoPlugin.iosInfo);
       }
     } on PlatformException {
-      print("Error: 'Failed to get platform version.'");
+      // print("Error: 'Failed to get platform version.'");
     } finally {
-      print("device info: $name | $id");
+      //print("device info: $name | $id");
     }
   }
 

@@ -13,6 +13,7 @@ class ListItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           '$field : ',
@@ -21,7 +22,7 @@ class ListItemWidget extends StatelessWidget {
               .bodyText1!
               .copyWith(fontWeight: FontWeight.bold),
         ),
-        Text(value),
+        Expanded(child: Text(value)),
       ],
     );
   }

@@ -14,11 +14,6 @@ class LoginController extends GetxController {
   final TextEditingController password = TextEditingController();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
   void login() async {
     if (formkey.currentState!.validate()) {
       //do what we want to do
@@ -29,7 +24,7 @@ class LoginController extends GetxController {
         shareprefrence.save(Strings.logintoken, response.response);
         appController.accesstoken = response.response;
         appController.authorized = true;
-        Get.offNamed(Routes.DASHBOARD);
+        Get.offNamed(Routes.dashboard);
       } else {
         customSnackbar(
             message: response.error,
@@ -66,11 +61,6 @@ class LoginController extends GetxController {
   
   
    */
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   @override
   void onClose() {}

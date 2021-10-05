@@ -5,7 +5,6 @@ import 'package:yoddhafoundation/app/constant/constants.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_family.dart';
-import 'package:yoddhafoundation/app/modules/children_dashboard/views/children_dashboard_view.dart';
 import 'package:yoddhafoundation/app/routes/app_pages.dart';
 import 'package:yoddhafoundation/app/widgets/list_item_widget.dart';
 
@@ -26,7 +25,7 @@ class FamilyDashboardView extends GetView<FamilyDashboardController> {
               alignment: Alignment.center,
               child: GestureDetector(
                 onTap: () {
-                  Get.toNamed(Routes.SAHID_OVERVIEW,
+                  Get.toNamed(Routes.shaidOverview,
                       arguments: [OPERATION.insert]);
                 },
                 child: Text(
@@ -47,7 +46,7 @@ class FamilyDashboardView extends GetView<FamilyDashboardController> {
           : const FamilyWidget()),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.toNamed(Routes.FAMILY, arguments: [OPERATION.insert]);
+          Get.toNamed(Routes.family, arguments: [OPERATION.insert]);
         },
         child: const Icon(Icons.add),
       ),
@@ -70,7 +69,7 @@ class FamilyWidget extends StatelessWidget {
             child: const Text('There is No Data ITs Null.'),
           )
         : appController.coreShaidModel!.shaidFamily == null ||
-                appController.coreShaidModel!.shaidFamily!.length <= 0
+                appController.coreShaidModel!.shaidFamily!.isEmpty
             ? Container(
                 padding: const EdgeInsets.all(Constants.defaultPadding),
                 alignment: Alignment.center,
@@ -80,14 +79,22 @@ class FamilyWidget extends StatelessWidget {
                 ),
               )
             : appController.familyListDataChange.isTrue
-                ? ListviewWidget(controller: controller)
-                : ListviewWidget(controller: controller);
+                ? ListviewWidget(
+                    controller: controller,
+                    argument: OPERATION.insert,
+                  )
+                : ListviewWidget(
+                    controller: controller,
+                    argument: OPERATION.insert,
+                  );
   }
 }
 
 class ListviewWidget extends StatelessWidget {
+  final OPERATION argument;
   const ListviewWidget({
     Key? key,
+    required this.argument,
     required this.controller,
   }) : super(key: key);
 
@@ -129,14 +136,19 @@ class ListviewWidget extends StatelessWidget {
                                       controller.deleteFamilyData(family.name);
                                     },
                                     child: const Icon(Icons.delete)),
-                                InkWell(
-                                    onTap: () {
-                                      Get.toNamed(
-                                        Routes.CHILDREN,
-                                        arguments: [OPERATION.update, family],
-                                      );
-                                    },
-                                    child: const Icon(Icons.edit)),
+                                argument == OPERATION.insert
+                                    ? Container()
+                                    : InkWell(
+                                        onTap: () {
+                                          Get.toNamed(
+                                            Routes.children,
+                                            arguments: [
+                                              OPERATION.update,
+                                              family
+                                            ],
+                                          );
+                                        },
+                                        child: const Icon(Icons.edit)),
                               ],
                             ),
                           ],
@@ -148,18 +160,6 @@ class ListviewWidget extends StatelessWidget {
                         ListItemWidget(
                           field: 'Age',
                           value: family.age.toString(),
-                        ),
-                        ListItemWidget(
-                          field: 'Occupation',
-                          value: family.occupation,
-                        ),
-                        ListItemWidget(
-                          field: 'Financial Condition',
-                          value: family.financialStatus,
-                        ),
-                        ListItemWidget(
-                          field: 'Remarks',
-                          value: family.remarks,
                         ),
                       ],
                     )),

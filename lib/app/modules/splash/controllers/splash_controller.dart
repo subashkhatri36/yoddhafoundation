@@ -7,7 +7,6 @@ import 'package:yoddhafoundation/app/routes/app_pages.dart';
 class SplashController extends GetxController {
   String loading = 'loading';
 
-  final count = 0.obs;
   @override
   void onInit() {
     startTimer();
@@ -21,19 +20,14 @@ class SplashController extends GetxController {
 
   route() async {
     await appController.init();
+    //  print(appController.accesstoken);
     if (appController.accesstoken.isNotEmpty) {
-      Get.offNamed(Routes.DASHBOARD);
+      Get.offNamed(Routes.dashboard);
     } else {
-      Get.toNamed(Routes.LOGIN);
+      Get.toNamed(Routes.login);
     }
   }
 
   @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
   void onClose() {}
-  void increment() => count.value++;
 }

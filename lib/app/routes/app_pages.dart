@@ -10,8 +10,6 @@ import 'package:yoddhafoundation/app/modules/family/bindings/family_binding.dart
 import 'package:yoddhafoundation/app/modules/family/views/family_view.dart';
 import 'package:yoddhafoundation/app/modules/family_dashboard/bindings/family_dashboard_binding.dart';
 import 'package:yoddhafoundation/app/modules/family_dashboard/views/family_dashboard_view.dart';
-import 'package:yoddhafoundation/app/modules/home/bindings/home_binding.dart';
-import 'package:yoddhafoundation/app/modules/home/views/home_view.dart';
 import 'package:yoddhafoundation/app/modules/login/bindings/login_binding.dart';
 import 'package:yoddhafoundation/app/modules/login/views/login_view.dart';
 import 'package:yoddhafoundation/app/modules/sahid/bindings/sahid_binding.dart';
@@ -28,61 +26,56 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SPLASH;
+  static const initial = Routes.splash;
 
   static final routes = [
     GetPage(
-      name: _Paths.HOME,
-      page: () => HomeView(),
-      binding: HomeBinding(),
-    ),
-    GetPage(
-      name: _Paths.SPLASH,
-      page: () => SplashView(),
+      name: _Paths.splash,
+      page: () => const SplashView(),
       binding: SplashBinding(),
     ),
     GetPage(
-      name: _Paths.LOGIN,
-      page: () => LoginView(),
+      name: _Paths.login,
+      page: () => const LoginView(),
       binding: LoginBinding(),
     ),
     GetPage(
-      name: _Paths.SAHID,
+      name: _Paths.shaid,
       page: () => SahidView(),
       binding: SahidBinding(),
     ),
     GetPage(
-      name: _Paths.DASHBOARD,
-      page: () => DashboardView(),
+      name: _Paths.dashboard,
+      page: () => const DashboardView(),
       binding: DashboardBinding(),
     ),
     GetPage(
-      name: _Paths.CHILDREN,
+      name: _Paths.children,
       page: () => ChildrenView(),
       binding: ChildrenBinding(),
     ),
     GetPage(
-      name: _Paths.FAMILY,
+      name: _Paths.family,
       page: () => FamilyView(),
       binding: FamilyBinding(),
     ),
     GetPage(
-      name: _Paths.USER_PROFILE,
-      page: () => UserProfileView(),
+      name: _Paths.userprofile,
+      page: () => const UserProfileView(),
       binding: UserProfileBinding(),
     ),
     GetPage(
-      name: _Paths.CHILDREN_DASHBOARD,
-      page: () => ChildrenDashboardView(),
+      name: _Paths.childrendashboard,
+      page: () => const ChildrenDashboardView(),
       binding: ChildrenDashboardBinding(),
     ),
     GetPage(
-      name: _Paths.FAMILY_DASHBOARD,
-      page: () => FamilyDashboardView(),
+      name: _Paths.familydashboard,
+      page: () => const FamilyDashboardView(),
       binding: FamilyDashboardBinding(),
     ),
     GetPage(
-      name: _Paths.SAHID_OVERVIEW,
+      name: _Paths.shaidoverview,
       page: () => SahidOverviewView(),
       binding: SahidOverviewBinding(),
     ),

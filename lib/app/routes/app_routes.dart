@@ -4,31 +4,29 @@ part of 'app_pages.dart';
 abstract class Routes {
   Routes._();
 
-  static const HOME = _Paths.HOME;
-  static const SPLASH = _Paths.SPLASH;
-  static const LOGIN = _Paths.LOGIN;
-  static const SAHID = _Paths.SAHID;
-  static const DASHBOARD = _Paths.DASHBOARD;
-  static const CHILDREN = _Paths.CHILDREN;
-  static const FAMILY = _Paths.FAMILY;
-  static const SAHID_DASHBOARD = _Paths.SAHID_DASHBOARD;
-  static const USER_PROFILE = _Paths.USER_PROFILE;
-  static const CHILDREN_DASHBOARD = _Paths.CHILDREN_DASHBOARD;
-  static const FAMILY_DASHBOARD = _Paths.FAMILY_DASHBOARD;
-  static const SAHID_OVERVIEW = _Paths.SAHID_OVERVIEW;
+  static const splash = _Paths.splash;
+  static const login = _Paths.login;
+  static const shaid = _Paths.shaid;
+  static const dashboard = _Paths.dashboard;
+  static const children = _Paths.children;
+  static const family = _Paths.family;
+  static const shaiddashboard = _Paths.shaiddashboard;
+  static const userprofile = _Paths.userprofile;
+  static const childrendashboard = _Paths.childrendashboard;
+  static const familydashboard = _Paths.familydashboard;
+  static const shaidOverview = _Paths.shaidoverview;
 }
 
 abstract class _Paths {
-  static const HOME = '/home';
-  static const SPLASH = '/splash';
-  static const LOGIN = '/login';
-  static const SAHID = '/sahid';
-  static const DASHBOARD = '/dashboard';
-  static const CHILDREN = '/children';
-  static const FAMILY = '/family';
-  static const SAHID_DASHBOARD = '/sahid-dashboard';
-  static const USER_PROFILE = '/user-profile';
-  static const CHILDREN_DASHBOARD = '/children-dashboard';
-  static const FAMILY_DASHBOARD = '/family-dashboard';
-  static const SAHID_OVERVIEW = '/sahid-overview';
+  static const splash = '/splash';
+  static const login = '/login';
+  static const shaid = '/sahid';
+  static const dashboard = '/dashboard';
+  static const children = '/children';
+  static const family = '/family';
+  static const shaiddashboard = '/sahid-dashboard';
+  static const userprofile = '/user-profile';
+  static const childrendashboard = '/children-dashboard';
+  static const familydashboard = '/family-dashboard';
+  static const shaidoverview = '/sahid-overview';
 }

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -82,9 +80,7 @@ class SahidOverviewView extends GetView<SahidOverviewController> {
                               : controller.updateData();
                         },
                         child: Text(
-                          argument[0] == OPERATION.insert
-                              ? 'Submit'
-                              : 'Updated',
+                          argument[0] == OPERATION.insert ? 'Submit' : 'Close',
                           style: Theme.of(context)
                               .textTheme
                               .headline1!
@@ -109,101 +105,97 @@ class ShaidDetailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 100,
-        width: double.infinity,
-        // color: Colors.green,
-        child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: appController.coreShaidModel!.shaidChildren!.length,
-            itemBuilder: (context, index) {
-              ShaidChildren children =
-                  appController.coreShaidModel!.shaidChildren![index];
-              return Card(
-                child: Container(
-                  margin: const EdgeInsets.symmetric(
-                      vertical: Constants.defaultMargin,
-                      horizontal: Constants.defaultMargin / 2),
-                  child: Row(
-                    children: [
-                      Container(
-                        // color: Colors.green,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ListItemWidget(
-                              field: 'Name',
-                              value: children.name,
-                            ),
-                            ListItemWidget(
-                              field: 'Relation',
-                              value: children.relation,
-                            ),
-                            ListItemWidget(
-                              field: 'Studying Level',
-                              value: children.currentlyStudyingLevel,
-                            ),
-                            ListItemWidget(
-                              field: 'Faculty',
-                              value: children.faculty,
-                            ),
-                            ListItemWidget(
-                              field: 'Occuptaion',
-                              value: children.occupation,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                          width: 150,
-                          height: 185,
-                          child: Column(
-                            children: [
-                              const ClipRRect(
-                                child: Image(
-                                    fit: BoxFit.contain,
-                                    image: AssetImage(
-                                        "assets/images/auctionlogo.PNG")),
-                              ),
-                              InkWell(
-                                  onTap: () {
-                                    Get.toNamed(
-                                      Routes.CHILDREN,
-                                      arguments: [OPERATION.update, children],
-                                    );
-                                  },
-                                  child: const Icon(Icons.edit)),
-                            ],
-                          ))
-                    ],
-                  ),
+    final controller = Get.find<SahidOverviewController>();
+    return Card(
+      child: Container(
+        margin: const EdgeInsets.symmetric(
+            vertical: Constants.defaultMargin,
+            horizontal: Constants.defaultMargin / 2),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ListItemWidget(
+                      field: 'Name',
+                      value: controller.model!.shaid.name,
+                    ),
+                    ListItemWidget(
+                      field: 'Gender',
+                      value: controller.model!.shaid.gender,
+                    ),
+                    ListItemWidget(
+                      field: 'Death Date:',
+                      value: controller.model!.shaid.deathdate.toString(),
+                    ),
+                    ListItemWidget(
+                      field: 'State:',
+                      value: controller.model!.shaid.state,
+                    ),
+                    ListItemWidget(
+                      field: 'District:',
+                      value: controller.model!.shaid.district,
+                    ),
+                    ListItemWidget(
+                      field: 'Death Place:',
+                      value: controller.model!.shaid.deathplace,
+                    ),
+                    ListItemWidget(
+                      field: 'Sangathanic Role:',
+                      value: controller.model!.shaid.responsible,
+                    ),
+                  ],
                 ),
-              );
-            }));
+              ),
+            ),
+            SizedBox(
+              child: Column(
+                children: [
+                  ClipRRect(
+                    child: Image(
+                        height: appController.height * .2,
+                        fit: BoxFit.fitHeight,
+                        image: AssetImage("assets/images/auctionlogo.PNG")),
+                  ),
+                  InkWell(
+                      onTap: () {
+                        Get.toNamed(
+                          Routes.children,
+                          arguments: [
+                            OPERATION.update,
+                          ],
+                        );
+                      },
+                      child: const Icon(Icons.edit)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
 class FamilyDisplayWidget extends StatelessWidget {
-  OPERATION args;
-  FamilyDisplayWidget({Key? key, required this.args}) : super(key: key);
+  final OPERATION args;
+  const FamilyDisplayWidget({Key? key, required this.args}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<SahidOverviewController>();
     return Container(
         height: 50,
         width: double.infinity,
         // color: Colors.deepOrange,
         child: ListView.builder(
             shrinkWrap: true,
-            itemCount: args == OPERATION.insert
-                ? appController.coreShaidModel!.shaidFamily!.length
-                : appController
-                    .offlineShaidModel[appController.index].shaidFamily!.length,
+            itemCount: controller.model!.shaidFamily!.length,
             itemBuilder: (context, index) {
-              ShaidFamily family = args == OPERATION.insert
-                  ? appController.coreShaidModel!.shaidFamily![index]
-                  : appController.offlineShaidModel[appController.index]
-                      .shaidFamily![index];
+              ShaidFamily family = controller.model!.shaidFamily![index];
               return Card(
                 child: Container(
                   margin: const EdgeInsets.symmetric(
@@ -224,18 +216,6 @@ class FamilyDisplayWidget extends StatelessWidget {
                         field: 'Age',
                         value: family.age.toString(),
                       ),
-                      ListItemWidget(
-                        field: 'Occupation',
-                        value: family.occupation,
-                      ),
-                      ListItemWidget(
-                        field: 'Financial Condition',
-                        value: family.financialStatus,
-                      ),
-                      ListItemWidget(
-                        field: 'Remarks',
-                        value: family.remarks,
-                      ),
                     ],
                   ),
                 ),
@@ -245,29 +225,24 @@ class FamilyDisplayWidget extends StatelessWidget {
 }
 
 class ChildrenDisplayWidget extends StatelessWidget {
-  OPERATION args;
-  ChildrenDisplayWidget({
+  final OPERATION args;
+  const ChildrenDisplayWidget({
     Key? key,
     required this.args,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<SahidOverviewController>();
     return Container(
         height: 50,
         width: double.infinity,
         // color: Colors.deepOrange,
         child: ListView.builder(
             shrinkWrap: true,
-            itemCount: args == OPERATION.insert
-                ? appController.coreShaidModel!.shaidChildren!.length
-                : appController.offlineShaidModel[appController.index]
-                    .shaidChildren!.length,
+            itemCount: controller.model!.shaidChildren!.length,
             itemBuilder: (context, index) {
-              ShaidChildren children = args == OPERATION.insert
-                  ? appController.coreShaidModel!.shaidChildren![index]
-                  : appController.offlineShaidModel[appController.index]
-                      .shaidChildren![index];
+              ShaidChildren children = controller.model!.shaidChildren![index];
               return Card(
                 child: Container(
                   margin: const EdgeInsets.symmetric(
@@ -288,22 +263,6 @@ class ChildrenDisplayWidget extends StatelessWidget {
                         field: 'Date of Birth:',
                         value:
                             DateTime.parse(children.dob.toString()).toString(),
-                      ),
-                      ListItemWidget(
-                        field: 'Education Qualification:',
-                        value: children.educationQualification,
-                      ),
-                      ListItemWidget(
-                        field: 'Studying Level',
-                        value: children.currentlyStudyingLevel,
-                      ),
-                      ListItemWidget(
-                        field: 'Faculty',
-                        value: children.faculty,
-                      ),
-                      ListItemWidget(
-                        field: 'Occupation',
-                        value: children.occupation,
                       ),
                     ],
                   ),

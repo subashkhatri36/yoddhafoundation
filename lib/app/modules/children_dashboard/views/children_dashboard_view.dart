@@ -17,7 +17,6 @@ class ChildrenDashboardView extends GetView<ChildrenDashboardController> {
 
   @override
   Widget build(BuildContext context) {
-    print(appController.coreShaidModel!.shaid.name);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Children DashboardView'),
@@ -28,7 +27,7 @@ class ChildrenDashboardView extends GetView<ChildrenDashboardController> {
               alignment: Alignment.center,
               child: GestureDetector(
                 onTap: () {
-                  Get.toNamed(Routes.FAMILY_DASHBOARD);
+                  Get.toNamed(Routes.familydashboard);
                 },
                 child: Text(
                   'Family',
@@ -47,7 +46,7 @@ class ChildrenDashboardView extends GetView<ChildrenDashboardController> {
           : const ChildrenWidget()),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.toNamed(Routes.CHILDREN, arguments: [OPERATION.insert]);
+          Get.toNamed(Routes.children, arguments: [OPERATION.insert]);
         },
         child: const Icon(Icons.add),
       ),
@@ -79,14 +78,20 @@ class ChildrenWidget extends StatelessWidget {
                 ),
               )
             : appController.childrenListDataChange.isTrue
-                ? ListViewWidget(controller: controller)
-                : ListViewWidget(controller: controller);
+                ? ListViewWidget(
+                    controller: controller,
+                    argument: OPERATION.insert,
+                  )
+                : ListViewWidget(
+                    controller: controller, argument: OPERATION.insert);
   }
 }
 
 class ListViewWidget extends StatelessWidget {
+  final OPERATION argument;
   const ListViewWidget({
     Key? key,
+    required this.argument,
     required this.controller,
   }) : super(key: key);
 
@@ -126,14 +131,16 @@ class ListViewWidget extends StatelessWidget {
                                   controller.deleteChildrenData(children.name);
                                 },
                                 child: const Icon(Icons.delete)),
-                            InkWell(
-                                onTap: () {
-                                  Get.toNamed(
-                                    Routes.CHILDREN,
-                                    arguments: [OPERATION.update, children],
-                                  );
-                                },
-                                child: const Icon(Icons.edit)),
+                            argument == OPERATION.insert
+                                ? Container()
+                                : InkWell(
+                                    onTap: () {
+                                      Get.toNamed(
+                                        Routes.children,
+                                        arguments: [OPERATION.update, children],
+                                      );
+                                    },
+                                    child: const Icon(Icons.edit)),
                           ],
                         ),
                       ],
@@ -145,26 +152,6 @@ class ListViewWidget extends StatelessWidget {
                     ListItemWidget(
                       field: 'Date of Birth:',
                       value: DateTime.parse(children.dob.toString()).toString(),
-                    ),
-                    ListItemWidget(
-                      field: 'Education Qualification:',
-                      value: children.educationQualification,
-                    ),
-                    ListItemWidget(
-                      field: 'Studying Level',
-                      value: children.currentlyStudyingLevel,
-                    ),
-                    ListItemWidget(
-                      field: 'Faculty',
-                      value: children.faculty,
-                    ),
-                    ListItemWidget(
-                      field: 'Occuptaion',
-                      value: children.occupation,
-                    ),
-                    ListItemWidget(
-                      field: 'Financial Condition:',
-                      value: children.financialStatus,
                     ),
                   ],
                 ),

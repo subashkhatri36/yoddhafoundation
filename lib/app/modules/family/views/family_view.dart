@@ -64,24 +64,24 @@ class FamilyView extends GetView<FamilyController> {
                     validator: (value) => validateIsEmpty(string: value),
                     prefix: Icons.date_range,
                   ),
-                  CustomeInput(
-                    hintText: Strings.member_occupation,
-                    controller: controller.occupation,
-                    validator: (value) => validateIsEmpty(string: value),
-                    prefix: Icons.work,
-                  ),
-                  CustomeInput(
-                    hintText: Strings.financeCondation,
-                    controller: controller.financialStatus,
-                    validator: (value) => validateIsEmpty(string: value),
-                    prefix: Icons.star_rate,
-                  ),
-                  CustomeInput(
-                    hintText: Strings.remarks,
-                    controller: controller.remarks,
-                    validator: (value) => validateIsEmpty(string: value),
-                    prefix: Icons.stars_sharp,
-                  ),
+                  // CustomeInput(
+                  //   hintText: Strings.memberoccupation,
+                  //   controller: controller.occupation,
+                  //   validator: (value) => validateIsEmpty(string: value),
+                  //   prefix: Icons.work,
+                  // ),
+                  // CustomeInput(
+                  //   hintText: Strings.financeCondation,
+                  //   controller: controller.financialStatus,
+                  //   validator: (value) => validateIsEmpty(string: value),
+                  //   prefix: Icons.star_rate,
+                  // ),
+                  // CustomeInput(
+                  //   hintText: Strings.remarks,
+                  //   controller: controller.remarks,
+                  //   validator: (value) => validateIsEmpty(string: value),
+                  //   prefix: Icons.stars_sharp,
+                  // ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: CustomButton(

@@ -4,12 +4,7 @@ import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/db_name.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/core/service/storage_service/shared_preference.dart';
-import 'package:yoddhafoundation/app/data/model/shaid_children.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_core_model.dart';
-import 'package:yoddhafoundation/app/data/model/shaid_family.dart';
-import 'package:yoddhafoundation/app/data/repositories/shaid_children.dart';
-import 'package:yoddhafoundation/app/data/repositories/shaid_family.dart';
-import 'package:yoddhafoundation/app/data/repositories/shaid_repo.dart';
 import 'package:yoddhafoundation/app/routes/app_pages.dart';
 import 'package:yoddhafoundation/app/widgets/custom_snackbar.dart';
 
@@ -31,7 +26,8 @@ class SahidOverviewController extends GetxController
     if (operation == OPERATION.insert) {
       model = appController.coreShaidModel;
     } else {
-      model = appController.offlineShaidModel[appController.index];
+      model = appController.coreShaidModel =
+          appController.offlineShaidModel[appController.index];
     }
     isloading.toggle();
   }
@@ -40,86 +36,26 @@ class SahidOverviewController extends GetxController
   savedData() async {
     //first save shaid data
     appController.offlineShaidModel.add(appController.coreShaidModel!);
-    int res = await shareprefrence.save(
+    await shareprefrence.save(
         DBname.shaid, appController.offlineShaidModel.toJson());
-    print(res);
-    var value = await shareprefrence.read(DBname.shaid);
-    print(value);
-
-    // int result = await shaidRepo.shaidInsert(model!.shaid);
-    // print(result);
-    // int val = 0;
-    // if (result > 0) {
-    //   if (model!.shaidChildren != null) {
-    //     List<ShaidChildren> child = model!.shaidChildren!;
-    //     for (ShaidChildren children in child) {
-    //       children.shaidId = result;
-    //       val = await shaidChildren.shaidChildrenInsert(children);
-    //     }
-    //   }
-    //   if (model!.shaidFamily != null) {
-    //     List<ShaidFamily> fam = model!.shaidFamily!;
-    //     for (ShaidFamily family in fam) {
-    //       family.shaidId = result;
-    //       val = await shaidFamily.shaidFamilyInsert(family);
-    //     }
-    //   }
-    //   if (val > 0) {
-    //     customSnackbar(title: 'Info', message: 'Sucessfully Saved');
-    //     appController.offlineShaidModel.add(model!);
-    //     Get.offAllNamed(Routes.DASHBOARD);
-    //   }
-    // } else {
-    //   customSnackbar(
-    //       title: 'Saving Failed!',
-    //       message: 'SomeThing wrong with Saving ShaidInformation');
-    // }
+    appController.coreShaidModel = null;
+    customSnackbar(message: "Data Saved Successfully");
+    Get.offAllNamed(Routes.dashboard);
 
     //display success message and redirect to dashboard
   }
 
   //update data to database
   updateData() async {
+    appController.shaidDataOffline.value = false;
     //first save shaid data
-    int result = await shaidRepo.shaidInsert(model!.shaid);
-    int val = 0;
-    if (result > 0) {
-      if (model!.shaidChildren != null) {
-        List<ShaidChildren> child = model!.shaidChildren!;
-        for (ShaidChildren children in child) {
-          children.shaidId = result;
-          val = await shaidChildren.shaidChildrenInsert(children);
-        }
-      }
-      if (model!.shaidFamily != null) {
-        List<ShaidFamily> fam = model!.shaidFamily!;
-        for (ShaidFamily family in fam) {
-          family.shaidId = result;
-          val = await shaidFamily.shaidFamilyInsert(family);
-        }
-      }
-      if (val > 0) {
-        customSnackbar(title: 'Info', message: 'Sucessfully Saved');
-        appController.offlineShaidModel.add(model!);
-        Get.offAllNamed(Routes.DASHBOARD);
-      }
-    } else {
-      customSnackbar(
-          title: 'Saving Failed!',
-          message: 'SomeThing wrong with Saving ShaidInformation');
-    }
-    //first update shaid data
-
-    //updated children data
-
-    //updated family data
-
-    //display success message and redirect to dashboard
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
+    appController.offlineShaidModel[appController.index] =
+        appController.coreShaidModel!;
+    await shareprefrence.save(
+        DBname.shaid, appController.offlineShaidModel.toJson());
+    appController.coreShaidModel = null;
+    appController.shaidDataOffline.value = true;
+    Get.offAllNamed(Routes.dashboard);
   }
 
   @override

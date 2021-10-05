@@ -8,7 +8,6 @@ import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/constant/string.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_core_model.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_model.dart';
-import 'package:yoddhafoundation/app/data/repositories/shaid_repo.dart';
 import 'package:yoddhafoundation/app/routes/app_pages.dart';
 import 'package:yoddhafoundation/app/widgets/custom_snackbar.dart';
 
@@ -55,11 +54,6 @@ class SahidController extends GetxController {
     Get.back();
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
   Sahid? sahidInfo;
 
   updateandClose() {
@@ -75,9 +69,9 @@ class SahidController extends GetxController {
         responsible: checkdata(),
         createdAt: DateTime.now(),
         updatedAt: DateTime.now());
-    shaidRepo.shaidupdate(sa);
+    appController.offlineShaidModel[appController.index].shaid = sa;
+    // shaidRepo.shaidupdate(sa);
     Get.back();
-    // appController.coreShaidModel = CoreShaidModel(shaid: sa);
   }
 
   loadData(Sahid shaid) {
@@ -116,7 +110,7 @@ class SahidController extends GetxController {
               image: pickedImg!.path,
               deathdate: DateTime.parse(deathDate.text),
               deathplace: deathPlace.text,
-              responsible: '',
+              responsible: checkdata(),
               createdAt: DateTime.now(),
               updatedAt: DateTime.now());
 
@@ -149,18 +143,22 @@ class SahidController extends GetxController {
     } else if (firstvalue.value && secondvalue.value) {
       //5
       return '${Strings.partySangathan},${Strings.armSangathan} ';
+    } else if (firstvalue.value) {
+      //3
+      return Strings.partySangathan;
+    } else if (secondvalue.value) {
+      //4
+      return Strings.armSangathan;
+    } else if (thirdvalue.value) {
+      //5
+      return Strings.other;
     } else {
       return '';
     }
   }
 
   gotoNexPage() {
-    Get.toNamed(Routes.CHILDREN_DASHBOARD, arguments: [OPERATION.insert]);
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
+    Get.toNamed(Routes.childrendashboard, arguments: [OPERATION.insert]);
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:yoddhafoundation/app/constant/constants.dart';
 
 class CustomeInput extends StatefulWidget {
@@ -12,7 +13,9 @@ class CustomeInput extends StatefulWidget {
       this.labeltext = '',
       this.controller,
       this.prefix,
-      this.suffix})
+      this.suffix,
+      this.keyboardtype,
+      this.inputFormatters})
       : super(key: key);
   final Color color;
   final String hintText;
@@ -22,7 +25,10 @@ class CustomeInput extends StatefulWidget {
   final IconData? prefix;
   final IconData? suffix;
   final bool showsuffix;
+  // ignore: prefer_typing_uninitialized_variables
   final validator;
+  final TextInputType? keyboardtype;
+  final List<TextInputFormatter>? inputFormatters;
 
   @override
   State<CustomeInput> createState() => _CustomeInputState();
@@ -45,6 +51,8 @@ class _CustomeInputState extends State<CustomeInput> {
           horizontal: Constants.defaultMargin / 2),
       decoration: BoxDecoration(color: widget.color),
       child: TextFormField(
+        keyboardType: widget.keyboardtype,
+        inputFormatters: widget.inputFormatters,
         validator: widget.validator,
         controller: widget.controller,
         obscureText: widget.obstext == true ? showpassword : widget.obstext,
@@ -64,7 +72,7 @@ class _CustomeInputState extends State<CustomeInput> {
                   },
                   child: showpassword
                       ? Icon(widget.suffix)
-                      : Icon(Icons.visibility))
+                      : const Icon(Icons.visibility))
               : null,
         ),
       ),
