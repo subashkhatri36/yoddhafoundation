@@ -11,6 +11,8 @@ import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_children.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_family.dart';
+import 'package:yoddhafoundation/app/routes/app_pages.dart';
+import 'package:yoddhafoundation/app/widgets/list_item_widget.dart';
 
 import '../controllers/sahid_overview_controller.dart';
 
@@ -37,9 +39,9 @@ class SahidOverviewView extends GetView<SahidOverviewController> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    const Expanded(
+                    Expanded(
                       flex: 5,
-                      child: ShaidDetailWidget(),
+                      child: ShaidDetailWidget(args: argument[0]),
                     ),
                     Expanded(
                       flex: 5,
@@ -81,7 +83,7 @@ class SahidOverviewView extends GetView<SahidOverviewController> {
                         },
                         child: Text(
                           argument[0] == OPERATION.insert
-                              ? 'Finished'
+                              ? 'Submit'
                               : 'Updated',
                           style: Theme.of(context)
                               .textTheme
@@ -102,40 +104,82 @@ class SahidOverviewView extends GetView<SahidOverviewController> {
 }
 
 class ShaidDetailWidget extends StatelessWidget {
-  const ShaidDetailWidget({
-    Key? key,
-  }) : super(key: key);
+  OPERATION args;
+  ShaidDetailWidget({Key? key, required this.args}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
-      width: double.infinity,
-      color: Colors.green,
-      child: Column(
-        children: [
-          //Image.file(appController.coreShaidModel!.shaid.image),
-          Row(
-            children: [
-              Text(
-                'Name : ',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(fontSize: Constants.defaultFontSize + 5),
-              ),
-              Text(appController.coreShaidModel!.shaid.name),
-            ],
-          ),
-          Row(
-            children: [
-              Text('address : '),
-              Text(appController.coreShaidModel!.shaid.state),
-            ],
-          ),
-        ],
-      ),
-    );
+        height: 100,
+        width: double.infinity,
+        // color: Colors.green,
+        child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: appController.coreShaidModel!.shaidChildren!.length,
+            itemBuilder: (context, index) {
+              ShaidChildren children =
+                  appController.coreShaidModel!.shaidChildren![index];
+              return Card(
+                child: Container(
+                  margin: const EdgeInsets.symmetric(
+                      vertical: Constants.defaultMargin,
+                      horizontal: Constants.defaultMargin / 2),
+                  child: Row(
+                    children: [
+                      Container(
+                        // color: Colors.green,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ListItemWidget(
+                              field: 'Name',
+                              value: children.name,
+                            ),
+                            ListItemWidget(
+                              field: 'Relation',
+                              value: children.relation,
+                            ),
+                            ListItemWidget(
+                              field: 'Studying Level',
+                              value: children.currentlyStudyingLevel,
+                            ),
+                            ListItemWidget(
+                              field: 'Faculty',
+                              value: children.faculty,
+                            ),
+                            ListItemWidget(
+                              field: 'Occuptaion',
+                              value: children.occupation,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                          width: 150,
+                          height: 185,
+                          child: Column(
+                            children: [
+                              const ClipRRect(
+                                child: Image(
+                                    fit: BoxFit.contain,
+                                    image: AssetImage(
+                                        "assets/images/auctionlogo.PNG")),
+                              ),
+                              InkWell(
+                                  onTap: () {
+                                    Get.toNamed(
+                                      Routes.CHILDREN,
+                                      arguments: [OPERATION.update, children],
+                                    );
+                                  },
+                                  child: const Icon(Icons.edit)),
+                            ],
+                          ))
+                    ],
+                  ),
+                ),
+              );
+            }));
   }
 }
 
@@ -148,7 +192,7 @@ class FamilyDisplayWidget extends StatelessWidget {
     return Container(
         height: 50,
         width: double.infinity,
-        color: Colors.deepOrange,
+        // color: Colors.deepOrange,
         child: ListView.builder(
             shrinkWrap: true,
             itemCount: args == OPERATION.insert
@@ -160,8 +204,41 @@ class FamilyDisplayWidget extends StatelessWidget {
                   ? appController.coreShaidModel!.shaidFamily![index]
                   : appController.offlineShaidModel[appController.index]
                       .shaidFamily![index];
-              return ListTile(
-                title: Text(family.name),
+              return Card(
+                child: Container(
+                  margin: const EdgeInsets.symmetric(
+                      vertical: Constants.defaultMargin,
+                      horizontal: Constants.defaultMargin / 2),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ListItemWidget(
+                        field: 'Name',
+                        value: family.name,
+                      ),
+                      ListItemWidget(
+                        field: 'Relation',
+                        value: family.relation,
+                      ),
+                      ListItemWidget(
+                        field: 'Age',
+                        value: family.age.toString(),
+                      ),
+                      ListItemWidget(
+                        field: 'Occupation',
+                        value: family.occupation,
+                      ),
+                      ListItemWidget(
+                        field: 'Financial Condition',
+                        value: family.financialStatus,
+                      ),
+                      ListItemWidget(
+                        field: 'Remarks',
+                        value: family.remarks,
+                      ),
+                    ],
+                  ),
+                ),
               );
             }));
   }
@@ -179,7 +256,7 @@ class ChildrenDisplayWidget extends StatelessWidget {
     return Container(
         height: 50,
         width: double.infinity,
-        color: Colors.deepOrange,
+        // color: Colors.deepOrange,
         child: ListView.builder(
             shrinkWrap: true,
             itemCount: args == OPERATION.insert
@@ -191,8 +268,46 @@ class ChildrenDisplayWidget extends StatelessWidget {
                   ? appController.coreShaidModel!.shaidChildren![index]
                   : appController.offlineShaidModel[appController.index]
                       .shaidChildren![index];
-              return ListTile(
-                title: Text(children.name),
+              return Card(
+                child: Container(
+                  margin: const EdgeInsets.symmetric(
+                      vertical: Constants.defaultMargin,
+                      horizontal: Constants.defaultMargin / 2),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ListItemWidget(
+                        field: 'Name',
+                        value: children.name,
+                      ),
+                      ListItemWidget(
+                        field: 'Relation',
+                        value: children.relation,
+                      ),
+                      ListItemWidget(
+                        field: 'Date of Birth:',
+                        value:
+                            DateTime.parse(children.dob.toString()).toString(),
+                      ),
+                      ListItemWidget(
+                        field: 'Education Qualification:',
+                        value: children.educationQualification,
+                      ),
+                      ListItemWidget(
+                        field: 'Studying Level',
+                        value: children.currentlyStudyingLevel,
+                      ),
+                      ListItemWidget(
+                        field: 'Faculty',
+                        value: children.faculty,
+                      ),
+                      ListItemWidget(
+                        field: 'Occupation',
+                        value: children.occupation,
+                      ),
+                    ],
+                  ),
+                ),
               );
             }));
   }
