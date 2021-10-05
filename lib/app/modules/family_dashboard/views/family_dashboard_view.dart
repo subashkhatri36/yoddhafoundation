@@ -24,7 +24,7 @@ class FamilyDashboardView extends GetView<FamilyDashboardController> {
               alignment: Alignment.center,
               child: GestureDetector(
                 onTap: () {
-                  Get.toNamed(Routes.SAHID_OVERVIEW,
+                  Get.toNamed(Routes.shaidOverview,
                       arguments: [OPERATION.insert]);
                 },
                 child: Text(
@@ -45,7 +45,7 @@ class FamilyDashboardView extends GetView<FamilyDashboardController> {
           : const FamilyWidget()),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.toNamed(Routes.FAMILY, arguments: [OPERATION.insert]);
+          Get.toNamed(Routes.family, arguments: [OPERATION.insert]);
         },
         child: const Icon(Icons.add),
       ),
@@ -97,7 +97,7 @@ class FamilyWidget extends StatelessWidget {
                             IconButton(
                                 onPressed: () {
                                   Get.toNamed(
-                                    Routes.FAMILY,
+                                    Routes.family,
                                     arguments: [OPERATION.update, family],
                                   );
                                 },

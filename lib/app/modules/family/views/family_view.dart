@@ -65,7 +65,7 @@ class FamilyView extends GetView<FamilyController> {
                     prefix: Icons.date_range,
                   ),
                   CustomeInput(
-                    hintText: Strings.member_occupation,
+                    hintText: Strings.memberoccupation,
                     controller: controller.occupation,
                     validator: (value) => validateIsEmpty(string: value),
                     prefix: Icons.work,

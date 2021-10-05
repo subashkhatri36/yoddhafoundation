@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
-import 'package:yoddhafoundation/app/data/repositories/shaid_family.dart';
 import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
 
 class FamilyDashboardController extends GetxController {
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
   deleteFamilyData(String name) async {
     bool value = await showDialog(
         context: Get.context!,
@@ -35,11 +29,6 @@ class FamilyDashboardController extends GetxController {
       appController.coreShaidModel!.shaidFamily!
           .removeWhere((element) => element.name == name);
     }
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
   }
 
   @override

@@ -3,14 +3,14 @@ import 'package:get/get.dart';
 import 'package:yoddhafoundation/app/constant/app_color.dart';
 import 'package:yoddhafoundation/app/constant/asset_link.dart';
 import 'package:yoddhafoundation/app/constant/constants.dart';
-import 'package:yoddhafoundation/app/constant/controller.dart';
 
 import '../controllers/splash_controller.dart';
 
 class SplashView extends GetView<SplashController> {
+  const SplashView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,

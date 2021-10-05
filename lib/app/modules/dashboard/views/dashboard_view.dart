@@ -44,7 +44,7 @@ class DashboardView extends GetView<DashboardController> {
         child: Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              Get.toNamed(Routes.SAHID, arguments: [OPERATION.insert]);
+              Get.toNamed(Routes.shaid, arguments: [OPERATION.insert]);
             },
             child: const Icon(Icons.add),
           ),

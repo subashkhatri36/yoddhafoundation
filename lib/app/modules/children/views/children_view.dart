@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/constant/string.dart';
 import 'package:yoddhafoundation/app/utls/validation.dart';
@@ -19,7 +18,7 @@ class ChildrenView extends GetView<ChildrenController> {
 
   @override
   Widget build(BuildContext context) {
-    print(appController.coreShaidModel!.shaid.name);
+    // print(appController.coreShaidModel!.shaid.name);
     if (argument[0] == OPERATION.update) {
       controller.loadData(argument[1]);
     }

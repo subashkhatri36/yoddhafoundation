@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_family.dart';
-import 'package:yoddhafoundation/app/data/repositories/shaid_family.dart';
 
 class FamilyController extends GetxController {
   RxString memberValue = 'आमा'.obs;
@@ -22,11 +21,6 @@ class FamilyController extends GetxController {
   final TextEditingController financialStatus = TextEditingController();
   final TextEditingController remarks = TextEditingController();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   ShaidFamily? gloabalfamily;
 
@@ -60,17 +54,12 @@ class FamilyController extends GetxController {
     if (operation == OPERATION.update) {
       family.id = gloabalfamily!.id;
       family.shaidId = gloabalfamily!.shaidId;
-      shaidFamily.shaidFamilyupdate(family);
+      //shaidFamily.shaidFamilyupdate(family);
     } else {
       appController.coreShaidModel!.shaidFamily!.add(family);
     }
     appController.childrenListDataChange.toggle();
     Get.back();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
   }
 
   @override

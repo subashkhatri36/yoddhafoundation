@@ -112,7 +112,7 @@ class ShaidDetailWidget extends StatelessWidget {
       child: Column(
         children: [
           Row(
-            children: [
+            children: const [
               Text('Name : '),
               Text('Sabcd'),
             ],
@@ -124,8 +124,8 @@ class ShaidDetailWidget extends StatelessWidget {
 }
 
 class FamilyDisplayWidget extends StatelessWidget {
-  OPERATION args;
-  FamilyDisplayWidget({Key? key, required this.args}) : super(key: key);
+  final OPERATION args;
+  const FamilyDisplayWidget({Key? key, required this.args}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -152,8 +152,8 @@ class FamilyDisplayWidget extends StatelessWidget {
 }
 
 class ChildrenDisplayWidget extends StatelessWidget {
-  OPERATION args;
-  ChildrenDisplayWidget({
+  final OPERATION args;
+  const ChildrenDisplayWidget({
     Key? key,
     required this.args,
   }) : super(key: key);

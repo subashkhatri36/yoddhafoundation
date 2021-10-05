@@ -2,13 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:yoddhafoundation/app/constant/string.dart';
 import 'package:yoddhafoundation/app/core/service/storage_service/shared_preference.dart';
-import 'package:yoddhafoundation/app/data/model/shaid_children.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_core_model.dart';
-import 'package:yoddhafoundation/app/data/model/shaid_family.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_model.dart';
-import 'package:yoddhafoundation/app/data/repositories/shaid_children.dart';
-import 'package:yoddhafoundation/app/data/repositories/shaid_family.dart';
-import 'package:yoddhafoundation/app/data/repositories/shaid_repo.dart';
 import 'package:yoddhafoundation/app/widgets/custom_snackbar.dart';
 
 class AppController extends GetxController {
@@ -37,11 +32,6 @@ class AppController extends GetxController {
   RxBool childrenListDataChange = false.obs;
   RxBool familyListDataChange = false.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
   init() async {
     width = MediaQuery.of(Get.context!).size.width;
     height = MediaQuery.of(Get.context!).size.height;
@@ -61,29 +51,14 @@ class AppController extends GetxController {
   loadOfflineDatabase() async {
     shaidDataOffline.value = false;
     List<Sahid> shaids = [];
-    shaids = await shaidRepo.getAllShaid();
-    if (shaids != null && shaids.isNotEmpty) {
+    //  shaids = await shaidRepo.getAllShaid();
+    if (shaids.isNotEmpty) {
       //here store all shaid data
-      if (shaidListModelOffline.isNotEmpty) {
-        shaidListModelOffline.clear();
-      }
+      // if (shaidListModelOffline.isNotEmpty) {
+      //   shaidListModelOffline.clear();
+      // }
       if (offlineShaidModel.isNotEmpty) {
         offlineShaidModel.clear();
-      }
-
-      for (var shaidinfo in shaids) {
-        //adding value to main shaidlistmodel
-        shaidListModelOffline.add(shaidinfo);
-        List<ShaidChildren> children = [];
-        //now getting shaid id and again perform loop to get shaid children information;
-        children = await shaidChildren.getSingleShaidFamily(shaidinfo.id);
-
-        //getting shaid family details
-        List<ShaidFamily> family = [];
-        family = await shaidFamily.getSingleShaidFamily(shaidinfo.id);
-
-        offlineShaidModel.add(CoreShaidModel(
-            shaid: shaidinfo, shaidChildren: children, shaidFamily: family));
       }
     } else {
       //There is no data message display
@@ -100,15 +75,15 @@ class AppController extends GetxController {
     //coreShaidModel=CoreShaidModel(shaid: shaid);
     savingData.value = true;
     if (coreShaidModel != null) {
-      int a = await shaidRepo.shaidInsert(coreShaidModel!.shaid);
+      int a = -1; // await shaidRepo.shaidInsert(coreShaidModel!.shaid);
       if (a != -1) {
         customSnackbar(message: 'Shaid Info Saved.');
         int val = -1;
         if (coreShaidModel!.shaidChildren != null) {
           coreShaidModel!.shaidChildren!.map((e) async {
             e.shaidId = a;
-            print('children ' + e.shaidId.toString());
-            val = await shaidChildren.shaidChildrenInsert(e);
+
+            // val = await shaidChildren.shaidChildrenInsert(e);
           });
           if (val > 0) {
             customSnackbar(message: 'Children Data Saved.');
@@ -122,8 +97,7 @@ class AppController extends GetxController {
         if (coreShaidModel!.shaidFamily != null) {
           coreShaidModel!.shaidFamily!.map((e) async {
             e.shaidId = a;
-            print('family ' + e.shaidId.toString());
-            val = await shaidFamily.shaidFamilyInsert(e);
+            // val = await shaidFamily.shaidFamilyInsert(e);
           });
 
           if (val > 0) {

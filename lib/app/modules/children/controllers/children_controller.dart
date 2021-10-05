@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_children.dart';
-import 'package:yoddhafoundation/app/data/repositories/shaid_children.dart';
 
 class ChildrenController extends GetxController {
   final List childrenList = ["छोरा", "छोरी"];
@@ -17,11 +16,6 @@ class ChildrenController extends GetxController {
   final TextEditingController financeStatus = TextEditingController();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
   ShaidChildren? gloabalchildren;
 
 //loading initial data
@@ -34,7 +28,7 @@ class ChildrenController extends GetxController {
     faculty.text = children.faculty;
     occupation.text = children.occupation;
     financeStatus.text = children.financialStatus;
-    childValue!.value = children.relation;
+    childValue.value = children.relation;
     gloabalchildren = children;
   }
 
@@ -57,18 +51,13 @@ class ChildrenController extends GetxController {
     if (operation == OPERATION.update) {
       children.id = gloabalchildren!.id;
       children.shaidId = gloabalchildren!.shaidId;
-      shaidChildren.shaidChildrenupdate(children);
+      // shaidChildren.shaidChildrenupdate(children);
     } else {
       appController.coreShaidModel!.shaidChildren!.add(children);
       appController.childrenListDataChange.toggle();
     }
 
     Get.back();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
   }
 
   @override

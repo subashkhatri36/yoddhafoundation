@@ -53,21 +53,21 @@ class HttpServiceImpl implements HttpService {
         "Authorization": await getAuthToken(),
         "dealer-id": "1"
       });
-      print("${options.method} | ${options.path}");
+      // print("${options.method} | ${options.path}");
       return handler.next(options);
     }, onResponse: (response, handler) {
-      print("${response.statusCode} ${response.statusMessage}");
+      //  print("${response.statusCode} ${response.statusMessage}");
       return handler.next(response);
     }, onError: (DioError e, handler) {
-      print("============== DIO INTERCEPTOR ERROR ==============");
-      print(e.message);
+      // print("============== DIO INTERCEPTOR ERROR ==============");
+      // print(e.message);
       return handler.next(e);
     }));
   }
 
   Future<String> getAuthToken() async {
     String token = (await pref.read(SHARED_DATA.token.toString()));
-    return token.length > 0 ? "NO Token" : "Bearer $token".replaceAll('"', '');
+    return token.isEmpty ? "NO Token" : "Bearer $token".replaceAll('"', '');
   }
 
   @override
@@ -80,7 +80,7 @@ class HttpServiceImpl implements HttpService {
     try {
       response = await _dio!.get(url, queryParameters: queryParams);
     } on DioError catch (e) {
-      print(e.message);
+      //  print(e.message);
       throw Exception(e.message);
     }
     return response;
@@ -96,7 +96,7 @@ class HttpServiceImpl implements HttpService {
     try {
       response = await _dio!.post(url, data: data);
     } on DioError catch (e) {
-      print(e.message);
+      //print(e.message);
       throw Exception(e.message);
     }
     return response;
@@ -114,7 +114,7 @@ class HttpServiceImpl implements HttpService {
       response =
           await _dio!.patch(url, data: data, queryParameters: queryParams);
     } on DioError catch (e) {
-      print(e.message);
+      // print(e.message);
       throw Exception(e.message);
     }
     return response;
@@ -132,7 +132,7 @@ class HttpServiceImpl implements HttpService {
       response =
           await _dio!.delete(url, data: data, queryParameters: queryParams);
     } on DioError catch (e) {
-      print(e.message);
+      //print(e.message);
       throw Exception(e.message);
     }
     return response;

@@ -14,7 +14,7 @@ void main() {
       title: Strings.appName,
       theme: Themes.light,
       darkTheme: Themes.dark,
-      initialRoute: AppPages.INITIAL,
+      initialRoute: AppPages.initial,
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.native,

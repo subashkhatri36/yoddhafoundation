@@ -34,7 +34,7 @@ class _AuthWidgetState extends State<AuthWidget> {
         body: Center(
       child: CustomButton(
           onpressed: () {
-            Get.offNamed(Routes.LOGIN);
+            Get.offNamed(Routes.login);
           },
           btnText: 'Go to LogIn'),
     ));

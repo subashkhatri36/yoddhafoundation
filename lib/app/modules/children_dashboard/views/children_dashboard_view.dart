@@ -15,7 +15,6 @@ class ChildrenDashboardView extends GetView<ChildrenDashboardController> {
 
   @override
   Widget build(BuildContext context) {
-    print(appController.coreShaidModel!.shaid.name);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Children DashboardView'),
@@ -26,7 +25,7 @@ class ChildrenDashboardView extends GetView<ChildrenDashboardController> {
               alignment: Alignment.center,
               child: GestureDetector(
                 onTap: () {
-                  Get.toNamed(Routes.FAMILY_DASHBOARD);
+                  Get.toNamed(Routes.familydashboard);
                 },
                 child: Text(
                   'Family',
@@ -45,7 +44,7 @@ class ChildrenDashboardView extends GetView<ChildrenDashboardController> {
           : const ChildrenWidget()),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.toNamed(Routes.CHILDREN, arguments: [OPERATION.insert]);
+          Get.toNamed(Routes.children, arguments: [OPERATION.insert]);
         },
         child: const Icon(Icons.add),
       ),
@@ -99,7 +98,7 @@ class ChildrenWidget extends StatelessWidget {
                             IconButton(
                                 onPressed: () {
                                   Get.toNamed(
-                                    Routes.CHILDREN,
+                                    Routes.children,
                                     arguments: [OPERATION.update, children],
                                   );
                                 },

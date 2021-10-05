@@ -22,6 +22,7 @@ class CustomeInput extends StatefulWidget {
   final IconData? prefix;
   final IconData? suffix;
   final bool showsuffix;
+  // ignore: prefer_typing_uninitialized_variables
   final validator;
 
   @override
@@ -64,7 +65,7 @@ class _CustomeInputState extends State<CustomeInput> {
                   },
                   child: showpassword
                       ? Icon(widget.suffix)
-                      : Icon(Icons.visibility))
+                      : const Icon(Icons.visibility))
               : null,
         ),
       ),
