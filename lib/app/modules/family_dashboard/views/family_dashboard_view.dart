@@ -7,7 +7,7 @@ import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_family.dart';
 import 'package:yoddhafoundation/app/modules/children_dashboard/views/children_dashboard_view.dart';
 import 'package:yoddhafoundation/app/routes/app_pages.dart';
-import 'package:yoddhafoundation/app/widgets/listItemWidget.dart';
+import 'package:yoddhafoundation/app/widgets/list_item_widget.dart';
 
 import '../controllers/family_dashboard_controller.dart';
 
