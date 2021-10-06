@@ -11,8 +11,6 @@ import 'package:yoddhafoundation/app/data/model/shaid_model.dart';
 import 'package:yoddhafoundation/app/routes/app_pages.dart';
 import 'package:yoddhafoundation/app/widgets/custom_snackbar.dart';
 
-import 'package:intl/intl.dart';
-
 class SahidController extends GetxController {
   RxString genVal = 'male'.obs;
   File? pickedImg;

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:yoddhafoundation/app/constant/controller.dart';
+import 'package:yoddhafoundation/app/data/repositories/login_api_call.dart';
 import 'package:yoddhafoundation/app/modules/dashboard/views/dashboard_view.dart';
 import 'package:yoddhafoundation/app/modules/user_profile/views/user_profile_view.dart';
 
@@ -43,7 +45,9 @@ Drawer drawer(BuildContext context) {
         ListTile(
           leading: const Icon(Icons.logout),
           title: const Text("Sign Out"),
-          onTap: () {},
+          onTap: () {
+            userlogin.logout(appController.accesstoken);
+          },
         ),
       ],
     ),
