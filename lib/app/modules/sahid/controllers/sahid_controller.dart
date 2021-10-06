@@ -11,6 +11,8 @@ import 'package:yoddhafoundation/app/data/model/shaid_model.dart';
 import 'package:yoddhafoundation/app/routes/app_pages.dart';
 import 'package:yoddhafoundation/app/widgets/custom_snackbar.dart';
 
+import 'package:intl/intl.dart';
+
 class SahidController extends GetxController {
   RxString genVal = 'male'.obs;
   File? pickedImg;
@@ -30,18 +32,18 @@ class SahidController extends GetxController {
 
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
-  Future<void> pickImageCamera() async {
-    imageselected.value = false;
-    final picker = ImagePicker();
-    final pickedImage = await picker.pickImage(source: ImageSource.camera);
-    final pickedImageFile = File(pickedImage!.path);
-    pickedImg = pickedImageFile;
-    if (pickedImg != null) {
-      imageselected.value = true;
-    }
+  // Future<void> pickImageCamera() async {
+  //   imageselected.value = false;
+  //   final picker = ImagePicker();
+  //   final pickedImage = await picker.pickImage(source: ImageSource.camera);
+  //   final pickedImageFile = File(pickedImage!.path);
+  //   pickedImg = pickedImageFile;
+  //   if (pickedImg != null) {
+  //     imageselected.value = true;
+  //   }
 
-    Get.back();
-  }
+  //   Get.back();
+  // }
 
   Future<void> pickImageGallery() async {
     final picker = ImagePicker();
@@ -49,9 +51,12 @@ class SahidController extends GetxController {
     if (pickedImage != null) {
       final pickedImageFile = File(pickedImage.path);
       pickedImg = pickedImageFile;
+      if (pickedImg != null) {
+        imageselected.value = true;
+      }
     }
 
-    Get.back();
+    //  Get.back();
   }
 
   Sahid? sahidInfo;
@@ -101,6 +106,7 @@ class SahidController extends GetxController {
       } else {
 //now working with checkbox
         if (checkdata().isNotEmpty) {
+          // DateFormat formatter = DateFormat('dd/MM/yyyy');
           //now saved
           Sahid sa = Sahid(
               name: sahidName.text,

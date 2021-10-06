@@ -5,9 +5,12 @@ import 'package:flutter/rendering.dart';
 
 import 'package:get/get.dart';
 import 'package:yoddhafoundation/app/constant/constants.dart';
+import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_children.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_family.dart';
+import 'package:yoddhafoundation/app/routes/app_pages.dart';
+import 'package:yoddhafoundation/app/widgets/list_item_widget.dart';
 
 import '../controllers/sahid_overview_controller.dart';
 
@@ -34,9 +37,9 @@ class SahidOverviewView extends GetView<SahidOverviewController> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    const Expanded(
+                    Expanded(
                       flex: 5,
-                      child: ShaidDetailWidget(),
+                      child: ShaidDetailWidget(args: argument[0]),
                     ),
                     Expanded(
                       flex: 5,
@@ -77,9 +80,7 @@ class SahidOverviewView extends GetView<SahidOverviewController> {
                               : controller.updateData();
                         },
                         child: Text(
-                          argument[0] == OPERATION.insert
-                              ? 'Finished'
-                              : 'Close',
+                          argument[0] == OPERATION.insert ? 'Submit' : 'Close',
                           style: Theme.of(context)
                               .textTheme
                               .headline1!
@@ -99,39 +100,81 @@ class SahidOverviewView extends GetView<SahidOverviewController> {
 }
 
 class ShaidDetailWidget extends StatelessWidget {
-  const ShaidDetailWidget({
-    Key? key,
-  }) : super(key: key);
+  OPERATION args;
+  ShaidDetailWidget({Key? key, required this.args}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<SahidOverviewController>();
-    return Container(
-      height: 100,
-      width: double.infinity,
-      color: Colors.green,
-      child: Column(
-        children: [
-          //Image.file(appController.coreShaidModel!.shaid.image),
-          Row(
-            children: [
-              Text(
-                'Name : ',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(fontSize: Constants.defaultFontSize + 5),
+    return Card(
+      child: Container(
+        margin: const EdgeInsets.symmetric(
+            vertical: Constants.defaultMargin,
+            horizontal: Constants.defaultMargin / 2),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ListItemWidget(
+                      field: 'Name',
+                      value: controller.model!.shaid.name,
+                    ),
+                    ListItemWidget(
+                      field: 'Gender',
+                      value: controller.model!.shaid.gender,
+                    ),
+                    ListItemWidget(
+                      field: 'Death Date:',
+                      value: controller.model!.shaid.deathdate.toString(),
+                    ),
+                    ListItemWidget(
+                      field: 'State:',
+                      value: controller.model!.shaid.state,
+                    ),
+                    ListItemWidget(
+                      field: 'District:',
+                      value: controller.model!.shaid.district,
+                    ),
+                    ListItemWidget(
+                      field: 'Death Place:',
+                      value: controller.model!.shaid.deathplace,
+                    ),
+                    ListItemWidget(
+                      field: 'Sangathanic Role:',
+                      value: controller.model!.shaid.responsible,
+                    ),
+                  ],
+                ),
               ),
-              Text(controller.model!.shaid.name),
-            ],
-          ),
-          Row(
-            children: [
-              const Text('address : '),
-              Text(controller.model!.shaid.state),
-            ],
-          ),
-        ],
+            ),
+            SizedBox(
+              child: Column(
+                children: [
+                  ClipRRect(
+                    child: Image(
+                        height: appController.height * .2,
+                        fit: BoxFit.fitHeight,
+                        image: AssetImage("assets/images/auctionlogo.PNG")),
+                  ),
+                  InkWell(
+                      onTap: () {
+                        Get.toNamed(
+                          Routes.children,
+                          arguments: [
+                            OPERATION.update,
+                          ],
+                        );
+                      },
+                      child: const Icon(Icons.edit)),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -147,15 +190,35 @@ class FamilyDisplayWidget extends StatelessWidget {
     return Container(
         height: 50,
         width: double.infinity,
-        color: Colors.deepOrange,
+        // color: Colors.deepOrange,
         child: ListView.builder(
             shrinkWrap: true,
             itemCount: controller.model!.shaidFamily!.length,
             itemBuilder: (context, index) {
               ShaidFamily family = controller.model!.shaidFamily![index];
-
-              return ListTile(
-                title: Text(family.name),
+              return Card(
+                child: Container(
+                  margin: const EdgeInsets.symmetric(
+                      vertical: Constants.defaultMargin,
+                      horizontal: Constants.defaultMargin / 2),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ListItemWidget(
+                        field: 'Name',
+                        value: family.name,
+                      ),
+                      ListItemWidget(
+                        field: 'Relation',
+                        value: family.relation,
+                      ),
+                      ListItemWidget(
+                        field: 'Age',
+                        value: family.age.toString(),
+                      ),
+                    ],
+                  ),
+                ),
               );
             }));
   }
@@ -174,15 +237,36 @@ class ChildrenDisplayWidget extends StatelessWidget {
     return Container(
         height: 50,
         width: double.infinity,
-        color: Colors.deepOrange,
+        // color: Colors.deepOrange,
         child: ListView.builder(
             shrinkWrap: true,
             itemCount: controller.model!.shaidChildren!.length,
             itemBuilder: (context, index) {
               ShaidChildren children = controller.model!.shaidChildren![index];
-
-              return ListTile(
-                title: Text(children.name),
+              return Card(
+                child: Container(
+                  margin: const EdgeInsets.symmetric(
+                      vertical: Constants.defaultMargin,
+                      horizontal: Constants.defaultMargin / 2),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ListItemWidget(
+                        field: 'Name',
+                        value: children.name,
+                      ),
+                      ListItemWidget(
+                        field: 'Relation',
+                        value: children.relation,
+                      ),
+                      ListItemWidget(
+                        field: 'Date of Birth:',
+                        value:
+                            DateTime.parse(children.dob.toString()).toString(),
+                      ),
+                    ],
+                  ),
+                ),
               );
             }));
   }
