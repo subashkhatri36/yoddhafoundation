@@ -67,7 +67,7 @@ class DashboardController extends GetxController {
                 var child = await shaidUpload.shaidFamilyUpload(c, shaidId);
                 if (!child.iserror) {
                   if (response.response["status"] == 200) {
-                    print('success');
+                   
                     saved = true;
                   } else {
                     saved = false;
@@ -104,13 +104,7 @@ class DashboardController extends GetxController {
     if (appController.offlineShaidModel.isEmpty) {
       await shareprefrence.remove(DBname.shaid);
     }
-
-    //check connection
-    //upload shaid
-    //get shaid id && token id
-    //update children with shaid id
-    //update family with shaid id
-    //remove shaid data.
+   
   }
 
   @override
