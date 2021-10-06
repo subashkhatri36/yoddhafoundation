@@ -21,7 +21,7 @@ class UserProfileView extends GetView<UserProfileController> {
         ),
         body: Center(
           child: Container(
-            height: 320,
+            height: 230,
             width: 300,
             decoration: BoxDecoration(
                 color: Colors.lightGreenAccent,
@@ -98,13 +98,6 @@ class UserProfileView extends GetView<UserProfileController> {
                     height: 5,
                     color: Colors.black,
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  CustomButton(
-                    onpressed: () {},
-                    btnText: 'Logout',
-                  )
                 ],
               ),
             ),
