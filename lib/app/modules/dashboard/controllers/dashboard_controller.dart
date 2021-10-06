@@ -28,6 +28,7 @@ class DashboardController extends GetxController {
     isSync.value = true;
     bool saved = false;
     int index = -1;
+    int nothingvalue = 0;
     //check offline data avilable or not
     List<CoreShaidModel> model = appController.offlineShaidModel;
 
