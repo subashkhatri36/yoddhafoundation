@@ -18,7 +18,19 @@ class ShaidAPI {
   Future<ApiCall> shaidInfoUpload(Sahid shaid) async {
     ApiCall userapi = ApiCall();
     shaid.token = appController.accesstoken;
-    final data = shaid.toMap();
+    final data = {
+      "token": shaid.token,
+      "image": shaid.image,
+      "name": shaid.name,
+      "gender": shaid.gender,
+      "state": shaid.state,
+      "district": shaid.district,
+      "death_date": shaid.deathdate,
+      "death_place": shaid.deathplace,
+      "responsible": shaid.responsible
+    };
+    print(data);
+
     try {
       final response = await httpService.post(Api.shaidInsert, data: data);
       if (response != null) {
@@ -40,7 +52,13 @@ class ShaidAPI {
   Future<ApiCall> shaidFamilyUpload(ShaidFamily shaidFamily, int id) async {
     ApiCall userapi = ApiCall();
     shaidFamily.token = appController.accesstoken;
-    final data = shaidFamily.toMap();
+    final data = {
+      "token": shaidFamily.token,
+      "name": shaidFamily.name,
+      "relation": shaidFamily.relation,
+      "age": shaidFamily.age
+    };
+
     Api api = Api();
     try {
       api.insertfamily += id.toString() + "/family/store";
@@ -65,7 +83,13 @@ class ShaidAPI {
       ShaidChildren shaidChildren, int id) async {
     ApiCall userapi = ApiCall();
     shaidChildren.token = appController.accesstoken;
-    final data = shaidChildren.toMap();
+    final data = {
+      "token": shaidChildren.token,
+      "name": shaidChildren.name,
+      "relation": shaidChildren.relation,
+      "dob": shaidChildren.dob
+    };
+
     Api api = Api();
     try {
       api.insertchildren += id.toString() + "/children/store";
