@@ -27,12 +27,20 @@ class DashboardController extends GetxController {
       for (CoreShaidModel m in model) {
         index++;
         saved = false;
+
         String token = m.shaid.token = appController.accesstoken;
         int shaidId = 0;
+        print("first data " + m.toJson());
+        print("token " + token);
+        print("read to upload first value");
         var response = await shaidUpload.shaidInfoUpload(m.shaid);
+        print('upload shaid');
+        print(response);
         if (!response.iserror) {
           if (response.response["status"] == 200) {
+            print('status');
             shaidId = response.response["sahid"]["id"];
+            print('assign id;');
 
             ///work on shaid children
             if (m.shaidChildren != null) {
@@ -94,7 +102,7 @@ class DashboardController extends GetxController {
         if (saved) {
           //saved
           if (index < appController.offlineShaidModel.length) {
-            appController.offlineShaidModel.removeAt(index);
+            // appController.offlineShaidModel.removeAt(index);
           }
         }
       }

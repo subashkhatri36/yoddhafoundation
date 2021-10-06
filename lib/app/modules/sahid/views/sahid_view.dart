@@ -4,7 +4,6 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:pattern_formatter/date_formatter.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/constant/string.dart';
 import 'package:yoddhafoundation/app/utls/validation.dart';
@@ -26,8 +25,9 @@ class SahidView extends GetView<SahidController> {
       appBar: AppBar(
         title: const Text(
           "सहिद विवरण",
-          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -66,70 +66,7 @@ class SahidView extends GetView<SahidController> {
                         child: const Icon(Icons.add_a_photo),
                         padding: const EdgeInsets.all(15.0),
                         shape: const CircleBorder(),
-                        onPressed: controller.pickImageGallery
-                        // showDialog(
-                        //     context: context,
-                        //     builder: (BuildContext context) {
-                        //       return AlertDialog(
-                        //         title: const Text(
-                        //           "Choose Option",
-                        //           style: TextStyle(
-                        //               fontWeight: FontWeight.w600,
-                        //               color: Colors.purple),
-                        //         ),
-                        //         content: SingleChildScrollView(
-                        //           child: ListBody(
-                        //             children: [
-                        //               InkWell(
-                        //                 onTap: controller.pickImageCamera,
-                        //                 splashColor: Colors.deepPurple,
-                        //                 child: Row(
-                        //                   children: const [
-                        //                     Padding(
-                        //                       padding: EdgeInsets.all(8.0),
-                        //                       child: Icon(
-                        //                         Icons.camera,
-                        //                         color: Colors.purpleAccent,
-                        //                       ),
-                        //                     ),
-                        //                     Text(
-                        //                       "Camera",
-                        //                       style: TextStyle(
-                        //                           fontSize: 18,
-                        //                           fontWeight:
-                        //                               FontWeight.w600),
-                        //                     ),
-                        //                   ],
-                        //                 ),
-                        //               ),
-                        //   InkWell(
-                        //     onTap: controller.pickImageGallery,
-                        //     splashColor: Colors.purpleAccent,
-                        //     child: Row(
-                        //       children: const [
-                        //         Padding(
-                        //           padding: EdgeInsets.all(8.0),
-                        //           child: Icon(
-                        //             Icons.image,
-                        //             color: Colors.deepPurple,
-                        //           ),
-                        //         ),
-                        //         Text(
-                        //           "Gallery",
-                        //           style: TextStyle(
-                        //               fontSize: 18,
-                        //               fontWeight: FontWeight.w500),
-                        //         )
-                        //       ],
-                        //     ),
-                        //   );
-                        //   //       ],
-                        //   //     ),
-                        //   //   ),
-                        //   // );
-                        //   // });
-                        // }),
-                        ),
+                        onPressed: controller.pickImageGallery),
                   ),
                 ],
               ),
@@ -176,12 +113,12 @@ class SahidView extends GetView<SahidController> {
                 ),
               ),
               CustomeInput(
-                keyboardtype: TextInputType.number,
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'\d+|-|/')),
-                  DateInputFormatter(),
-                ],
-                hintText: Strings.deathDate,
+                // inputFormatters: [
+                //   // FilteringTextInputFormatter.allow(RegExp("[0-9/]")),
+                //   // LengthLimitingTextInputFormatter(10),
+                //   //DateFormatter(),
+                // ],
+                hintText: 'DD-MM-YYYY',
                 validator: (value) => validateIsEmpty(string: value),
                 controller: controller.deathDate,
                 prefix: Icons.calendar_today,

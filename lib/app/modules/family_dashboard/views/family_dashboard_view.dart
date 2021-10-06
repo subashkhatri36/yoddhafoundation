@@ -124,9 +124,11 @@ class ListviewWidget extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            ListItemWidget(
-                              field: 'Name',
-                              value: family.name,
+                            Expanded(
+                              child: ListItemWidget(
+                                field: 'Name',
+                                value: family.name,
+                              ),
                             ),
                             Column(
                               children: [
