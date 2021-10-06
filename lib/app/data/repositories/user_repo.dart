@@ -3,7 +3,7 @@ import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/core/service/http/http_service.dart';
 import 'package:yoddhafoundation/app/data/model/response_model.dart';
 
-UserAPI userlogin = UserAPI();
+UserAPI userRepo = UserAPI();
 
 ///it call all user related work
 class UserAPI {
