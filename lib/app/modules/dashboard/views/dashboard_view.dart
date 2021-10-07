@@ -57,7 +57,11 @@ class DashboardView extends GetView<DashboardController> {
           appBar: AppBar(
             title: const Text(Strings.appName),
             actions: [
-              IconButton(onPressed: () {}, icon: const Icon(Icons.upload)),
+              IconButton(
+                  onPressed: () {
+                    controller.onlineSyn();
+                  },
+                  icon: const Icon(Icons.upload)),
             ],
           ),
           drawer: SizedBox(

@@ -16,6 +16,7 @@ class LoginAPI {
     try {
       final response = await httpService.post(Api.logout, data: data);
       //"message": "Successfully logged out"
+      print(response);
       if (response != null) {
         if (response.data['message'] == "Successfully logged out") {
           return true;
@@ -26,6 +27,7 @@ class LoginAPI {
         return false;
       }
     } catch (e) {
+      print(e);
       return false;
     }
   }

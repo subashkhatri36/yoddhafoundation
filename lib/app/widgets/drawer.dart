@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/data/repositories/login_api_call.dart';
+import 'package:yoddhafoundation/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:yoddhafoundation/app/modules/dashboard/views/dashboard_view.dart';
 import 'package:yoddhafoundation/app/modules/user_profile/views/user_profile_view.dart';
 
 Drawer drawer(BuildContext context) {
+  final controller = Get.find<DashboardController>();
   return Drawer(
     child: ListView(
       padding: EdgeInsets.zero,
@@ -46,7 +49,8 @@ Drawer drawer(BuildContext context) {
           leading: const Icon(Icons.logout),
           title: const Text("Sign Out"),
           onTap: () {
-            userlogin.logout(appController.accesstoken);
+            controller.userlogOut();
+            // userlogin.logout(appController.accesstoken);
           },
         ),
       ],

@@ -7,17 +7,25 @@ import 'package:yoddhafoundation/app/core/service/storage_service/shared_prefere
 import 'package:yoddhafoundation/app/data/model/shaid_children.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_core_model.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_family.dart';
+import 'package:yoddhafoundation/app/data/model/user.dart';
+import 'package:yoddhafoundation/app/data/repositories/login_api_call.dart';
 import 'package:yoddhafoundation/app/data/repositories/shaid_info_upload.dart';
+import 'package:yoddhafoundation/app/data/repositories/user_repo.dart';
+import 'package:yoddhafoundation/app/routes/app_pages.dart';
 import 'package:yoddhafoundation/app/widgets/custom_snackbar.dart';
 
 class DashboardController extends GetxController {
-  @override
-  void onInit() {
-    super.onInit();
-    shareprefrence.read(Strings.logintoken);
-  }
+  User? userInfo;
+  RxBool getuserInfo = false.obs;
+  RxBool isSync = false.obs;
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   // shareprefrence.read(Strings.logintoken);
+  // }
 
   onlineSyn() async {
+    isSync.value = true;
     bool saved = false;
     int index = -1;
     //check offline data avilable or not
@@ -111,6 +119,45 @@ class DashboardController extends GetxController {
     if (appController.offlineShaidModel.isEmpty) {
       await shareprefrence.remove(DBname.shaid);
     }
+
+    isSync.value = false;
+  }
+
+  fetchuserdata() async {
+    getuserInfo.value = true;
+
+    var responseData = await userRepo.userDataFetch();
+    if (responseData.iserror) {
+      customSnackbar(message: responseData.error);
+    } else {
+      userInfo = User.fromJson(responseData.response);
+      //User(id: resonse, name: name, email: email, roleId: roleId, emailVerifiedAt: emailVerifiedAt, rememberToken: rememberToken, createdAt: createdAt, updatedAt: updatedAt);
+    }
+    getuserInfo.value = false;
+    /*
+      {
+    "id": 3,
+    "name": "Sudeep",
+    "email": "bjr.sudeep@gmail.com",
+    "role_id": "2",
+    "email_verified_at": "2021-09-29T07:19:07.000000Z",
+    "status": "1",
+    "created_at": "2021-09-29T07:19:07.000000Z",
+    "updated_at": "2021-09-29T07:19:07.000000Z"
+}
+    
+     */
+  }
+
+  userlogOut() async {
+    bool resp = await userlogin.logout(appController.accesstoken);
+    if (resp) {
+      print('true');
+      shareprefrence.remove(Strings.logintoken);
+      appController.authorized = false;
+      Get.offAllNamed(Routes.login);
+    }
+    print('notworking');
   }
 
   @override
