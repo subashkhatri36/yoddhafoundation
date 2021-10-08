@@ -25,7 +25,7 @@ class ShaidAPI {
       "gender": shaid.gender,
       "state": shaid.state,
       "district": shaid.district,
-      "death_date": shaid.deathdate,
+      "death_date": shaid.deathdate.millisecondsSinceEpoch,
       "death_place": shaid.deathplace,
       "responsible": shaid.responsible
     };

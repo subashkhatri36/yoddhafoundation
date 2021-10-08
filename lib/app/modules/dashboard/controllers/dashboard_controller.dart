@@ -152,10 +152,12 @@ class DashboardController extends GetxController {
   userlogOut() async {
     bool resp = await userlogin.logout(appController.accesstoken);
     if (resp) {
+      print('true');
       shareprefrence.remove(Strings.logintoken);
       appController.authorized = false;
       Get.offAllNamed(Routes.login);
     }
+    print('notworking');
   }
 
   @override

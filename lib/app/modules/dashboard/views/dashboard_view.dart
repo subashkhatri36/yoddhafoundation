@@ -57,7 +57,11 @@ class DashboardView extends GetView<DashboardController> {
           appBar: AppBar(
             title: const Text(Strings.appName),
             actions: [
-              IconButton(onPressed: () {}, icon: const Icon(Icons.upload)),
+              IconButton(
+                  onPressed: () {
+                    controller.onlineSyn();
+                  },
+                  icon: const Icon(Icons.upload)),
             ],
           ),
           drawer: SizedBox(
@@ -115,14 +119,15 @@ class DashboardView extends GetView<DashboardController> {
                                       return Container(
                                           margin: const EdgeInsets.symmetric(
                                               horizontal:
-                                                  Constants.defaultMargin / 2,
+                                                  Constants.defaultMargin,
                                               vertical:
-                                                  Constants.defaultMargin),
+                                                  Constants.defaultMargin /
+                                                      2.5),
                                           padding: const EdgeInsets.symmetric(
                                               horizontal:
                                                   Constants.defaultPadding / 2,
                                               vertical:
-                                                  Constants.defaultPadding),
+                                                  Constants.defaultPadding / 3),
                                           decoration: BoxDecoration(
                                               border: Border.all(
                                                   color: Themes.black),

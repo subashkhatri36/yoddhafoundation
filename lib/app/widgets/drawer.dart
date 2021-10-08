@@ -1,25 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/data/repositories/login_api_call.dart';
+import 'package:yoddhafoundation/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:yoddhafoundation/app/modules/dashboard/views/dashboard_view.dart';
 import 'package:yoddhafoundation/app/modules/user_profile/views/user_profile_view.dart';
 
 Drawer drawer(BuildContext context) {
+  final controller = Get.find<DashboardController>();
   return Drawer(
     child: ListView(
       padding: EdgeInsets.zero,
       children: [
         UserAccountsDrawerHeader(
-            decoration: const BoxDecoration(color: Color(0xFF56ccf2)),
+            decoration: const BoxDecoration(color: Colors.blue),
             currentAccountPicture: ClipRRect(
                 borderRadius: BorderRadius.circular(60),
                 child: Image.asset(
                   "assets/images/auctionlogo.PNG",
                   fit: BoxFit.fill,
                 )),
-            accountName: Text("Tanka"),
-            accountEmail: Text("shahi@gmail.com")),
+            accountName: const Text("Tanka"),
+            accountEmail: const Text("shahi@gmail.com")),
         const ListTile(
           leading: Icon(Icons.dashboard),
           title: Text("ड्यासबोर्ड"),
@@ -46,7 +49,8 @@ Drawer drawer(BuildContext context) {
           leading: const Icon(Icons.logout),
           title: const Text("Sign Out"),
           onTap: () {
-            userlogin.logout(appController.accesstoken);
+            controller.userlogOut();
+            // userlogin.logout(appController.accesstoken);
           },
         ),
       ],

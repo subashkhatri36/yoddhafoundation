@@ -15,7 +15,7 @@ class Api {
 
   //insert shaid
   static const String insertSahid =
-      'http://yoddha-foundation.dev-stage.xyz/api/sahids/';
+      'http://yoddha-foundation.dev-stage.xyz/api/sahids';
 
   //save family
   String insertfamily = 'http://yoddha-foundation.dev-stage.xyz/api/sahid/';
