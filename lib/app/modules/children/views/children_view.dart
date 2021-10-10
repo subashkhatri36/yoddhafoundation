@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:pattern_formatter/pattern_formatter.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/constant/string.dart';
@@ -65,6 +66,11 @@ class ChildrenView extends GetView<ChildrenController> {
                 CustomeInput(
                     hintText: Strings.birthDate,
                     controller: controller.dob,
+                    inputFormatters: [
+                      // FilteringTextInputFormatter.allow(RegExp("[0-9/]")),
+                      DateInputFormatter()
+                    ],
+                    keyboardtype: TextInputType.number,
                     validator: (value) => validateIsEmpty(string: value),
                     prefix: Icons.calendar_today),
                 Padding(

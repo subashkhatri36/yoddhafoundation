@@ -131,9 +131,7 @@ class ShaidDetailWidget extends StatelessWidget {
                     ),
                     ListItemWidget(
                       field: 'Death Date:',
-                      value: controller.model!.shaid.deathdate
-                          .toString()
-                          .substring(0, 9),
+                      value: controller.model!.shaid.deathdate,
                     ),
                     ListItemWidget(
                       field: 'State:',
@@ -265,9 +263,7 @@ class ChildrenDisplayWidget extends StatelessWidget {
                       ),
                       ListItemWidget(
                         field: 'Date of Birth:',
-                        value: DateTime.parse(children.dob.toString())
-                            .toString()
-                            .substring(0, 9),
+                        value: children.dob.toString(),
                       ),
                     ],
                   ),

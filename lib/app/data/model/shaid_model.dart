@@ -8,7 +8,7 @@ class Sahid {
   final String district;
   final String state;
   final String image;
-  final DateTime deathdate;
+  final String deathdate;
   final String deathplace;
   final String responsible;
   final DateTime createdAt;
@@ -38,7 +38,7 @@ class Sahid {
       'district': district,
       'image': image,
       'token': token,
-      'death_date': deathdate.millisecondsSinceEpoch,
+      'death_date': deathdate,
       'death_place': deathplace,
       'responsible': responsible,
       'created_at': createdAt.millisecondsSinceEpoch,
@@ -55,7 +55,7 @@ class Sahid {
       district: map['district'],
       image: map['image'],
       token: map['token'],
-      deathdate: DateTime.fromMillisecondsSinceEpoch(map['death_date']),
+      deathdate: (map['death_date'].toString()),
       deathplace: map['death_place'],
       responsible: map['responsible'],
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['created_at']),

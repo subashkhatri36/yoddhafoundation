@@ -153,7 +153,7 @@ class ListViewWidget extends StatelessWidget {
                     ),
                     ListItemWidget(
                       field: 'Date of Birth:',
-                      value: DateTime.parse(children.dob.toString()).toString(),
+                      value: children.dob.toString(),
                     ),
                   ],
                 ),

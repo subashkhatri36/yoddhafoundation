@@ -34,7 +34,7 @@ class ShaidAPI {
       "gender": shaid.gender,
       "state": shaid.state,
       "district": shaid.district,
-      "death_date": shaid.deathdate.millisecondsSinceEpoch,
+      "death_date": shaid.deathdate,
       "death_place": shaid.deathplace,
       "responsible": shaid.responsible
     });
@@ -124,7 +124,7 @@ class ShaidAPI {
       "token": shaidChildren.token,
       "name": shaidChildren.name,
       "relation": shaidChildren.relation,
-      "dob": shaidChildren.dob.millisecondsSinceEpoch,
+      "dob": shaidChildren.dob,
     });
 
     Api api = Api();

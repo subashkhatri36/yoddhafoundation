@@ -24,7 +24,7 @@ class ChildrenController extends GetxController {
   void loadData(ShaidChildren children) {
     //load
     childName.text = children.name;
-    dob.text = children.dob.toString();
+    dob.text = children.dob;
 
     childValue.value = children.relation;
     gloabalchildren = children;
@@ -34,7 +34,7 @@ class ChildrenController extends GetxController {
     ShaidChildren children = ShaidChildren(
         name: childName.text,
         relation: childValue.value,
-        dob: DateTime.parse(dob.text),
+        dob: dob.text,
         createdAt: operation == OPERATION.update
             ? gloabalchildren!.createdAt
             : DateTime.now(),

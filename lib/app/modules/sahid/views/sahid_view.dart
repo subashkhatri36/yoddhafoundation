@@ -4,9 +4,11 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:pattern_formatter/date_formatter.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/constant/string.dart';
+import 'package:yoddhafoundation/app/utls/datetime_format.dart';
 import 'package:yoddhafoundation/app/utls/validation.dart';
 import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
 import 'package:yoddhafoundation/app/widgets/input/custom_container.dart';
@@ -114,12 +116,14 @@ class SahidView extends GetView<SahidController> {
                 ),
               ),
               CustomeInput(
-                // inputFormatters: [
-                //   // FilteringTextInputFormatter.allow(RegExp("[0-9/]")),
-                //   // LengthLimitingTextInputFormatter(10),
-                //   //DateFormatter(),
-                // ],
-                hintText: 'DD-MM-YYYY',
+                inputFormatters: [
+                  // FilteringTextInputFormatter.allow(RegExp("[0-9/]")),
+                  // LengthLimitingTextInputFormatter(10),
+                  // DateFormatter(),
+                  DateInputFormatter()
+                ],
+                keyboardtype: TextInputType.number,
+                hintText: Strings.deathDate,
                 validator: (value) => validateIsEmpty(string: value),
                 controller: controller.deathDate,
                 prefix: Icons.calendar_today,

@@ -31,6 +31,7 @@ class AppController extends GetxController {
   }
 
   Future loadDatabase() async {
+    shareprefrence.remove(Strings.logintoken);
     accesstoken = await shareprefrence.read(Strings.logintoken);
     if (accesstoken.isNotEmpty) {
       authorized = true;
