@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
-import 'package:yoddhafoundation/app/data/repositories/login_api_call.dart';
 import 'package:yoddhafoundation/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:yoddhafoundation/app/modules/dashboard/views/dashboard_view.dart';
 import 'package:yoddhafoundation/app/modules/user_profile/views/user_profile_view.dart';
@@ -15,14 +14,17 @@ Drawer drawer(BuildContext context) {
       children: [
         UserAccountsDrawerHeader(
             decoration: const BoxDecoration(color: Colors.blue),
-            currentAccountPicture: ClipRRect(
-                borderRadius: BorderRadius.circular(60),
-                child: Image.asset(
+            currentAccountPicture: const CircleAvatar(
+                radius: 50,
+                backgroundImage: AssetImage(
                   "assets/images/auctionlogo.PNG",
-                  fit: BoxFit.fill,
                 )),
-            accountName: const Text("Tanka"),
-            accountEmail: const Text("shahi@gmail.com")),
+            accountName: appController.user != null
+                ? Text(appController.user!.name)
+                : const Text("Your Username"),
+            accountEmail: Text(appController.user != null
+                ? appController.user!.email
+                : "youremail@gmail.com")),
         const ListTile(
           leading: Icon(Icons.dashboard),
           title: Text("ड्यासबोर्ड"),

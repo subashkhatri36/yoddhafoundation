@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/utls/validation.dart';
 import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
 import 'package:yoddhafoundation/app/widgets/input/custome_input.dart';
@@ -67,12 +68,16 @@ class LoginView extends GetView<LoginController> {
                       const SizedBox(
                         height: 15.0,
                       ),
-                      CustomButton(
-                        onpressed: () {
-                          controller.login();
-                          // Get.to(DashboardView());
-                        },
-                        btnText: 'Login',
+                      SizedBox(
+                        width: appController.width,
+                        height: appController.height * .07,
+                        child: CustomButton(
+                          onpressed: () {
+                            controller.login();
+                            // Get.to(DashboardView());
+                          },
+                          btnText: 'Login',
+                        ),
                       ),
                       const SizedBox(
                         height: 5.0,

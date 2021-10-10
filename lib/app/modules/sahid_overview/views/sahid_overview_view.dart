@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -129,7 +131,9 @@ class ShaidDetailWidget extends StatelessWidget {
                     ),
                     ListItemWidget(
                       field: 'Death Date:',
-                      value: controller.model!.shaid.deathdate.toString(),
+                      value: controller.model!.shaid.deathdate
+                          .toString()
+                          .substring(0, 9),
                     ),
                     ListItemWidget(
                       field: 'State:',
@@ -154,20 +158,20 @@ class ShaidDetailWidget extends StatelessWidget {
             SizedBox(
               child: Column(
                 children: [
-                  ClipRRect(
-                    child: Image(
-                        height: appController.height * .2,
-                        fit: BoxFit.fitHeight,
-                        image: AssetImage("assets/images/auctionlogo.PNG")),
+                  CircleAvatar(
+                    radius: 50,
+                    backgroundImage: FileImage(
+                      File(controller.model!.shaid.image),
+                    ),
                   ),
                   InkWell(
                       onTap: () {
-                        Get.toNamed(
-                          Routes.children,
-                          arguments: [
-                            OPERATION.update,
-                          ],
-                        );
+                        // Get.toNamed(
+                        //   Routes.children,
+                        //   arguments: [
+                        //     OPERATION.update,
+                        //   ],
+                        // );
                       },
                       child: const Icon(Icons.edit)),
                 ],
@@ -187,7 +191,7 @@ class FamilyDisplayWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<SahidOverviewController>();
-    return Container(
+    return SizedBox(
         height: 50,
         width: double.infinity,
         // color: Colors.deepOrange,
@@ -234,7 +238,7 @@ class ChildrenDisplayWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<SahidOverviewController>();
-    return Container(
+    return SizedBox(
         height: 50,
         width: double.infinity,
         // color: Colors.deepOrange,
@@ -261,8 +265,9 @@ class ChildrenDisplayWidget extends StatelessWidget {
                       ),
                       ListItemWidget(
                         field: 'Date of Birth:',
-                        value:
-                            DateTime.parse(children.dob.toString()).toString(),
+                        value: DateTime.parse(children.dob.toString())
+                            .toString()
+                            .substring(0, 9),
                       ),
                     ],
                   ),

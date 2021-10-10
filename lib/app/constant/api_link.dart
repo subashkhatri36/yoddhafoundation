@@ -1,5 +1,6 @@
 class Api {
-  static const String shaidInsert = '';
+  static const String shaidInsert =
+      'http://yoddha-foundation.dev-stage.xyz/api/sahids/';
   //for login
   static const String login =
       'http://yoddha-foundation.dev-stage.xyz/api/auth/login';
@@ -12,10 +13,6 @@ class Api {
   //logout
   static const String logout =
       'http://yoddha-foundation.dev-stage.xyz/api/auth/logout';
-
-  //insert shaid
-  static const String insertSahid =
-      'http://yoddha-foundation.dev-stage.xyz/api/sahids';
 
   //save family
   String insertfamily = 'http://yoddha-foundation.dev-stage.xyz/api/sahid/';

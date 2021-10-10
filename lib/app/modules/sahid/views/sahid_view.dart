@@ -4,6 +4,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/constant/string.dart';
 import 'package:yoddhafoundation/app/utls/validation.dart';
@@ -203,14 +204,17 @@ class SahidView extends GetView<SahidController> {
               ),
               Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: CustomButton(
-                    onpressed: () {
-                      argument[0] == OPERATION.update
-                          ? controller.updateandClose()
-                          : controller.insertandNext();
-                    },
-                    btnText:
-                        argument[0] == OPERATION.update ? 'Update' : 'Next'),
+                child: SizedBox(
+                  width: appController.width,
+                  child: CustomButton(
+                      onpressed: () {
+                        argument[0] == OPERATION.update
+                            ? controller.updateandClose()
+                            : controller.insertandNext();
+                      },
+                      btnText:
+                          argument[0] == OPERATION.update ? 'Update' : 'Next'),
+                ),
               ),
             ],
           ),

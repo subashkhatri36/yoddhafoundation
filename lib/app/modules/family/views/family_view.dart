@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/constant/string.dart';
 import 'package:yoddhafoundation/app/utls/validation.dart';
@@ -63,33 +64,21 @@ class FamilyView extends GetView<FamilyController> {
                     controller: controller.age,
                     validator: (value) => validateIsEmpty(string: value),
                     prefix: Icons.date_range,
+                    keyboardtype: TextInputType.number,
                   ),
-                  // CustomeInput(
-                  //   hintText: Strings.memberoccupation,
-                  //   controller: controller.occupation,
-                  //   validator: (value) => validateIsEmpty(string: value),
-                  //   prefix: Icons.work,
-                  // ),
-                  // CustomeInput(
-                  //   hintText: Strings.financeCondation,
-                  //   controller: controller.financialStatus,
-                  //   validator: (value) => validateIsEmpty(string: value),
-                  //   prefix: Icons.star_rate,
-                  // ),
-                  // CustomeInput(
-                  //   hintText: Strings.remarks,
-                  //   controller: controller.remarks,
-                  //   validator: (value) => validateIsEmpty(string: value),
-                  //   prefix: Icons.stars_sharp,
-                  // ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: CustomButton(
-                        onpressed: () {
-                          controller.saved(argument[0]);
-                        },
-                        btnText:
-                            argument[0] == OPERATION.update ? 'Update' : 'Add'),
+                    child: SizedBox(
+                      width: appController.width,
+                      height: appController.height * .07,
+                      child: CustomButton(
+                          onpressed: () {
+                            controller.saved(argument[0]);
+                          },
+                          btnText: argument[0] == OPERATION.update
+                              ? 'Update'
+                              : 'Add'),
+                    ),
                   ),
                 ],
               )),

@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:yoddhafoundation/app/constant/api_link.dart';
+import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/core/service/http/http_service.dart';
 import 'package:yoddhafoundation/app/data/model/response_model.dart';
+import 'package:http/http.dart' as http;
 
 LoginAPI userlogin = LoginAPI();
 
@@ -10,19 +14,19 @@ class LoginAPI {
   LoginAPI() {
     httpService.init();
   }
-
+  final headers = {
+    "Authorization": "Bearer ${appController.accesstoken}",
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+  };
   Future<bool> logout(String token) async {
-    final data = {'token': token};
+    final data = jsonEncode({'token': token});
     try {
-      final response = await httpService.post(Api.logout, data: data);
-      //"message": "Successfully logged out"
-      print(response);
-      if (response != null) {
-        if (response.data['message'] == "Successfully logged out") {
-          return true;
-        } else {
-          return false;
-        }
+      final response =
+          await http.post(Uri.parse(Api.logout), body: data, headers: headers);
+
+      if (response.statusCode == 200) {
+        return true;
       } else {
         return false;
       }

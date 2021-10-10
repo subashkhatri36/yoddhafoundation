@@ -27,24 +27,29 @@ class DashboardView extends GetView<DashboardController> {
       WillPopScope(
         onWillPop: () async {
           final data = await showDialog(
-            context: context,
-            builder: (ctx) => AlertDialog(
-              title: const Text("Warning !"),
-              content: const Text("Do you Want to exit application ?"),
-              actions: <Widget>[
-                CustomButton(
-                    onpressed: () {
-                      Navigator.of(context).pop(true);
-                    },
-                    btnText: 'Yes'),
-                CustomButton(
-                    onpressed: () {
-                      Navigator.of(context).pop(false);
-                    },
-                    btnText: 'No')
-              ],
-            ),
-          );
+              context: context,
+              builder: (ctx) => AlertDialog(
+                      title: const Text("Warning !"),
+                      content: const Text("Do you Want to Exit Application ?"),
+                      actions: <Widget>[
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              CustomButton(
+                                  onpressed: () {
+                                    Navigator.of(context).pop(false);
+                                  },
+                                  btnText: 'No'),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              CustomButton(
+                                  onpressed: () {
+                                    Navigator.of(context).pop(true);
+                                  },
+                                  btnText: 'Yes'),
+                            ])
+                      ]));
           return data;
         },
         child: Scaffold(
@@ -58,8 +63,42 @@ class DashboardView extends GetView<DashboardController> {
             title: const Text(Strings.appName),
             actions: [
               IconButton(
-                  onPressed: () {
+                  onPressed: () async {
                     controller.onlineSyn();
+                    await showDialog(
+                        barrierDismissible: true,
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                              title: const Text("Do Not Exit Application."),
+                              content: Obx(
+                                () => SizedBox(
+                                  height: controller.isSync.value
+                                      ? appController.height * .13
+                                      : appController.height * .06,
+                                  child: controller.isSync.isTrue
+                                      ? Column(
+                                          children: const [
+                                            CircularProgressIndicator(),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              "Uploading Info...",
+                                              style: TextStyle(fontSize: 18),
+                                            ),
+                                          ],
+                                        )
+                                      : CustomButton(
+                                          onpressed: () {
+                                            Get.back();
+                                          },
+                                          btnText: "Close"),
+                                ),
+                              ));
+                        });
+
+                    //  controller.onlineSyn();
                   },
                   icon: const Icon(Icons.upload)),
             ],
@@ -92,18 +131,6 @@ class DashboardView extends GetView<DashboardController> {
                               const EdgeInsets.all(Constants.defaultPadding),
                           child: Column(
                             children: [
-                              // Row(
-                              //   children: [
-                              //     const Text('Online Sync'),
-                              //     Expanded(
-                              //       child: CustomButton(
-                              //           onpressed: () {
-                              //             controller.onlineSyn();
-                              //           },
-                              //           btnText: 'Continue.'),
-                              //     )
-                              //   ],
-                              // ),
                               Expanded(
                                 child: ListView.builder(
                                     shrinkWrap: true,
@@ -112,9 +139,6 @@ class DashboardView extends GetView<DashboardController> {
                                     itemBuilder: (context, index) {
                                       CoreShaidModel e = appController
                                           .offlineShaidModel[index];
-
-//image
-//File imgfile=File(e.shaid.image);
 
                                       return Container(
                                           margin: const EdgeInsets.symmetric(
@@ -135,14 +159,51 @@ class DashboardView extends GetView<DashboardController> {
                                                   BorderRadius.circular(
                                                       Constants.defaultRadius)),
                                           child: ListTile(
-                                            onLongPress: () {
-                                              appController.offlineShaidModel
-                                                  .removeAt(index);
-                                              shareprefrence.save(
-                                                  DBname.shaid,
-                                                  appController
-                                                      .offlineShaidModel
-                                                      .toJson());
+                                            onLongPress: () async {
+                                              final data = await showDialog(
+                                                barrierDismissible: false,
+                                                context: context,
+                                                builder: (ctx) => AlertDialog(
+                                                  title:
+                                                      const Text("Warning !"),
+                                                  content: const Text(
+                                                      "Do you Want to Delete Information of Shaid ?"),
+                                                  actions: <Widget>[
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                      children: [
+                                                        CustomButton(
+                                                            onpressed: () {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop(false);
+                                                            },
+                                                            btnText: 'No'),
+                                                        const SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        CustomButton(
+                                                            onpressed: () {
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop(true);
+                                                            },
+                                                            btnText: 'Yes'),
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
+                                              );
+                                              if (data) {
+                                                appController.offlineShaidModel
+                                                    .removeAt(index);
+                                                shareprefrence.save(
+                                                    DBname.shaid,
+                                                    appController
+                                                        .offlineShaidModel
+                                                        .toJson());
+                                              }
                                             },
                                             onTap: () {
                                               appController.index = index;

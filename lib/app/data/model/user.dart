@@ -19,20 +19,13 @@ class User {
   final String name;
   final String email;
   final int roleId;
-  final DateTime emailVerifiedAt;
-  final String rememberToken;
-  final DateTime createdAt;
-  final DateTime updatedAt;
 
-  User(
-      {required this.id,
-      required this.name,
-      required this.email,
-      required this.roleId,
-      required this.emailVerifiedAt,
-      required this.rememberToken,
-      required this.createdAt,
-      required this.updatedAt});
+  User({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.roleId,
+  });
 
   Map<String, dynamic> toMap() {
     return {
@@ -40,11 +33,6 @@ class User {
       'name': name,
       'email': email,
       'roleId': roleId,
-      'email_verified_at': emailVerifiedAt.millisecondsSinceEpoch,
-
-      'rememberToken': rememberToken,
-      'created_at': createdAt.millisecondsSinceEpoch,
-      'updated_at': updatedAt.millisecondsSinceEpoch,
     };
   }
 
@@ -54,12 +42,6 @@ class User {
       name: map['name'],
       email: map['email'],
       roleId: map['roleId'],
-      emailVerifiedAt:
-          DateTime.fromMillisecondsSinceEpoch(map['email_verified_at']),
-    
-      rememberToken: map['rememberToken'],
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['created_at']),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updated_at']),
     );
   }
 

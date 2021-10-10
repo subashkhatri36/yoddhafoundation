@@ -6,6 +6,7 @@ import 'package:yoddhafoundation/app/constant/db_name.dart';
 import 'package:yoddhafoundation/app/constant/string.dart';
 import 'package:yoddhafoundation/app/core/service/storage_service/shared_preference.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_core_model.dart';
+import 'package:yoddhafoundation/app/data/model/user.dart';
 
 class AppController extends GetxController {
   double width = 0.0;
@@ -15,6 +16,7 @@ class AppController extends GetxController {
   //Core list
   RxList<CoreShaidModel> offlineShaidModel =
       List<CoreShaidModel>.empty(growable: true).obs;
+  User? user;
 
   //Check if data is there or not in shaid database
   RxBool shaidDataOffline = false.obs;
@@ -45,6 +47,7 @@ class AppController extends GetxController {
     if (offlineShaidModel.isNotEmpty) {
       offlineShaidModel.clear();
     }
+
     var shaidDetail = await shareprefrence.read(DBname.shaid);
     if (shaidDetail.isNotEmpty) {
       for (var val in json.decode(shaidDetail)) {
