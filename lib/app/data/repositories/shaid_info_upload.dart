@@ -8,6 +8,7 @@ import 'package:yoddhafoundation/app/data/model/shaid_children.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_family.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 ShaidAPI shaidUpload = ShaidAPI();
 
@@ -27,6 +28,56 @@ class ShaidAPI {
     print("Token " + appController.accesstoken);
     ApiCall userapi = ApiCall();
     // shaid.token = appController.accesstoken;
+/*
+  var uri = Uri.parse(Api.uploadbook);
+
+      // create multipart request
+      var request = http.MultipartRequest("POST", uri);
+
+      final headers = {
+        "token": appController.accesstoken,
+        "Content-Type": "multipart/form-data",
+      };
+      print(headers);
+
+      var stream = http.ByteStream(bookcover.openRead());
+      stream.cast();
+      // get file length
+      var length = await bookcover.length(); //imageFile is your image file
+
+      // multipart that takes file
+      var multipartFileSign = http.MultipartFile('cover_image', stream, length,
+          filename: basename(bookcover.path));
+
+      var pdf = http.ByteStream(bookfile.openRead());
+      pdf.cast();
+      // get file length
+      var pdflength = await bookfile.length(); //imageFile is your image file
+
+      // multipart that takes file
+      var pdfmultipartFileSign = http.MultipartFile('pdf_file', pdf, pdflength,
+          filename: basename(bookfile.path));
+
+      //add headers
+      request.headers.addAll(headers);
+      request.files.add(multipartFileSign);
+      request.files.add(pdfmultipartFileSign);
+      request.fields['category_id'] = "1";
+      request.fields['synopsis'] = synopsis;
+      request.fields['title'] = bookname;
+
+      // send
+      var response = await request.send();
+
+      print(response.statusCode);
+
+      // listen for response
+      response.stream.transform(utf8.decoder).listen((value) {
+        print(value);
+      });
+
+ */
+
     final data = jsonEncode({
       "token": appController.accesstoken,
       "image": shaid.image,
@@ -34,7 +85,8 @@ class ShaidAPI {
       "gender": shaid.gender,
       "state": shaid.state,
       "district": shaid.district,
-      "death_date": shaid.deathdate,
+      "death_date": (DateFormat().add_yMd().parse(shaid.deathdate))
+          .millisecondsSinceEpoch,
       "death_place": shaid.deathplace,
       "responsible": shaid.responsible
     });
@@ -124,7 +176,8 @@ class ShaidAPI {
       "token": shaidChildren.token,
       "name": shaidChildren.name,
       "relation": shaidChildren.relation,
-      "dob": shaidChildren.dob,
+      "dob": (DateFormat().add_yMd().parse(shaidChildren.dob))
+          .millisecondsSinceEpoch,
     });
 
     Api api = Api();
@@ -141,7 +194,6 @@ class ShaidAPI {
         var children = await json.decode(response.body);
         userapi.iserror = false;
         userapi.response = children;
-        print("children passed");
       } else {
         userapi.iserror = true;
         userapi.error = json.decode(response.body)["message"];

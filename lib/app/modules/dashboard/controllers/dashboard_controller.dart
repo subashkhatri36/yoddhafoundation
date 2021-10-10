@@ -35,8 +35,10 @@ class DashboardController extends GetxController {
     }
     //ConcurrentModificationError (Concurrent modification during iteration: Instance(length:0) of '_GrowableList'.)
 
-    for (CoreShaidModel m in model) {
-      index++;
+    // for (CoreShaidModel m in model)
+    for (int i = 0; i < model.length; i++) {
+      CoreShaidModel m = model[i];
+      // index++;
       saved = false;
 
       //String token = m.shaid.token = appController.accesstoken;
@@ -91,8 +93,8 @@ class DashboardController extends GetxController {
 
         if (saved) {
           //saved
-          if (index < appController.offlineShaidModel.length) {
-            appController.offlineShaidModel.removeAt(index);
+          if (i < appController.offlineShaidModel.length) {
+            appController.offlineShaidModel.removeAt(i);
           }
         }
       } else {
