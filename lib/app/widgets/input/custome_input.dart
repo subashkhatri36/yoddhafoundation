@@ -57,6 +57,9 @@ class _CustomeInputState extends State<CustomeInput> {
         controller: widget.controller,
         obscureText: widget.obstext == true ? showpassword : widget.obstext,
         decoration: InputDecoration(
+          contentPadding: widget.showsuffix
+              ? null
+              : const EdgeInsets.symmetric(vertical: 25),
           hintText: widget.hintText,
           label: widget.labeltext != '' ? Text(widget.labeltext) : null,
           border: OutlineInputBorder(
@@ -65,7 +68,7 @@ class _CustomeInputState extends State<CustomeInput> {
           ),
           prefixIcon: Icon(widget.prefix),
           suffix: widget.showsuffix
-              ? GestureDetector(
+              ? InkWell(
                   onTap: () {
                     showpassword = !showpassword;
                     show(showpassword);

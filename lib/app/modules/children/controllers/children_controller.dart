@@ -26,7 +26,6 @@ class ChildrenController extends GetxController {
     //load
     childName.text = children.name;
     dob.text = children.dob;
-
     childValue.value = children.relation;
     gloabalchildren = children;
   }

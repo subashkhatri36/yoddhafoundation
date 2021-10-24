@@ -167,17 +167,18 @@ class ShaidDetailWidget extends StatelessWidget {
                       File(controller.model!.shaid.image),
                     ),
                   ),
-                  InkWell(
-                      onTap: () {
-                        Get.toNamed(
-                          Routes.shaid,
-                          arguments: [
-                            OPERATION.update,
-                            controller.model!.shaid
-                          ],
-                        );
-                      },
-                      child: const Icon(Icons.edit)),
+                  if (args != OPERATION.insert)
+                    InkWell(
+                        onTap: () {
+                          Get.toNamed(
+                            Routes.shaid,
+                            arguments: [
+                              OPERATION.update,
+                              controller.model!.shaid
+                            ],
+                          );
+                        },
+                        child: const Icon(Icons.edit)),
                 ],
               ),
             ),
@@ -232,12 +233,13 @@ class FamilyDisplayWidget extends StatelessWidget {
                       ),
                       Column(
                         children: [
-                          IconButton(
-                              onPressed: () {
-                                appController.familyindex = index;
-                                controller.familyEdit(family, args);
-                              },
-                              icon: const Icon(Icons.edit)),
+                          if (args != OPERATION.insert)
+                            IconButton(
+                                onPressed: () {
+                                  appController.familyindex = index;
+                                  controller.familyEdit(family, args);
+                                },
+                                icon: const Icon(Icons.edit)),
                           IconButton(
                               onPressed: () {
                                 appController.familyindex = index;
@@ -301,12 +303,13 @@ class ChildrenDisplayWidget extends StatelessWidget {
                       ),
                       Column(
                         children: [
-                          IconButton(
-                              onPressed: () {
-                                appController.childrenindex = index;
-                                controller.childrenEdit(children, args);
-                              },
-                              icon: const Icon(Icons.edit)),
+                          if (args != OPERATION.insert)
+                            IconButton(
+                                onPressed: () {
+                                  appController.childrenindex = index;
+                                  controller.childrenEdit(children, args);
+                                },
+                                icon: const Icon(Icons.edit)),
                           IconButton(
                               onPressed: () {
                                 appController.childrenindex = index;

@@ -69,6 +69,7 @@ class SahidOverviewController extends GetxController
             DBname.shaid, appController.offlineShaidModel.toJson());
       }
     }
+    checkInfo(operation);
   }
 
   //children edit
