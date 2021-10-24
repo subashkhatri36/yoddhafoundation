@@ -1,5 +1,5 @@
 /// password validator
-String validatePassword({required String string}) {
+String? validatePassword({required String string}) {
   if (string.isEmpty) {
     return "* Required";
   } else if (string.length < 6) {
@@ -7,7 +7,7 @@ String validatePassword({required String string}) {
   } else if (string.length > 15) {
     return "Password should not be greater than 15 characters";
   } else {
-    return '';
+    return null;
   }
 }
 
@@ -20,14 +20,14 @@ String validatePasswordConfirm(
 }
 
 /// email validator
-String validateEmail({required String string}) {
+String? validateEmail({required String string}) {
   String regex =
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
   if (string.isEmpty) return "* required field";
   if (!validRegexExp(regex, string)) {
     return "Invalid Email";
   } else {
-    return '';
+    return null;
   }
 }
 
@@ -44,8 +44,8 @@ String validateMaxLength({required String string, int length = 4}) {
 }
 
 /// validate empty string
-String validateIsEmpty({required String string}) {
-  return string.isEmpty ? "* required field" : '';
+String? validateIsEmpty({required String string}) {
+  return string.isEmpty ? "* required field" : null;
 }
 
 /// validate min-max length

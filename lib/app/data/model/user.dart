@@ -1,21 +1,31 @@
-
 import 'dart:convert';
 
+/*
+{
+    "id": 3,
+    "name": "Sudeep",
+    "email": "bjr.sudeep@gmail.com",
+    "role_id": "2",
+    "email_verified_at": "2021-09-29T07:19:07.000000Z",
+    "status": "1",
+    "created_at": "2021-09-29T07:19:07.000000Z",
+    "updated_at": "2021-09-29T07:19:07.000000Z"
+}
+
+ */
+
 class User {
-   final int id;
+  final int id;
   final String name;
   final String email;
   final int roleId;
- final DateTime emailVerifiedAt;
-  final String password;
-  final String rememberToken;
-  final DateTime createdAt;
-  final DateTime updatedAt;
 
-  User({required this.id,required this.name,required this.email,required this.roleId,required this.emailVerifiedAt,required this.password,required this.rememberToken,required this.createdAt,required this.updatedAt});
-
-
-  
+  User({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.roleId,
+  });
 
   Map<String, dynamic> toMap() {
     return {
@@ -23,11 +33,6 @@ class User {
       'name': name,
       'email': email,
       'roleId': roleId,
-      'emailVerifiedAt': emailVerifiedAt.millisecondsSinceEpoch,
-      'password': password,
-      'rememberToken': rememberToken,
-      'createdAt': createdAt.millisecondsSinceEpoch,
-      'updatedAt': updatedAt.millisecondsSinceEpoch,
     };
   }
 
@@ -37,11 +42,6 @@ class User {
       name: map['name'],
       email: map['email'],
       roleId: map['roleId'],
-      emailVerifiedAt: DateTime.fromMillisecondsSinceEpoch(map['emailVerifiedAt']),
-      password: map['password'],
-      rememberToken: map['rememberToken'],
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt']),
     );
   }
 

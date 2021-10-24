@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:yoddhafoundation/app/constant/constants.dart';
-import 'package:yoddhafoundation/app/modules/dashboard/views/dashboard_view.dart';
+import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/utls/validation.dart';
 import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
 import 'package:yoddhafoundation/app/widgets/input/custome_input.dart';
@@ -49,6 +48,7 @@ class LoginView extends GetView<LoginController> {
                         height: 10.0,
                       ),
                       CustomeInput(
+                        controller: controller.username,
                         hintText: 'Enter Email',
                         prefix: Icons.email,
                         validator: (value) => validateEmail(string: value),
@@ -57,6 +57,7 @@ class LoginView extends GetView<LoginController> {
                         height: 10.0,
                       ),
                       CustomeInput(
+                        controller: controller.password,
                         hintText: 'Enter Password',
                         validator: (value) => validatePassword(string: value),
                         obstext: true,
@@ -67,27 +68,20 @@ class LoginView extends GetView<LoginController> {
                       const SizedBox(
                         height: 15.0,
                       ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: GestureDetector(
-                          onTap: () {},
-                          child: const Text(
-                            "Forget Password",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
+                      SizedBox(
+                        width: appController.width,
+                        height: appController.height * .07,
+                        child: Obx(
+                          () => controller.isloginClick.value
+                              ? const Center(child: CircularProgressIndicator())
+                              : CustomButton(
+                                  onpressed: () {
+                                    controller.login(context);
+                                    // Get.to(DashboardView());
+                                  },
+                                  btnText: 'Login',
+                                ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: Constants.defaultMargin,
-                      ),
-                      CustomButton(
-                        onpressed: () {
-                          Get.to(DashboardView());
-                        },
-                        btnText: 'Login',
                       ),
                       const SizedBox(
                         height: 5.0,

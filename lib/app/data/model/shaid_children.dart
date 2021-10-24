@@ -1,22 +1,24 @@
 import 'dart:convert';
 
 class ShaidChildren {
-  final int id;
-  final int shaidId;
+  int? id;
+  int? shaidId;
   final String name;
   final String relation;
-  final DateTime dob;
-  final String educationQualification;
-  final String currentlyStudyingLevel;
-  final String faculty;
-  final String occupation;
-  final String financialStatus;
+  final String dob;
+  String token;
   final DateTime createdAt;
   final DateTime updatedAt;
 
-  ShaidChildren({required this.id,required this.shaidId,required this.name,required this.relation,required this.dob,required this.educationQualification,required this.currentlyStudyingLevel,required this.faculty,required this.occupation,required this.financialStatus,required this.createdAt,required this.updatedAt});
-  
-
+  ShaidChildren(
+      {this.id,
+      this.token = '',
+      this.shaidId,
+      required this.name,
+      required this.relation,
+      required this.dob,
+      required this.createdAt,
+      required this.updatedAt});
 
   Map<String, dynamic> toMap() {
     return {
@@ -24,12 +26,8 @@ class ShaidChildren {
       'shaid_id': shaidId,
       'name': name,
       'relation': relation,
-      'dob': dob.millisecondsSinceEpoch,
-      'education_qualification': educationQualification,
-      'currently_studying_level': currentlyStudyingLevel,
-      'faculty': faculty,
-      'occupation': occupation,
-      'financial_status': financialStatus,
+      'token': token,
+      'dob': dob,
       'created_at': createdAt.millisecondsSinceEpoch,
       'updated_at': updatedAt.millisecondsSinceEpoch,
     };
@@ -40,13 +38,9 @@ class ShaidChildren {
       id: map['id'],
       shaidId: map['shaid_id'],
       name: map['name'],
+      token: map['token'],
       relation: map['relation'],
-      dob: DateTime.fromMillisecondsSinceEpoch(map['dob']),
-      educationQualification: map['education_qualification'],
-      currentlyStudyingLevel: map['currently_studying_level'],
-      faculty: map['faculty'],
-      occupation: map['occupation'],
-      financialStatus: map['financial_status'],
+      dob: (map['dob'].toString()),
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['created_at']),
       updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updated_at']),
     );
@@ -54,6 +48,6 @@ class ShaidChildren {
 
   String toJson() => json.encode(toMap());
 
-  factory ShaidChildren.fromJson(String source) => ShaidChildren.fromMap(json.decode(source));
+  factory ShaidChildren.fromJson(String source) =>
+      ShaidChildren.fromMap(json.decode(source));
 }
-
