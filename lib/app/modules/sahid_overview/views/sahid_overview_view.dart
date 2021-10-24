@@ -4,14 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
-
 import 'package:get/get.dart';
+
 import 'package:yoddhafoundation/app/constant/constants.dart';
-import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_children.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_family.dart';
-import 'package:yoddhafoundation/app/routes/app_pages.dart';
 import 'package:yoddhafoundation/app/widgets/list_item_widget.dart';
 
 import '../controllers/sahid_overview_controller.dart';
@@ -101,9 +99,13 @@ class SahidOverviewView extends GetView<SahidOverviewController> {
   }
 }
 
+// ignore: must_be_immutable
 class ShaidDetailWidget extends StatelessWidget {
   OPERATION args;
-  ShaidDetailWidget({Key? key, required this.args}) : super(key: key);
+  ShaidDetailWidget({
+    Key? key,
+    required this.args,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

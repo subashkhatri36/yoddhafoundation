@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
 
 import '../controllers/user_profile_controller.dart';
 

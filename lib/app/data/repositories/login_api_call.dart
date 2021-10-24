@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:yoddhafoundation/app/constant/api_link.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
-import 'package:yoddhafoundation/app/core/service/http/http_service.dart';
 import 'package:yoddhafoundation/app/data/model/response_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,10 +9,6 @@ LoginAPI userlogin = LoginAPI();
 
 ///it call all user related work
 class LoginAPI {
-  HttpService httpService = HttpServiceImpl();
-  LoginAPI() {
-    httpService.init();
-  }
   final headers = {
     "Authorization": "Bearer ${appController.accesstoken}",
     "Content-Type": "application/json",
@@ -31,7 +26,6 @@ class LoginAPI {
         return false;
       }
     } catch (e) {
-      print(e);
       return false;
     }
   }
@@ -43,13 +37,12 @@ class LoginAPI {
       'password': password,
     };
     try {
-      final response = await httpService.post(Api.login, data: data);
-      if (response != null) {
-        userapi.response = response.data["access_token"];
-        if (userapi.response == null) {
-          userapi.iserror = true;
-          userapi.error = response.data["message"];
-        }
+      final response = await http.post(Uri.parse(Api.login), body: data);
+
+      userapi.response = json.decode(response.body)["access_token"];
+      if (userapi.response == null) {
+        userapi.iserror = true;
+        userapi.error = json.decode(response.body)["message"];
       }
     } catch (e) {
       userapi.iserror = true;
