@@ -4,8 +4,8 @@ class CustomButton extends StatelessWidget {
   final VoidCallback onpressed;
   final String btnText;
   final Color color;
-
-  const CustomButton(
+  // bool isLoading;
+  CustomButton(
       {Key? key,
       required this.onpressed,
       required this.btnText,
