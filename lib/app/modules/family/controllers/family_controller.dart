@@ -5,6 +5,7 @@ import 'package:yoddhafoundation/app/constant/db_name.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/core/service/storage_service/shared_preference.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_family.dart';
+import 'package:yoddhafoundation/app/modules/sahid_overview/controllers/sahid_overview_controller.dart';
 import 'package:yoddhafoundation/app/widgets/custom_snackbar.dart';
 
 class FamilyController extends GetxController {
@@ -56,6 +57,7 @@ class FamilyController extends GetxController {
             .shaidFamily![appController.familyindex] = family;
         await shareprefrence.save(
             DBname.shaid, appController.offlineShaidModel.toJson());
+        Get.find<SahidOverviewController>().checkInfo(operation);
       } else {
         appController.coreShaidModel!.shaidFamily!.add(family);
         appController.familyListDataChange.toggle();

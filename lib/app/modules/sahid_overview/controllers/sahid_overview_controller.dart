@@ -1,11 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/db_name.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/core/service/storage_service/shared_preference.dart';
+import 'package:yoddhafoundation/app/data/model/shaid_children.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_core_model.dart';
+import 'package:yoddhafoundation/app/data/model/shaid_family.dart';
 import 'package:yoddhafoundation/app/routes/app_pages.dart';
+import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
 import 'package:yoddhafoundation/app/widgets/custom_snackbar.dart';
 
 class SahidOverviewController extends GetxController
@@ -17,6 +21,105 @@ class SahidOverviewController extends GetxController
   void onInit() {
     super.onInit();
     tabController = TabController(length: 2, vsync: this);
+  }
+
+  //family edit
+  void familyEdit(ShaidFamily family, OPERATION args) {
+    Get.toNamed(Routes.family, arguments: [args, family]);
+  }
+
+  void familyDelete(OPERATION operation) async {
+    bool val = await showDialog(
+        context: Get.context!,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text(
+              "Warning!",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            content: const Text("Are you sure to delete?"),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  CustomButton(
+                      onpressed: () {
+                        Navigator.of(Get.context!).pop(true);
+                      },
+                      btnText: "Yes"),
+                  CustomButton(
+                    onpressed: () {
+                      Navigator.of(Get.context!).pop(false);
+                    },
+                    btnText: "No",
+                  )
+                ],
+              )
+            ],
+          );
+        });
+    if (val) {
+      if (operation == OPERATION.insert) {
+        appController.coreShaidModel!.shaidFamily!
+            .removeAt(appController.familyindex);
+      } else {
+        appController.offlineShaidModel[appController.index].shaidFamily!
+            .removeAt(appController.familyindex);
+        shareprefrence.save(
+            DBname.shaid, appController.offlineShaidModel.toJson());
+      }
+    }
+  }
+
+  //children edit
+  void childrenEdit(ShaidChildren children, OPERATION operation) {
+    Get.toNamed(Routes.children, arguments: [operation, children]);
+  }
+
+  void childrenDelete(OPERATION operation) async {
+    bool val = await showDialog(
+        context: Get.context!,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text(
+              "Warning!",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            content: const Text("Are you sure to delete?"),
+            actions: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  CustomButton(
+                      onpressed: () {
+                        Navigator.of(Get.context!).pop(true);
+                      },
+                      btnText: "Yes"),
+                  CustomButton(
+                    onpressed: () {
+                      Navigator.of(Get.context!).pop(false);
+                    },
+                    btnText: "No",
+                  )
+                ],
+              )
+            ],
+          );
+        });
+    if (val) {
+      if (operation == OPERATION.insert) {
+        appController.coreShaidModel!.shaidChildren!
+            .removeAt(appController.childrenindex);
+      } else {
+        appController.offlineShaidModel[appController.index].shaidChildren!
+            .removeAt(appController.childrenindex);
+        shareprefrence.save(
+            DBname.shaid, appController.offlineShaidModel.toJson());
+      }
+    }
+    checkInfo(
+      operation,
+    );
   }
 
   checkInfo(

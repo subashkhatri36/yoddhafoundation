@@ -5,7 +5,7 @@ class ShaidChildren {
   int? shaidId;
   final String name;
   final String relation;
-  final DateTime dob;
+  final String dob;
   String token;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -27,7 +27,7 @@ class ShaidChildren {
       'name': name,
       'relation': relation,
       'token': token,
-      'dob': dob.millisecondsSinceEpoch,
+      'dob': dob,
       'created_at': createdAt.millisecondsSinceEpoch,
       'updated_at': updatedAt.millisecondsSinceEpoch,
     };
@@ -40,7 +40,7 @@ class ShaidChildren {
       name: map['name'],
       token: map['token'],
       relation: map['relation'],
-      dob: DateTime.fromMillisecondsSinceEpoch(map['dob']),
+      dob: (map['dob'].toString()),
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['created_at']),
       updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updated_at']),
     );

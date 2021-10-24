@@ -1,13 +1,15 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
+import 'package:yoddhafoundation/app/constant/db_name.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/constant/string.dart';
+import 'package:yoddhafoundation/app/core/service/storage_service/shared_preference.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_core_model.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_model.dart';
+import 'package:yoddhafoundation/app/modules/sahid_overview/controllers/sahid_overview_controller.dart';
 import 'package:yoddhafoundation/app/routes/app_pages.dart';
 import 'package:yoddhafoundation/app/widgets/custom_snackbar.dart';
 
@@ -49,6 +51,7 @@ class SahidController extends GetxController {
     if (pickedImage != null) {
       final pickedImageFile = File(pickedImage.path);
       pickedImg = pickedImageFile;
+      imagepath = pickedImg!.path;
       if (pickedImg != null) {
         imageselected.value = true;
       }
@@ -66,26 +69,31 @@ class SahidController extends GetxController {
         gender: genVal.value,
         district: district.text,
         state: state.text,
-        image: pickedImg!.path,
-        deathdate: DateTime.parse(deathDate.text),
+        image: imagepath,
+        deathdate: deathDate.text,
         deathplace: deathPlace.text,
         responsible: checkdata(),
         createdAt: DateTime.now(),
         updatedAt: DateTime.now());
     appController.offlineShaidModel[appController.index].shaid = sa;
-    // shaidRepo.shaidupdate(sa);
+    shareprefrence.save(DBname.shaid, appController.offlineShaidModel.toJson());
+    Get.find<SahidOverviewController>().checkInfo(OPERATION.update);
     Get.back();
   }
 
+  String imagepath = "";
   loadData(Sahid shaid) {
     sahidInfo = shaid;
     sahidName.text = shaid.name;
-    deathDate.text = shaid.deathplace;
+    deathDate.text = shaid.deathdate;
     state.text = shaid.state;
     district.text = shaid.district;
     deathPlace.text = shaid.deathplace;
     genVal.value = shaid.gender;
-    // pickedImg!.path=shaid.image;
+    imagepath = shaid.image;
+    if (imagepath.isNotEmpty) {
+      imageselected.value = true;
+    }
     if (shaid.responsible.contains(Strings.other)) {
       thirdvalue.value = true;
     }
@@ -104,15 +112,17 @@ class SahidController extends GetxController {
       } else {
 //now working with checkbox
         if (checkdata().isNotEmpty) {
-          // DateFormat formatter = DateFormat('dd/MM/yyyy');
-          //now saved
+          // DateFormat formatter = DateFormat.yMd();
+          // String formattedDate = formatter.format(DateTime.now());
+          //now saved\
+
           Sahid sa = Sahid(
               name: sahidName.text,
               gender: genVal.value,
               district: district.text,
               state: state.text,
-              image: pickedImg!.path,
-              deathdate: DateTime.parse(deathDate.text),
+              image: imagepath,
+              deathdate: deathDate.text,
               deathplace: deathPlace.text,
               responsible: checkdata(),
               createdAt: DateTime.now(),

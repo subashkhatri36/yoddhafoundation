@@ -71,12 +71,16 @@ class LoginView extends GetView<LoginController> {
                       SizedBox(
                         width: appController.width,
                         height: appController.height * .07,
-                        child: CustomButton(
-                          onpressed: () {
-                            controller.login();
-                            // Get.to(DashboardView());
-                          },
-                          btnText: 'Login',
+                        child: Obx(
+                          () => controller.isloginClick.value
+                              ? const Center(child: CircularProgressIndicator())
+                              : CustomButton(
+                                  onpressed: () {
+                                    controller.login(context);
+                                    // Get.to(DashboardView());
+                                  },
+                                  btnText: 'Login',
+                                ),
                         ),
                       ),
                       const SizedBox(

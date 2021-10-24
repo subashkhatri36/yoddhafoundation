@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:pattern_formatter/date_formatter.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/constant/string.dart';
@@ -51,8 +54,10 @@ class SahidView extends GetView<SahidController> {
                           // backgroundImage: AssetImage('assets/images/download.jpg'),
                           // ignore: unnecessary_null_comparison
                           backgroundImage: !controller.imageselected.value
-                              ? null
-                              : FileImage(controller.pickedImg!),
+                              ? argument[0] == OPERATION.update
+                                  ? FileImage(File(argument[1].image!))
+                                  : null
+                              : FileImage(File(controller.imagepath)),
                         ),
                       ),
                     ),
@@ -113,12 +118,14 @@ class SahidView extends GetView<SahidController> {
                 ),
               ),
               CustomeInput(
-                // inputFormatters: [
-                //   // FilteringTextInputFormatter.allow(RegExp("[0-9/]")),
-                //   // LengthLimitingTextInputFormatter(10),
-                //   //DateFormatter(),
-                // ],
-                hintText: 'DD-MM-YYYY',
+                inputFormatters: [
+                  // FilteringTextInputFormatter.allow(RegExp("[0-9/]")),
+                  // LengthLimitingTextInputFormatter(10),
+                  // DateFormatter(),
+                  DateInputFormatter()
+                ],
+                keyboardtype: TextInputType.number,
+                hintText: Strings.deathDate,
                 validator: (value) => validateIsEmpty(string: value),
                 controller: controller.deathDate,
                 prefix: Icons.calendar_today,

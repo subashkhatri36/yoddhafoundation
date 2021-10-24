@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:yoddhafoundation/app/constant/api_link.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/data/model/response_model.dart';
@@ -9,6 +8,7 @@ import 'package:yoddhafoundation/app/data/model/shaid_family.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
+import 'package:intl/intl.dart';
 
 ShaidAPI shaidUpload = ShaidAPI();
 
@@ -34,28 +34,20 @@ class ShaidAPI {
           contentType: MediaType('image', 'jpeg'),
           filename: shaid.image.split("/").last));
       request.headers.addAll(headers);
-
-      request.fields.addAll({
+      Map<String, String> data = {
         "token": appController.accesstoken,
         "name": shaid.name,
         "gender": shaid.gender,
         "state": shaid.state,
         "district": shaid.district,
-        "death_date": shaid.deathdate.millisecondsSinceEpoch.toString(),
+        "death_date": (DateFormat().add_yMd().parse(shaid.deathdate))
+            .millisecondsSinceEpoch
+            .toString(),
         "death_place": shaid.deathplace,
         "responsible": shaid.responsible
-      });
+      };
 
-      // request.fields["token"] = appController.accesstoken;
-
-      // request.fields["name"] = shaid.name;
-      // request.fields["gender"] = shaid.gender;
-      // request.fields["state"] = shaid.state;
-      // request.fields["district"] = shaid.district;
-      // request.fields["death_date"] =
-      //     shaid.deathdate.millisecondsSinceEpoch.toString();
-      // request.fields["death_place"] = shaid.deathplace;
-      // request.fields["responsible"] = shaid.responsible;
+      request.fields.addAll(data);
 
       http.Response result =
           await http.Response.fromStream(await request.send());
@@ -66,7 +58,6 @@ class ShaidAPI {
         var shaidData = await json.decode(result.body);
         userapi.iserror = false;
         userapi.response = int.parse(shaidData["sahid"]["id"].toString());
-        print("shaidpassed");
       } else {
         userapi.iserror = true;
         userapi.error = json.decode(result.body)["message"];
@@ -81,23 +72,23 @@ class ShaidAPI {
   //family
 
   Future<ApiCall> shaidFamilyUpload(ShaidFamily shaidFamily, int id) async {
-    final headers = {
-      "Authorization": "Bearer ${appController.accesstoken}",
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-    };
     ApiCall userapi = ApiCall();
-    shaidFamily.token = appController.accesstoken;
-    final data = jsonEncode({
-      "token": shaidFamily.token,
-      "name": shaidFamily.name,
-      "relation": shaidFamily.relation,
-      "age": shaidFamily.age
-    });
-
-    Api api = Api();
-
     try {
+      final headers = {
+        "Authorization": "Bearer ${appController.accesstoken}",
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      };
+
+      shaidFamily.token = appController.accesstoken;
+      final data = jsonEncode({
+        "token": shaidFamily.token,
+        "name": shaidFamily.name,
+        "relation": shaidFamily.relation,
+        "age": shaidFamily.age
+      });
+
+      Api api = Api();
       api.insertfamily += id.toString() + "/family/store";
       final response = await http.post(
         Uri.parse(api.insertfamily),
@@ -109,7 +100,6 @@ class ShaidAPI {
         var family = await json.decode(response.body);
         userapi.iserror = false;
         userapi.response = family;
-        print("familypasseed");
       } else {
         userapi.iserror = true;
         userapi.error = json.decode(response.body)["message"];
@@ -136,7 +126,8 @@ class ShaidAPI {
       "token": shaidChildren.token,
       "name": shaidChildren.name,
       "relation": shaidChildren.relation,
-      "dob": shaidChildren.dob.millisecondsSinceEpoch,
+      "dob": (DateFormat().add_yMd().parse(shaidChildren.dob))
+          .millisecondsSinceEpoch,
     });
 
     Api api = Api();
@@ -153,7 +144,6 @@ class ShaidAPI {
         var children = await json.decode(response.body);
         userapi.iserror = false;
         userapi.response = children;
-        print("children passed");
       } else {
         userapi.iserror = true;
         userapi.error = json.decode(response.body)["message"];

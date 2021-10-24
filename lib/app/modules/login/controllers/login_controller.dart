@@ -16,7 +16,10 @@ class LoginController extends GetxController {
   final TextEditingController password = TextEditingController();
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
-  void login() async {
+  RxBool isloginClick = false.obs;
+
+  void login(context) async {
+    isloginClick.toggle();
     if (formkey.currentState!.validate()) {
       //do what we want to do
       //call api
@@ -55,6 +58,7 @@ class LoginController extends GetxController {
           snackPosition: SnackPosition.TOP,
           leadingIcon: Icons.warning);
     }
+    isloginClick.toggle();
   }
 
   /*

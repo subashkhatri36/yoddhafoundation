@@ -7,9 +7,11 @@ import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
 import 'package:yoddhafoundation/app/constant/constants.dart';
+import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_children.dart';
 import 'package:yoddhafoundation/app/data/model/shaid_family.dart';
+import 'package:yoddhafoundation/app/routes/app_pages.dart';
 import 'package:yoddhafoundation/app/widgets/list_item_widget.dart';
 
 import '../controllers/sahid_overview_controller.dart';
@@ -23,6 +25,7 @@ class SahidOverviewView extends GetView<SahidOverviewController> {
     controller.checkInfo(
       argument[0],
     );
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Overview'),
@@ -133,9 +136,7 @@ class ShaidDetailWidget extends StatelessWidget {
                     ),
                     ListItemWidget(
                       field: 'Death Date:',
-                      value: controller.model!.shaid.deathdate
-                          .toString()
-                          .substring(0, 9),
+                      value: controller.model!.shaid.deathdate,
                     ),
                     ListItemWidget(
                       field: 'State:',
@@ -168,12 +169,13 @@ class ShaidDetailWidget extends StatelessWidget {
                   ),
                   InkWell(
                       onTap: () {
-                        // Get.toNamed(
-                        //   Routes.children,
-                        //   arguments: [
-                        //     OPERATION.update,
-                        //   ],
-                        // );
+                        Get.toNamed(
+                          Routes.shaid,
+                          arguments: [
+                            OPERATION.update,
+                            controller.model!.shaid
+                          ],
+                        );
                       },
                       child: const Icon(Icons.edit)),
                 ],
@@ -207,21 +209,43 @@ class FamilyDisplayWidget extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(
                       vertical: Constants.defaultMargin,
                       horizontal: Constants.defaultMargin / 2),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  child: Row(
                     children: [
-                      ListItemWidget(
-                        field: 'Name',
-                        value: family.name,
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ListItemWidget(
+                              field: 'Name',
+                              value: family.name,
+                            ),
+                            ListItemWidget(
+                              field: 'Relation',
+                              value: family.relation,
+                            ),
+                            ListItemWidget(
+                              field: 'Age',
+                              value: family.age.toString(),
+                            ),
+                          ],
+                        ),
                       ),
-                      ListItemWidget(
-                        field: 'Relation',
-                        value: family.relation,
-                      ),
-                      ListItemWidget(
-                        field: 'Age',
-                        value: family.age.toString(),
-                      ),
+                      Column(
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                appController.familyindex = index;
+                                controller.familyEdit(family, args);
+                              },
+                              icon: const Icon(Icons.edit)),
+                          IconButton(
+                              onPressed: () {
+                                appController.familyindex = index;
+                                controller.familyDelete(args);
+                              },
+                              icon: const Icon(Icons.delete))
+                        ],
+                      )
                     ],
                   ),
                 ),
@@ -254,23 +278,43 @@ class ChildrenDisplayWidget extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(
                       vertical: Constants.defaultMargin,
                       horizontal: Constants.defaultMargin / 2),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  child: Row(
                     children: [
-                      ListItemWidget(
-                        field: 'Name',
-                        value: children.name,
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ListItemWidget(
+                              field: 'Name',
+                              value: children.name,
+                            ),
+                            ListItemWidget(
+                              field: 'Relation',
+                              value: children.relation,
+                            ),
+                            ListItemWidget(
+                              field: 'Date of Birth:',
+                              value: children.dob.toString(),
+                            ),
+                          ],
+                        ),
                       ),
-                      ListItemWidget(
-                        field: 'Relation',
-                        value: children.relation,
-                      ),
-                      ListItemWidget(
-                        field: 'Date of Birth:',
-                        value: DateTime.parse(children.dob.toString())
-                            .toString()
-                            .substring(0, 9),
-                      ),
+                      Column(
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                appController.childrenindex = index;
+                                controller.childrenEdit(children, args);
+                              },
+                              icon: const Icon(Icons.edit)),
+                          IconButton(
+                              onPressed: () {
+                                appController.childrenindex = index;
+                                controller.childrenDelete(args);
+                              },
+                              icon: const Icon(Icons.delete))
+                        ],
+                      )
                     ],
                   ),
                 ),
