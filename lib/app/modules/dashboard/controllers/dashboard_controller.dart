@@ -45,13 +45,18 @@ class DashboardController extends GetxController {
       //String token = m.shaid.token = appController.accesstoken;
 
       var shaid = await shaidUpload.shaidInfoUpload(m.shaid);
+      if (!shaid.iserror) {
+        saved = true;
+      } else {
+        saved = false;
+      }
 
       if (!shaid.iserror) {
         //other code
         int id = shaid.response;
 
         ///work on shaid children
-        if (m.shaidChildren != null) {
+        if (m.shaidChildren != null && m.shaidChildren!.isNotEmpty) {
           List<ShaidChildren> ch = m.shaidChildren!;
           for (ShaidChildren c in ch) {
             //   c.token = token;
@@ -67,14 +72,14 @@ class DashboardController extends GetxController {
                   leadingIcon: Icons.warning);
             }
           }
-        }else{
-          saved=true;
+        } else {
+          saved = true;
         }
 
         //saving family
 
         ///work on shaid family
-        if (m.shaidFamily != null) {
+        if (m.shaidFamily != null && m.shaidFamily!.isNotEmpty) {
           List<ShaidFamily> ch = m.shaidFamily!;
           for (ShaidFamily c in ch) {
             // c.token = token;
@@ -90,8 +95,8 @@ class DashboardController extends GetxController {
                   leadingIcon: Icons.warning);
             }
           }
-        }else{
-          saved=true;
+        } else {
+          saved = true;
         }
 
         //end of saving family
@@ -105,17 +110,18 @@ class DashboardController extends GetxController {
       } else {
         if (shaid.error == "Unauthorized") {
           customSnackbar(message: 'Sorry !${shaid.error}');
-          await shareprefrence.remove(Strings.logintoken);
-          await shareprefrence.remove(Strings.userInfo);
-          Get.offAllNamed(Routes.login);
+          // await shareprefrence.remove(Strings.logintoken);
+          // await shareprefrence.remove(Strings.userInfo);
+          // Get.offAllNamed(Routes.login);
         } else {
           customSnackbar(message: shaid.error);
+          print(appController.accesstoken);
           if (shaid.error == "Unauthenticated.") {
-            appController.accesstoken = "";
-            appController.user = null;
-            shareprefrence.remove(Strings.userInfo);
-            shareprefrence.remove(Strings.logintoken);
-            Get.offAllNamed(Routes.login);
+            // appController.accesstoken = "";
+            // appController.user = null;
+            // shareprefrence.remove(Strings.userInfo);
+            // shareprefrence.remove(Strings.logintoken);
+            // Get.offAllNamed(Routes.login);
           }
         }
         // customSnackbar(message: 'Shaid Data do not to upload.');
@@ -127,29 +133,41 @@ class DashboardController extends GetxController {
     }
 
     isSync.value = false;
-     dialogClose();
+    dialogClose();
   }
-  dialogClose(){
-    if(Get.isDialogOpen!){
-     Get.back();
+
+  dialogClose() {
+    if (Get.isDialogOpen!) {
+      Get.back();
     }
   }
 
-  dialogload(){
+  dialogload() {
     Get.dialog(
-      Column(
-                                          children: const [
-                                            CircularProgressIndicator(),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              "Uploading Info...",
-                                              style: TextStyle(fontSize: 18),
-                                            ),
-                                          ],
-                                        ),barrierDismissible: false
-    );
+        Center(
+          child: Container(
+            color: Colors.white,
+            width: appController.width * .7,
+            height: appController.height * .3,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [
+                  CircularProgressIndicator(),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Uploading Info...",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        barrierDismissible: false);
   }
 
   fetchuserdata() async {

@@ -10,6 +10,7 @@ import 'package:yoddhafoundation/app/utls/validation.dart';
 import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
 import 'package:yoddhafoundation/app/widgets/input/custom_container.dart';
 import 'package:yoddhafoundation/app/widgets/input/custome_input.dart';
+import 'package:yoddhafoundation/app/widgets/relation_drop_down_box.dart';
 
 import '../controllers/children_controller.dart';
 
@@ -45,22 +46,9 @@ class ChildrenView extends GetView<ChildrenController> {
                   validator: (value) => validateIsEmpty(string: value),
                   prefix: Icons.person,
                 ),
-                CustomContainer(
-                  child: Obx(
-                    () => DropdownButtonHideUnderline(
-                      child: DropdownButton(
-                        isDense: true,
-                        value: controller.childValue.value,
-                        onChanged: (value) {
-                          controller.childValue.value = value.toString();
-                        },
-                        hint: const Text(Strings.relationship),
-                        items: controller.childrenList.map((value) {
-                          return DropdownMenuItem(
-                              value: value, child: Text(value));
-                        }).toList(),
-                      ),
-                    ),
+                const CustomContainer(
+                  child: RealtionDropDownButton(
+                    family: false,
                   ),
                 ),
                 CustomeInput(

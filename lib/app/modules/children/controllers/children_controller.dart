@@ -8,8 +8,8 @@ import 'package:yoddhafoundation/app/data/model/shaid_children.dart';
 import 'package:yoddhafoundation/app/modules/sahid_overview/controllers/sahid_overview_controller.dart';
 
 class ChildrenController extends GetxController {
-  final List childrenList = ["छोरा", "छोरी"];
-  RxString childValue = "छोरा".obs;
+  
+  String childValue = "छोरा";
   final TextEditingController childName = TextEditingController();
   final TextEditingController dob = TextEditingController();
   final TextEditingController eduQulification = TextEditingController();
@@ -26,14 +26,14 @@ class ChildrenController extends GetxController {
     //load
     childName.text = children.name;
     dob.text = children.dob;
-    childValue.value = children.relation;
+    childValue = children.relation;
     gloabalchildren = children;
   }
 
   void saved(OPERATION operation) async {
     ShaidChildren children = ShaidChildren(
         name: childName.text,
-        relation: childValue.value,
+        relation: childValue,
         dob: dob.text,
         createdAt: operation == OPERATION.update
             ? gloabalchildren!.createdAt

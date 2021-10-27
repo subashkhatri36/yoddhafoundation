@@ -8,6 +8,7 @@ import 'package:yoddhafoundation/app/utls/validation.dart';
 import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
 import 'package:yoddhafoundation/app/widgets/input/custom_container.dart';
 import 'package:yoddhafoundation/app/widgets/input/custome_input.dart';
+import 'package:yoddhafoundation/app/widgets/relation_drop_down_box.dart';
 
 import '../controllers/family_controller.dart';
 
@@ -41,24 +42,12 @@ class FamilyView extends GetView<FamilyController> {
                     validator: (value) => validateIsEmpty(string: value),
                     prefix: Icons.person,
                   ),
-                  CustomContainer(
-                    child: Obx(
-                      () => DropdownButtonHideUnderline(
-                        child: DropdownButton(
-                          isDense: true,
-                          value: controller.memberValue.value,
-                          onChanged: (value) {
-                            controller.memberValue.value = value.toString();
-                          },
-                          hint: const Text(Strings.relationship),
-                          items: controller.familymemberList.map((value) {
-                            return DropdownMenuItem(
-                                value: value, child: Text(value));
-                          }).toList(),
-                        ),
-                      ),
-                    ),
-                  ),
+                  const CustomContainer(
+                  child: RealtionDropDownButton(                 
+                  family: true,
+                  
+                  )
+                ),
                   CustomeInput(
                     hintText: Strings.age,
                     controller: controller.age,

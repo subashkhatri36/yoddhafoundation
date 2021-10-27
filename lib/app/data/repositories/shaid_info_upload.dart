@@ -54,6 +54,7 @@ class ShaidAPI {
 
       // userapi.response = result.body;
       //   return userapi;
+
       if (result.statusCode == 200) {
         var shaidData = await json.decode(result.body);
         userapi.iserror = false;

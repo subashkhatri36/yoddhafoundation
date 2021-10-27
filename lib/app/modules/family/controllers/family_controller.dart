@@ -9,16 +9,8 @@ import 'package:yoddhafoundation/app/modules/sahid_overview/controllers/sahid_ov
 import 'package:yoddhafoundation/app/widgets/custom_snackbar.dart';
 
 class FamilyController extends GetxController {
-  RxString memberValue = 'आमा'.obs;
-  final List familymemberList = [
-    "आमा",
-    "बुबा",
-    "श्रीमान / श्रीमती",
-    "दाजु",
-    "भाई",
-    "दिदि",
-    "बहिनि"
-  ];
+  String memberValue = 'आमा';
+  
   final TextEditingController familyName = TextEditingController();
   final TextEditingController age = TextEditingController();
   final TextEditingController occupation = TextEditingController();
@@ -34,7 +26,7 @@ class FamilyController extends GetxController {
     familyName.text = family.name;
     age.text = family.age.toString();
 
-    memberValue.value = family.relation;
+    memberValue = family.relation;
     gloabalfamily = family;
   }
 
@@ -42,7 +34,7 @@ class FamilyController extends GetxController {
     if (formkey.currentState!.validate()) {
       ShaidFamily family = ShaidFamily(
           name: familyName.text,
-          relation: memberValue.value,
+          relation: memberValue,
           age: int.parse(age.text),
           createdAt: operation == OPERATION.update
               ? gloabalfamily!.createdAt
