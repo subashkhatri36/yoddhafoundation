@@ -25,6 +25,7 @@ class DashboardController extends GetxController {
   // }
 
   onlineSyn() async {
+    dialogload();
     isSync.value = true;
     bool saved = false;
     // int index = -1;
@@ -66,6 +67,8 @@ class DashboardController extends GetxController {
                   leadingIcon: Icons.warning);
             }
           }
+        }else{
+          saved=true;
         }
 
         //saving family
@@ -87,6 +90,8 @@ class DashboardController extends GetxController {
                   leadingIcon: Icons.warning);
             }
           }
+        }else{
+          saved=true;
         }
 
         //end of saving family
@@ -122,6 +127,29 @@ class DashboardController extends GetxController {
     }
 
     isSync.value = false;
+     dialogClose();
+  }
+  dialogClose(){
+    if(Get.isDialogOpen!){
+     Get.back();
+    }
+  }
+
+  dialogload(){
+    Get.dialog(
+      Column(
+                                          children: const [
+                                            CircularProgressIndicator(),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              "Uploading Info...",
+                                              style: TextStyle(fontSize: 18),
+                                            ),
+                                          ],
+                                        ),barrierDismissible: false
+    );
   }
 
   fetchuserdata() async {

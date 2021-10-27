@@ -65,38 +65,7 @@ class DashboardView extends GetView<DashboardController> {
               IconButton(
                   onPressed: () async {
                     controller.onlineSyn();
-                    await showDialog(
-                        barrierDismissible: true,
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                              title: const Text("Do Not Exit Application."),
-                              content: Obx(
-                                () => SizedBox(
-                                  height: controller.isSync.value
-                                      ? appController.height * .13
-                                      : appController.height * .06,
-                                  child: controller.isSync.isTrue
-                                      ? Column(
-                                          children: const [
-                                            CircularProgressIndicator(),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              "Uploading Info...",
-                                              style: TextStyle(fontSize: 18),
-                                            ),
-                                          ],
-                                        )
-                                      : CustomButton(
-                                          onpressed: () {
-                                            Get.back();
-                                          },
-                                          btnText: "Close"),
-                                ),
-                              ));
-                        });
+                   
 
                     //  controller.onlineSyn();
                   },
