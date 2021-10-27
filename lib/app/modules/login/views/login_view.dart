@@ -33,13 +33,13 @@ class LoginView extends GetView<LoginController> {
                 const SizedBox(
                   height: 10.0,
                 ),
-                const Text(
-                  "Start to Sign In",
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 10.0,
-                ),
+                // const Text(
+                //   "Start to Sign In",
+                //   style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                // ),
+                // const SizedBox(
+                //   height: 10.0,
+                // ),
                 Padding(
                   padding: const EdgeInsets.all(18.0),
                   child: Column(
@@ -69,7 +69,7 @@ class LoginView extends GetView<LoginController> {
                       ),
                       SizedBox(
                         width: appController.width,
-                        height: appController.height * .07,
+                        height: appController.height * .06,
                         child: Obx(
                           () => controller.isloginClick.value
                               ? const Center(child: CircularProgressIndicator())

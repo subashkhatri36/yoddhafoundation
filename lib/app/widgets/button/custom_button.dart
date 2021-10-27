@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:yoddhafoundation/app/constant/constants.dart';
 
 class CustomButton extends StatelessWidget {
   final VoidCallback onpressed;
@@ -14,10 +15,11 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: Constants.defaultMargin),
       // decoration: BoxDecoration(color: color),
 
-      height: MediaQuery.of(context).size.height * .05,
+      height: MediaQuery.of(context).size.height * .06,
       child: ElevatedButton(
         onPressed: onpressed,
         child: Text(

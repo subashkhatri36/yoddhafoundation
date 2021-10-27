@@ -25,7 +25,7 @@ class DashboardController extends GetxController {
   // }
 
   onlineSyn() async {
-    dialogload();
+    dialogload("Uploading Shaid Information Please Wait....");
     isSync.value = true;
     bool saved = false;
     // int index = -1;
@@ -109,19 +109,23 @@ class DashboardController extends GetxController {
         }
       } else {
         if (shaid.error == "Unauthorized") {
+          print("Unauthorized");
           customSnackbar(message: 'Sorry !${shaid.error}');
-          // await shareprefrence.remove(Strings.logintoken);
-          // await shareprefrence.remove(Strings.userInfo);
-          // Get.offAllNamed(Routes.login);
+          appController.accesstoken = "";
+          appController.user = null;
+          shareprefrence.remove(Strings.userInfo);
+          shareprefrence.remove(Strings.logintoken);
+          Get.offAllNamed(Routes.login);
         } else {
           customSnackbar(message: shaid.error);
           print(appController.accesstoken);
           if (shaid.error == "Unauthenticated.") {
-            // appController.accesstoken = "";
-            // appController.user = null;
-            // shareprefrence.remove(Strings.userInfo);
-            // shareprefrence.remove(Strings.logintoken);
-            // Get.offAllNamed(Routes.login);
+            print("Unauthenticated");
+            appController.accesstoken = "";
+            appController.user = null;
+            shareprefrence.remove(Strings.userInfo);
+            shareprefrence.remove(Strings.logintoken);
+            Get.offAllNamed(Routes.login);
           }
         }
         // customSnackbar(message: 'Shaid Data do not to upload.');
@@ -142,7 +146,7 @@ class DashboardController extends GetxController {
     }
   }
 
-  dialogload() {
+  dialogload(String info) {
     Get.dialog(
         Center(
           child: Container(
@@ -153,14 +157,14 @@ class DashboardController extends GetxController {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  CircularProgressIndicator(),
-                  SizedBox(
+                children: [
+                  const CircularProgressIndicator(),
+                  const SizedBox(
                     height: 10,
                   ),
                   Text(
-                    "Uploading Info...",
-                    style: TextStyle(fontSize: 18),
+                    info,
+                    style: const TextStyle(fontSize: 18),
                   ),
                 ],
               ),
@@ -184,12 +188,16 @@ class DashboardController extends GetxController {
   }
 
   userlogOut() async {
+    Get.back();
+    dialogload("Loggin Out from System.");
+
     bool resp = await userlogin.logout(appController.accesstoken);
     if (resp) {
       shareprefrence.remove(Strings.logintoken);
       appController.authorized = false;
       Get.offAllNamed(Routes.login);
     }
+    dialogClose();
   }
 
   @override

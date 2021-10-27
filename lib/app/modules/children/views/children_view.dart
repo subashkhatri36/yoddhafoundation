@@ -1,16 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
+import 'package:pattern_formatter/pattern_formatter.dart';
 import 'package:yoddhafoundation/app/constant/constants.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/constant/string.dart';
 import 'package:yoddhafoundation/app/utls/validation.dart';
 import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
-import 'package:yoddhafoundation/app/widgets/input/custom_container.dart';
 import 'package:yoddhafoundation/app/widgets/input/input_widget.dart';
 import 'package:yoddhafoundation/app/widgets/relation_drop_down_box.dart';
+import 'package:yoddhafoundation/app/widgets/text/text_label_display.dart';
 
 import '../controllers/children_controller.dart';
 
@@ -62,12 +65,9 @@ class ChildrenView extends GetView<ChildrenController> {
                   text: "Date of Birth (DD/MM/YYYY)",
                 ),
                 InputField(
-                    hintText: Strings.birthDate,
+                    hintText: "DD/MM/YYYY",
                     controller: controller.dob,
-                    // inputFormatters: [
-                    //   // FilteringTextInputFormatter.allow(RegExp("[0-9/]")),
-                    //   DateInputFormatter()
-                    // ],
+                    formatter: [DateInputFormatter()],
                     textInputType: TextInputType.number,
                     validator: (value) => validateIsEmpty(string: value),
                     icon: Icons.calendar_today),
@@ -88,21 +88,5 @@ class ChildrenView extends GetView<ChildrenController> {
             )),
       ),
     );
-  }
-}
-
-class TextWidget extends StatelessWidget {
-  final String text;
-  const TextWidget({
-    Key? key,
-    required this.text,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.only(left: Constants.defaultMargin),
-        alignment: Alignment.centerLeft,
-        child: Text(text));
   }
 }

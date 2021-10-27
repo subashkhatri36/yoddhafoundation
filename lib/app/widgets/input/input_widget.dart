@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:yoddhafoundation/app/constant/constants.dart';
 
 /// custom text input field widget
@@ -20,6 +21,7 @@ class InputField extends StatefulWidget {
       this.borderRadius = 0,
       this.maxline = 1,
       this.maxlength,
+      this.formatter,
       this.color = Colors.transparent})
       : super(key: key);
 
@@ -42,6 +44,7 @@ class InputField extends StatefulWidget {
   final Color? iconColor;
   final int? maxlength;
   final int maxline;
+  final List<TextInputFormatter>? formatter;
 
   @override
   _InputFieldState createState() => _InputFieldState();
@@ -79,6 +82,7 @@ class _InputFieldState extends State<InputField> {
       ),
 
       child: TextFormField(
+        inputFormatters: widget.formatter,
         controller: widget.controller,
         autovalidateMode: widget.autovalidateMode,
         maxLines: widget.maxline,
