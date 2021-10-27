@@ -67,7 +67,9 @@ class ChildrenView extends GetView<ChildrenController> {
                 InputField(
                     hintText: "DD/MM/YYYY",
                     controller: controller.dob,
-                    formatter: [DateInputFormatter()],
+                    formatter: [
+                      DateInputFormatter(),
+                    ],
                     textInputType: TextInputType.number,
                     validator: (value) => validateIsEmpty(string: value),
                     icon: Icons.calendar_today),

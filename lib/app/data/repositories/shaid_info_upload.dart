@@ -55,6 +55,10 @@ class ShaidAPI {
       // userapi.response = result.body;
       //   return userapi;
 
+      print("===============Shaid =================");
+      print(result.statusCode);
+      print(result.body);
+
       if (result.statusCode == 200) {
         var shaidData = await json.decode(result.body);
         userapi.iserror = false;
@@ -96,7 +100,9 @@ class ShaidAPI {
         headers: headers,
         body: data,
       ); // httpService.post(Api.shaidInsert, data: data);
-
+      print("===============family =================");
+      print(response.statusCode);
+      print(response.body);
       if (response.statusCode == 200) {
         var family = await json.decode(response.body);
         userapi.iserror = false;
@@ -140,7 +146,9 @@ class ShaidAPI {
         headers: headers,
         body: data,
       ); // httpService.post(Api.shaidInsert, data: data);
-
+      print("===============children =================");
+      print(response.statusCode);
+      print(response.body);
       if (response.statusCode == 200) {
         var children = await json.decode(response.body);
         userapi.iserror = false;

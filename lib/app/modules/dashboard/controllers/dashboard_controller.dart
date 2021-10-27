@@ -45,13 +45,9 @@ class DashboardController extends GetxController {
       //String token = m.shaid.token = appController.accesstoken;
 
       var shaid = await shaidUpload.shaidInfoUpload(m.shaid);
-      if (!shaid.iserror) {
-        saved = true;
-      } else {
-        saved = false;
-      }
 
       if (!shaid.iserror) {
+        saved = true;
         //other code
         int id = shaid.response;
 
@@ -75,8 +71,6 @@ class DashboardController extends GetxController {
         } else {
           saved = true;
         }
-
-        //saving family
 
         ///work on shaid family
         if (m.shaidFamily != null && m.shaidFamily!.isNotEmpty) {
@@ -104,23 +98,32 @@ class DashboardController extends GetxController {
         if (saved) {
           //saved
           if (i < appController.offlineShaidModel.length) {
+            print(i);
             appController.offlineShaidModel.removeAt(i);
+            if (appController.offlineShaidModel.isEmpty) {
+              await shareprefrence.remove(DBname.shaid);
+              dialogClose();
+            } else {
+              await shareprefrence.save(
+                  DBname.shaid, appController.offlineShaidModel.toJson());
+            }
+          } else {
+            await shareprefrence.remove(DBname.shaid);
+            dialogClose();
           }
         }
       } else {
+        customSnackbar(message: 'Error !${shaid.error}');
         if (shaid.error == "Unauthorized") {
           print("Unauthorized");
-          customSnackbar(message: 'Sorry !${shaid.error}');
           appController.accesstoken = "";
           appController.user = null;
           shareprefrence.remove(Strings.userInfo);
           shareprefrence.remove(Strings.logintoken);
           Get.offAllNamed(Routes.login);
         } else {
-          customSnackbar(message: shaid.error);
           print(appController.accesstoken);
           if (shaid.error == "Unauthenticated.") {
-            print("Unauthenticated");
             appController.accesstoken = "";
             appController.user = null;
             shareprefrence.remove(Strings.userInfo);
@@ -128,16 +131,12 @@ class DashboardController extends GetxController {
             Get.offAllNamed(Routes.login);
           }
         }
+        dialogClose();
         // customSnackbar(message: 'Shaid Data do not to upload.');
       }
     }
 
-    if (appController.offlineShaidModel.isEmpty) {
-      await shareprefrence.remove(DBname.shaid);
-    }
-
     isSync.value = false;
-    dialogClose();
   }
 
   dialogClose() {
@@ -162,9 +161,14 @@ class DashboardController extends GetxController {
                   const SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    info,
-                    style: const TextStyle(fontSize: 18),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                      child: Text(info,
+                          style: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center),
+                    ),
                   ),
                 ],
               ),
