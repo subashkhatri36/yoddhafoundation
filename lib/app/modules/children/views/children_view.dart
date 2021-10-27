@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:pattern_formatter/pattern_formatter.dart';
+import 'package:yoddhafoundation/app/constant/constants.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/constant/string.dart';
 import 'package:yoddhafoundation/app/utls/validation.dart';
 import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
 import 'package:yoddhafoundation/app/widgets/input/custom_container.dart';
-import 'package:yoddhafoundation/app/widgets/input/custome_input.dart';
+import 'package:yoddhafoundation/app/widgets/input/input_widget.dart';
 import 'package:yoddhafoundation/app/widgets/relation_drop_down_box.dart';
 
 import '../controllers/children_controller.dart';
@@ -40,27 +40,37 @@ class ChildrenView extends GetView<ChildrenController> {
             key: controller.formkey,
             child: Column(
               children: [
-                CustomeInput(
+                SizedBox(
+                  height: appController.height * 0.02,
+                ),
+                const TextWidget(
+                  text: "Child Name",
+                ),
+                InputField(
                   hintText: Strings.childName,
                   controller: controller.childName,
                   validator: (value) => validateIsEmpty(string: value),
-                  prefix: Icons.person,
+                  icon: Icons.person,
                 ),
-                const CustomContainer(
+                const Padding(
+                  padding: EdgeInsets.all(Constants.defaultMargin),
                   child: RealtionDropDownButton(
                     family: false,
                   ),
                 ),
-                CustomeInput(
+                const TextWidget(
+                  text: "Date of Birth (DD/MM/YYYY)",
+                ),
+                InputField(
                     hintText: Strings.birthDate,
                     controller: controller.dob,
-                    inputFormatters: [
-                      // FilteringTextInputFormatter.allow(RegExp("[0-9/]")),
-                      DateInputFormatter()
-                    ],
-                    keyboardtype: TextInputType.number,
+                    // inputFormatters: [
+                    //   // FilteringTextInputFormatter.allow(RegExp("[0-9/]")),
+                    //   DateInputFormatter()
+                    // ],
+                    textInputType: TextInputType.number,
                     validator: (value) => validateIsEmpty(string: value),
-                    prefix: Icons.calendar_today),
+                    icon: Icons.calendar_today),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: SizedBox(
@@ -78,5 +88,21 @@ class ChildrenView extends GetView<ChildrenController> {
             )),
       ),
     );
+  }
+}
+
+class TextWidget extends StatelessWidget {
+  final String text;
+  const TextWidget({
+    Key? key,
+    required this.text,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: const EdgeInsets.only(left: Constants.defaultMargin),
+        alignment: Alignment.centerLeft,
+        child: Text(text));
   }
 }

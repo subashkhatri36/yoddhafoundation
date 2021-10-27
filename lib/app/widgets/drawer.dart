@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:yoddhafoundation/app/modules/dashboard/views/dashboard_view.dart';
-import 'package:yoddhafoundation/app/modules/user_profile/views/user_profile_view.dart';
 import 'package:yoddhafoundation/app/routes/app_pages.dart';
 
 Drawer drawer(BuildContext context) {

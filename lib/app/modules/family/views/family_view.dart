@@ -7,7 +7,7 @@ import 'package:yoddhafoundation/app/constant/string.dart';
 import 'package:yoddhafoundation/app/utls/validation.dart';
 import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
 import 'package:yoddhafoundation/app/widgets/input/custom_container.dart';
-import 'package:yoddhafoundation/app/widgets/input/custome_input.dart';
+import 'package:yoddhafoundation/app/widgets/input/input_widget.dart';
 import 'package:yoddhafoundation/app/widgets/relation_drop_down_box.dart';
 
 import '../controllers/family_controller.dart';
@@ -36,24 +36,22 @@ class FamilyView extends GetView<FamilyController> {
               key: controller.formkey,
               child: Column(
                 children: [
-                  CustomeInput(
+                  InputField(
                     hintText: Strings.familymemberName,
                     controller: controller.familyName,
                     validator: (value) => validateIsEmpty(string: value),
-                    prefix: Icons.person,
+                    icon: Icons.person,
                   ),
                   const CustomContainer(
-                  child: RealtionDropDownButton(                 
-                  family: true,
-                  
-                  )
-                ),
-                  CustomeInput(
+                      child: RealtionDropDownButton(
+                    family: true,
+                  )),
+                  InputField(
                     hintText: Strings.age,
                     controller: controller.age,
                     validator: (value) => validateIsEmpty(string: value),
-                    prefix: Icons.date_range,
-                    keyboardtype: TextInputType.number,
+                    icon: Icons.date_range,
+                    textInputType: TextInputType.number,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),

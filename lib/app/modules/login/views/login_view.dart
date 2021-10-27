@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/utls/validation.dart';
 import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
-import 'package:yoddhafoundation/app/widgets/input/custome_input.dart';
+import 'package:yoddhafoundation/app/widgets/input/input_widget.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -47,23 +47,22 @@ class LoginView extends GetView<LoginController> {
                       const SizedBox(
                         height: 10.0,
                       ),
-                      CustomeInput(
+                      InputField(
                         controller: controller.username,
                         hintText: 'Enter Email',
-                        prefix: Icons.email,
+                        icon: Icons.email,
                         validator: (value) => validateEmail(string: value),
                       ),
                       const SizedBox(
                         height: 10.0,
                       ),
-                      CustomeInput(
+                      InputField(
                         controller: controller.password,
                         hintText: 'Enter Password',
                         validator: (value) => validatePassword(string: value),
-                        obstext: true,
-                        prefix: Icons.lock,
+                        obscureText: true,
+                        icon: Icons.lock,
                         suffix: Icons.visibility_off,
-                        showsuffix: true,
                       ),
                       const SizedBox(
                         height: 15.0,

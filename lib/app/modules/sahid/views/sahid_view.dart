@@ -5,14 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
-import 'package:pattern_formatter/date_formatter.dart';
 import 'package:yoddhafoundation/app/constant/controller.dart';
 import 'package:yoddhafoundation/app/constant/enum.dart';
 import 'package:yoddhafoundation/app/constant/string.dart';
 import 'package:yoddhafoundation/app/utls/validation.dart';
 import 'package:yoddhafoundation/app/widgets/button/custom_button.dart';
 import 'package:yoddhafoundation/app/widgets/input/custom_container.dart';
-import 'package:yoddhafoundation/app/widgets/input/custome_input.dart';
+import 'package:yoddhafoundation/app/widgets/input/input_widget.dart';
 import '../controllers/sahid_controller.dart';
 
 class SahidView extends GetView<SahidController> {
@@ -76,11 +75,11 @@ class SahidView extends GetView<SahidController> {
                 ],
               ),
 
-              CustomeInput(
+              InputField(
                 hintText: Strings.sahidName,
                 controller: controller.sahidName,
                 validator: (value) => validateIsEmpty(string: value),
-                prefix: Icons.person,
+                icon: Icons.person,
               ),
               CustomContainer(
                 child: Obx(
@@ -117,18 +116,18 @@ class SahidView extends GetView<SahidController> {
                   ),
                 ),
               ),
-              CustomeInput(
-                inputFormatters: [
-                  // FilteringTextInputFormatter.allow(RegExp("[0-9/]")),
-                  // LengthLimitingTextInputFormatter(10),
-                  // DateFormatter(),
-                  DateInputFormatter()
-                ],
-                keyboardtype: TextInputType.number,
+              InputField(
+                // : [
+                //   // FilteringTextInputFormatter.allow(RegExp("[0-9/]")),
+                //   // LengthLimitingTextInputFormatter(10),
+                //   // DateFormatter(),
+                //   DateInputFormatter()
+                // ],
+                textInputType: TextInputType.number,
                 hintText: Strings.deathDate,
                 validator: (value) => validateIsEmpty(string: value),
                 controller: controller.deathDate,
-                prefix: Icons.calendar_today,
+                icon: Icons.calendar_today,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 10),
@@ -142,23 +141,23 @@ class SahidView extends GetView<SahidController> {
                   ),
                 ),
               ),
-              CustomeInput(
+              InputField(
                 hintText: Strings.state,
                 controller: controller.state,
                 validator: (value) => validateIsEmpty(string: value),
-                prefix: Icons.place,
+                icon: Icons.place,
               ),
-              CustomeInput(
+              InputField(
                 hintText: Strings.district,
                 controller: controller.district,
                 validator: (value) => validateIsEmpty(string: value),
-                prefix: Icons.place,
+                icon: Icons.place,
               ),
-              CustomeInput(
+              InputField(
                 hintText: Strings.deathPlace,
                 controller: controller.deathPlace,
                 validator: (value) => validateIsEmpty(string: value),
-                prefix: Icons.home,
+                icon: Icons.home,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 10),
