@@ -78,15 +78,14 @@ class FamilyWidget extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               )
-            : appController.familyListDataChange.isTrue
-                ? ListviewWidget(
-                    controller: controller,
-                    argument: OPERATION.insert,
-                  )
-                : ListviewWidget(
-                    controller: controller,
-                    argument: OPERATION.insert,
-                  );
+            : ListviewWidget(
+                controller: controller,
+                argument: OPERATION.insert,
+              );
+    // : ListviewWidget(
+    //     controller: controller,
+    //     argument: OPERATION.insert,
+    //   );
   }
 }
 

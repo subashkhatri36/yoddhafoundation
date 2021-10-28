@@ -10,7 +10,7 @@ import 'package:yoddhafoundation/app/widgets/custom_snackbar.dart';
 
 class FamilyController extends GetxController {
   String memberValue = 'आमा';
-  
+
   final TextEditingController familyName = TextEditingController();
   final TextEditingController age = TextEditingController();
   final TextEditingController occupation = TextEditingController();
@@ -52,13 +52,15 @@ class FamilyController extends GetxController {
         Get.find<SahidOverviewController>().checkInfo(operation);
       } else {
         appController.coreShaidModel!.shaidFamily!.add(family);
-        appController.familyListDataChange.toggle();
       }
+      appController.familyListDataChange.toggle();
       Get.back();
     } else {
       //error
+      appController.familyListDataChange.toggle();
       customSnackbar(message: 'There is an error please check');
     }
+    update();
   }
 
   @override

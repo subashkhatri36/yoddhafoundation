@@ -66,24 +66,23 @@ class ChildrenWidget extends StatelessWidget {
         ? Container(
             padding: const EdgeInsets.all(Constants.defaultPadding),
             alignment: Alignment.center,
-            child: const Text('There is No Data ITs Null.'),
+            child: const Text('There is No Data It\'s Null.'),
           )
         : appController.coreShaidModel!.shaidChildren!.isEmpty
             ? Container(
                 padding: const EdgeInsets.all(Constants.defaultPadding),
                 alignment: Alignment.center,
                 child: const Text(
-                  'List Is Empty Please add Children from following (+) Icon.',
+                  'List is Empty Please add Children from following (+) Icon.',
                   textAlign: TextAlign.center,
                 ),
               )
-            : appController.childrenListDataChange.isTrue
-                ? ListViewWidget(
-                    controller: controller,
-                    argument: OPERATION.insert,
-                  )
-                : ListViewWidget(
-                    controller: controller, argument: OPERATION.insert);
+            : ListViewWidget(
+                controller: controller,
+                argument: OPERATION.insert,
+              );
+    // : ListViewWidget(
+    //     controller: controller, argument: OPERATION.insert);
   }
 }
 

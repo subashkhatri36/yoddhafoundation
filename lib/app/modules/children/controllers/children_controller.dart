@@ -8,7 +8,6 @@ import 'package:yoddhafoundation/app/data/model/shaid_children.dart';
 import 'package:yoddhafoundation/app/modules/sahid_overview/controllers/sahid_overview_controller.dart';
 
 class ChildrenController extends GetxController {
-  
   String childValue = "छोरा";
   final TextEditingController childName = TextEditingController();
   final TextEditingController dob = TextEditingController();
@@ -51,9 +50,9 @@ class ChildrenController extends GetxController {
       Get.find<SahidOverviewController>().checkInfo(operation);
     } else {
       appController.coreShaidModel!.shaidChildren!.add(children);
-      appController.childrenListDataChange.toggle();
     }
-
+    update();
+    appController.childrenListDataChange.toggle();
     Get.back();
   }
 
